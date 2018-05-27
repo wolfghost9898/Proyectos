@@ -1,0 +1,526 @@
+package practica1;
+import java.io.*;
+import java.lang.*;
+import java_cup.runtime.*;
+import java_cup.runtime.Symbol;
+import java.util.ArrayList;
+import java.util.*;
+import practica1.*;
+
+parser code
+{:
+
+	/**---------------Si hay Error Sintactico-----------------**/
+	public void syntax_error(Symbol  s){
+      analizadosin.errores="Error en la Fila "+(s.left+1) + " Columna "+s.right+". Identificador "
+      +s.value+" "+s.sym+" no reconocido";
+		System.out.println("Error en la Fila "+(s.left+1) + " Columna "+s.right+". Identificador "
+		+s.value+" "+s.sym+" no reconocido");
+	}
+
+	/**----------------Si no es posible recuperacion de errores-----**/
+	public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception{
+
+	}
+
+
+      public static ArrayList<String> traduccion= new ArrayList<String>();
+      public static String errores= "";
+      public static String nombrearchivo="";
+:};
+
+
+
+
+terminal DIFERENTE,MAYORIGUAL,MENORIGUAL,MAYOR,MENOR,IGUAL,MAS,MENOS,DIVISION,MULTIPLICACION;
+terminal MODULE,END,AS,CONSOLE,READLINE,WRITELINE,SUB,BYVAL,FUNCTION,RETURN;
+terminal IF,ELSE,THEN,ELSELF,WHILE,FOR,TO,STEP,NEXT,DO,LOOP,UNTIL,SELECT,CASE;
+terminal AND,OR,NOT;
+terminal EXIT;
+terminal PUBLIC,PRIVATE,DIM,STATIC;
+terminal BOOLEAN,CHAR,DOUBLE,INTEGER,LONG,STRING;
+terminal COMA,PUNTO,OPEN,CLOSE,CONCATENAR;
+terminal ID,NUMERO,CADENA;
+terminal OPENPA,CLOSEPA;
+
+non terminal INICIO;
+non terminal ESTRUCTURA;
+non terminal llamadaFuncion;
+
+non terminal lista;
+non terminal declaracion,acceso,tipodato,partid;
+non terminal asignacion;
+non terminal expresion,listexpresion,operador,pedirdato,partArreglo,listArreglo;
+non terminal mostrar,asigArre,listAsigArre;
+non terminal parametro,listparametro,tipoparametro;
+non terminal llamadaArreglo;
+non terminal declaMetodo,parametroMetod;
+non terminal declaFuncion;
+non terminal sentenciaIf,condicion,sentenciaElseIf,sentenciaElse;
+non terminal simbolo,partOperador;
+non terminal partElseIf;
+non terminal sentenciaWhile;
+non terminal sentenciaFor;
+non terminal sentenciaDoWhile;
+non terminal sentenciaSwitch,parteCase,partCaseElse,caseTipo;
+
+non terminal estructuraSwitch,cuerposwitch;
+non terminal llamadaMetodo;
+
+start with INICIO;
+INICIO::= MODULE ID:id  lista:cuerpo END MODULE{:
+   analizadosin.nombrearchivo=(String)id;
+String cadena="import java.util.Scanner;\n public class "+id+"{\n"+cuerpo+"\n}";
+analizadosin.traduccion.add(cadena);
+RESULT=cadena;:};
+//---------------------------------------------------------------------Lista de Cuerpo general--------------------------------------------------------------
+lista::= ESTRUCTURA:n lista:n1{:
+String cadena;
+cadena=(String)n+(String)n1;
+RESULT=cadena;
+:}
+|{:
+String cadena="";
+RESULT=cadena;
+:};
+
+
+
+
+//----------------------------------------------------------------------Cuerpo General----------------------------------------------------------------
+ESTRUCTURA::=declaracion:n1{:RESULT=n1;:}
+             |asignacion:n{:RESULT=n;:}
+             |mostrar:n{:RESULT=n;:}
+             |declaMetodo:n{:RESULT=n;:}
+             |declaFuncion:n{:RESULT=n;:}
+             |sentenciaIf:n{:RESULT=n;:}
+             |sentenciaWhile:n{:RESULT=n;:}
+             |sentenciaFor:n{:RESULT=n;:}
+             |sentenciaDoWhile:n{:RESULT=n;:}
+             |sentenciaSwitch:n{:RESULT=n;:}
+             |RETURN listexpresion:n{:
+                  String dato="return "+n+";";
+                  RESULT=dato;
+               :}
+            |EXIT WHILE{:String dato="break;";RESULT=dato;:}
+            |EXIT FOR{:String dato="break;";RESULT=dato;:}
+            |llamadaMetodo:n{:RESULT=n+";";:};
+
+//---------------------------------------------------------------------------DECLARACION DE VARIABLES--------------------------------------------------------------------------------
+declaracion::=acceso:n1 ID:n3 partid:n AS tipodato:n2{:
+String cadena;
+cadena="\n"+"\t"+(String)n1+" "+n2+" "+n3+n+";";
+RESULT=cadena;
+:}
+|acceso:n1 ID:n3 partid:n AS tipodato:n2 expresion:n4{:
+String cadena;
+cadena="\n"+"\t"+(String)n1+" "+n2+" "+n3+n+n4;
+RESULT=cadena;
+:}
+|acceso:n1 ID:n3 partid:n AS tipodato:n2 pedirdato{:
+String cadena;
+cadena="\n"+"\t"+" Scanner sc = new Scanner(System.in);";
+if(n2=="String"){
+cadena+="\n"+"\t"+n2+" "+n3+n+"=sc.nextLine();";
+}else if(n2=="int"){
+cadena+="\n"+"\t"+n2+" "+n3+n+"=sc.nextInt();";
+}else{
+
+}
+RESULT=cadena;
+:}
+|acceso:n ID:n2 partArreglo:n3 AS tipodato:n4{:
+   String conver=(String)n3;
+   String temp[]=conver.split(",");
+   String concatenacion="";
+   for(int i=0;i<temp.length;i++){
+      concatenacion+="[]";
+   }
+   String cadena="\n"+"\t"+(String)n+" "+(String)n4 +concatenacion+" "+(String)n2+"= new "+(String)n4+(String)n3+";";
+      RESULT=cadena;
+   :};
+
+partid::=partid:n1 COMA ID:n{:
+String cadena=n1+","+n;
+RESULT=cadena;
+:}|{:
+String cadena="";
+RESULT=cadena;
+:};
+//-----------------------------------------------------------------------Acceso de DATO---------------------------------------------------------------------------------
+acceso::=PUBLIC:n1{:
+String cadena="public";
+RESULT=cadena;
+:}
+|PRIVATE:n1{:
+String cadena="private";
+RESULT=cadena;
+:}
+|DIM:n1{:
+String cadena="private";
+RESULT=cadena;
+:}
+|STATIC:n1{:
+String cadena="static";
+RESULT=cadena;
+:};
+
+
+//--------------------------------------------------------------------Tipos de Datos------------------------------------------------------------------------------------------
+tipodato::=BOOLEAN:n1{:
+String cadena="boolean";
+RESULT=cadena;
+:}
+|CHAR:n1{:
+String cadena="char";
+RESULT=cadena;
+:}
+|DOUBLE:n1{:
+String cadena="double";
+RESULT=cadena;
+:}
+|INTEGER:n1{:
+String cadena="int";
+RESULT=cadena;
+:}
+|LONG:n1{:
+String cadena="long";
+RESULT=cadena;
+:}
+|STRING:n1{:
+String cadena="String";
+RESULT=cadena;
+:};
+//----------------------------------------------------------------Asignacion de Variables---------------------------------------------------------
+asignacion::=ID:n expresion:n1{:
+   String dato="\n"+"\t"+(String)n+(String)n1;
+   RESULT=dato;
+   :}
+      //-------------------------------------------------------------------Asignacion de Arreglos--------------------------------------------------
+
+   |ID:n asigArre:n1 expresion:n2{:
+      String cadena="\n"+"\t"+(String)n+(String)n1+(String)n2;
+      RESULT=cadena;
+      :};
+            //--------------------------------------------------------------------------expresiones------------------------------------------------
+
+expresion::=IGUAL listexpresion:n1{:
+      String dato="="+n1+";";
+      RESULT=dato;
+      :};
+listexpresion::=NUMERO:n operador:n1{:
+   String dato=(String)n+(String)n1;
+   RESULT=dato;
+   :}
+   | CADENA:n operador:n1{:
+   String dato=(String)n+(String)n1;
+   RESULT=dato;
+   :}
+   | ID:n operador:n1{:
+   String dato=(String)n+(String)n1;
+   RESULT=dato;
+   :}
+   |llamadaFuncion:n operador:n1{:
+   String dato=(String)n+(String)n1;
+   RESULT=dato;
+   :}
+   |llamadaArreglo:n operador:n1{:
+   String dato=(String)n+(String)n1;
+   RESULT=dato;
+   :};
+   //----------------------------------------------------------------------Operadores--------------------------------------------------------------------------------------------------------------------
+operador::=MAS:n listexpresion:n1{:
+   String dato=(String)n+(String)n1;
+   RESULT=dato;
+   :}
+   |MENOS:n listexpresion:n1{:
+   String dato=(String)n+(String)n1;
+   RESULT=dato;
+   :}
+   |DIVISION:n listexpresion:n1{:
+   String dato=(String)n+(String)n1;
+   RESULT=dato;
+   :}
+   |MULTIPLICACION:n listexpresion:n1{:
+   String dato=(String)n+(String)n1;
+   RESULT=dato;
+   :}
+   |CONCATENAR:n listexpresion:n1{:
+   String dato="+"+(String)n1;
+   RESULT=dato;
+   :}
+   | {:
+   String dato="";
+   RESULT=dato;
+   :};
+   //------------------------------------------------------------------------------LLamadas A Funciones----------------------------------------------------
+   llamadaFuncion::=ID:n OPENPA listparametro:n1 CLOSEPA{:
+      String dato=(String)n+"("+(String)n1+")";
+      RESULT=dato;
+      :};
+
+   listparametro::=ID:n tipoparametro:n1{:
+                     String dato=(String)n+(String)n1;
+                     RESULT=dato;
+                   :}
+                   |NUMERO:n tipoparametro:n1{:
+                     String dato=(String)n+(String)n1;
+                     RESULT=dato;
+                   :}
+                   |CADENA:n tipoparametro:n1{:
+                     String dato=(String)n+(String)n1;
+                     RESULT=dato;
+                   :}|{:RESULT="";:};
+
+   tipoparametro::=COMA listparametro:n{:
+                     String dato=","+(String)n;
+                     RESULT=dato;
+                   :}
+                   |{:
+                     String dato="";
+                     RESULT=dato;
+                   :};
+   //-----------------------------------------------------------------------------------LLAMADA A ARREGLOS-----------------------------------------------------------------------------
+   llamadaArreglo::=ID:n asigArre:n1{:
+         String dato=(String)n+(String)n1;
+         RESULT=dato;
+      :};
+   //-----------------------------------------------------------------------------------Asignacion y Declaracion-----------------------------------------------------------------------------------------------
+   pedirdato::= IGUAL CONSOLE PUNTO READLINE;
+
+   //----------------------------------------------------------------------------------------Arreglo---------------------------------------------------------------------
+   partArreglo::=  OPEN:n listArreglo:n1 CLOSE:n2{:
+      String cadena=(String)n+(String)n1+(String)n2;
+      RESULT=cadena;
+      :};
+
+   listArreglo::= NUMERO:n1 COMA listArreglo:n{:
+      String cadena=(String)n1+","+(String)n;
+      RESULT=cadena;
+      :}|NUMERO:n{:
+         String cadena=(String)n;
+         RESULT=cadena;
+         :}|ID:n1 COMA listArreglo:n{:
+      String cadena=(String)n1+","+(String)n;
+      RESULT=cadena;
+      :}|ID:n{:
+         String cadena=(String)n;
+         RESULT=cadena;
+         :};
+   //------------------------------------------------------------------------------------MOSTRAR DATOS--------------------------------------------
+         mostrar::=CONSOLE PUNTO WRITELINE OPENPA listexpresion:n CLOSEPA{:
+            String cadena="\n"+"\t"+"System.out.println("+(String)n+");";
+            RESULT=cadena;
+            :};
+   //-----------------------------------------------------------------------------------Asignar Arreglo-----------------------
+            asigArre::= OPEN ID:n CLOSE  asigArre:n1{:
+                           String cadena="["+(String)n+"]"+(String)n1;
+                           RESULT= cadena;
+                        :}|OPEN ID:n CLOSE{:
+                           String cadena="["+(String)n+"]";
+                           RESULT=cadena;
+                           :};
+            
+            listAsigArre::=OPEN NUMERO:n CLOSE{:
+                           String cadena="["+(String)n+"]";
+                           RESULT=cadena;
+                           :}|OPEN ID:n CLOSE{:
+                           String cadena="["+(String)n+"]";
+                           RESULT=cadena;
+                           :};
+   //------------------------------------------------------------------------------------Declaracion de Metodos------------------------------------------------------------
+      declaMetodo::=acceso:n SUB ID:n1 OPENPA parametroMetod:n2 CLOSEPA lista:n3 END SUB{:
+         String cadena="\n"+"\t"+n+" void "+n1+"("+n2+"){"+"\n"+"\t"+"\t"+n3+"\n"+"\t"+"}";
+         RESULT=cadena;
+         :}|SUB ID:n1 OPENPA CLOSEPA lista:n2 END SUB{:
+            String cadena="";
+            if(n1.equals("Main")){
+            cadena="\n"+"\t"+"public static void main(String args[]){"+"\n"+"\t"+"\t"+n2+"\n"+"\t"+"}"; 
+            RESULT=cadena;
+            }else{
+               analizadosin.errores="No se reconoce la etiqueta main";
+            }
+
+            :};
+
+      parametroMetod::=BYVAL ID:n AS tipodato:n1 parametro:n2{:
+            String dato=(String)n1+" "+(String)n+(String)n2;
+            RESULT=dato;
+         :}|{:
+               String dato="";
+               RESULT=dato;
+            :};
+      parametro::=COMA parametroMetod:n{:
+            String dato=","+(String)n;
+            RESULT=dato;
+         :}
+      |{:
+            String dato="";
+            RESULT=dato;
+         :};
+
+   //------------------------------------------------------------------------Declaracion de Funciones---------------------
+      declaFuncion::=acceso:n FUNCTION ID:n1 OPENPA parametroMetod:n2 CLOSEPA AS tipodato:n3 lista:n4 END FUNCTION{:
+            String dato=n+" "+n3+" "+n1+"("+n2+"){\n"+n4+"\n}";
+            RESULT=dato;
+         :};
+
+   //---------------------------------------------------------------------Sentencia If----------------------------------------------------------------------------------
+      sentenciaIf::=IF condicion:n  THEN lista:n1 sentenciaElseIf:n2 sentenciaElse:n3 END IF{:
+             String dato="\n"+"\t"+"if("+n+"){\n"+n1+"\n"+"\t"+"}"+n2+n3;
+             RESULT=dato;
+         :};
+
+   //-------------------------------------------------------------------------------Condiciones------------------------------------------------------------------------
+      condicion::=caseTipo:n simbolo:n1 caseTipo:n2 partOperador:n3{:
+            String dato=(String)n+(String)n1+(String)n2+" "+n3;
+            RESULT=dato;
+         :}
+      |caseTipo:n partOperador:n1{:
+            String dato=(String)n+" "+n1;
+            RESULT=dato;
+         :} ;
+      simbolo::=MAYOR{:
+            String dato=">";
+            RESULT=dato;
+         :}
+         |MAYORIGUAL{:
+            String dato=">=";
+            RESULT=dato;
+         :}
+         |IGUAL{:
+            String dato="==";
+            RESULT=dato;
+         :}
+         |DIFERENTE{:
+            String dato="!=";
+            RESULT=dato;
+         :}
+         |MENOR{:
+            String dato="<";
+            RESULT=dato;
+         :}
+         |MENORIGUAL{:
+            String dato="<=";
+            RESULT=dato;
+         :};      
+
+    
+     partOperador::= AND condicion:n1{:
+            String dato="&& "+n1;
+            RESULT=dato;
+         :}
+         |OR condicion:n1{:
+            String dato="|| "+n1;
+            RESULT=dato;
+         :}
+         |NOT condicion:n1{:
+            String dato="!"+n1;
+            RESULT=dato;
+         :}|{:
+            String dato="";
+            RESULT=dato;
+            :};
+
+     //---------------------------------------------------------------------------Else If-------------------------------------------------------------------------------
+      sentenciaElseIf::=partElseIf:n sentenciaElseIf:n1{:
+            String dato=(String)n+(String)n1;
+            RESULT= dato;
+         :}|{:
+               String dato="";
+               RESULT=dato;
+            :};
+
+       partElseIf::= ELSELF condicion:n THEN lista:n1{:
+            String dato="else if("+n+"){\n"+n1+"\n"+"\t"+"}";
+            RESULT=dato;
+         :};
+
+   //-----------------------------------------------------------------------------ELSE-------------------------------------------------------------------------------
+      sentenciaElse::= ELSE lista:n{:
+            String dato="else {\n"+n+"\n"+"\t"+"}";
+            RESULT=dato;
+         :}|{:
+               String dato="";
+               RESULT=dato;
+            :};
+
+   //---------------------------------------------------------------------SENTENCIA WHILE--------------------------------------------------------------------------
+      sentenciaWhile::= WHILE condicion:n lista:n1 END WHILE{:
+            String dato="while ("+n+"){\n"+n1+"\n}";
+            RESULT=dato;
+         :};
+
+
+   //---------------------------------------------------------------------SENTENCIA FOR-----------------------------------------------------------------------------
+      sentenciaFor::=FOR ID:n AS INTEGER IGUAL NUMERO:n1 TO NUMERO:n2 STEP NUMERO:n3 lista:n4 NEXT{:
+            int inicial=Integer.parseInt((String)n1);
+            int finaln=Integer.parseInt((String)n2);
+            int salto=Integer.parseInt((String)n3);
+            String dato="";
+            if((inicial<finaln) && salto>0){
+                dato="\n"+"\t"+"for(int "+n+"="+n1+";"+n+"<"+n2+";"+n+"="+n+"("+n3+")){\n"+n4+"\n"+"\t"+"}";
+            }else if((inicial>finaln) && salto<0){
+                dato="\n"+"\t"+"for(int "+n+"="+n1+";"+n+">"+n2+";"+n+"="+n+"("+n3+")){\n"+n4+"\n"+"\t"+"}";
+            }
+            RESULT=dato;
+         :};
+
+   //---------------------------------------------------------------------SENTENCIA DO WHILE------------------------------------------------------------------------
+      sentenciaDoWhile::= DO lista:n LOOP UNTIL condicion:n1{:
+            String dato="\n"+"\t"+"do{\n"+n+"\n"+"\t"+"}while("+n1+");";
+            RESULT=dato;
+
+         :};
+
+
+   //--------------------------------------------------------------------SENTENCIA SWITCH---------------------------------------------------------------------------
+      sentenciaSwitch::=   SELECT CASE ID:n parteCase:n1 END SELECT{:
+            String dato="\n"+"\t"+"switch("+n+"){\n"+n1+"\n"+"\t"+"}";
+            RESULT=dato;
+         :};
+     
+         parteCase::=estructuraSwitch:n parteCase:n1{:
+                        String dato=(String)n+(String)n1;
+                        RESULT=dato;
+                     :}
+                     |estructuraSwitch:n cuerposwitch:n1{:
+                        String dato=(String)n+(String)n1;
+                        RESULT=dato;
+                     :};
+
+         estructuraSwitch::=CASE caseTipo:n lista:n1{:
+                              String dato="\tcase "+n+":\n"+n1+"\n"+"\t"+"break;";
+                              RESULT=dato;
+                           :};
+
+         cuerposwitch::=CASE ELSE lista:n{:String dato="\n" +"\t"+"default:\n"+n+"\n"+"\t"+"break;"; RESULT=dato;:}|{:String dato="";RESULT=dato;:};
+
+
+
+
+      caseTipo::=ID:n{:
+            String cadena=(String)n;
+            RESULT=cadena;
+         :}
+         |CADENA:n{:
+            String cadena=(String)n;
+            RESULT=cadena;
+         :}
+         |NUMERO:n{:
+            String cadena=(String)n;
+            RESULT=cadena;
+         :};
+
+      partCaseElse::=CASE ELSE lista:n{:
+            String dato="default:\n"+n+"\nbreak;\n";
+            RESULT=dato;
+         :}|{:
+            String dato="";
+            RESULT=dato;:};
+ 
+
+ llamadaMetodo::=ID:n OPENPA listparametro:n1 CLOSEPA{:
+      String dato=(String)n+"("+(String)n1+")";
+      RESULT=dato;
+      :};

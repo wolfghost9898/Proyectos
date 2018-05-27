@@ -1,0 +1,476 @@
+package proyecto1_servidor;
+import java.io.*;
+import java.lang.*;
+import java_cup.runtime.*;
+import java_cup.runtime.Symbol;
+import java.util.ArrayList;
+import java.util.*;
+import proyecto1_servidor.*;
+
+parser code
+{:
+
+  /**---------------CUANDO HAY ERROR SINTACTICO IMPRIME EN CONSOLA-----------------**/
+  public void syntax_error(Symbol  s){
+
+Sintactico.error="Error Sintactico en la Linea "+(s.left+1) + " Y Columna "+s.right+". Identificador "
+    +s.value+" "+s.sym+" no reconocido";  
+
+    System.out.println("Error Sintactico en la Linea "+(s.left+1) + " Columna "+s.right+". Identificador "
+    +s.value+" "+s.sym+" no reconocido");
+
+
+  }
+
+  /**----------------Si no es posible recuperacion de errores-----**/
+  public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception{
+
+  }
+
+
+      public static ArrayList<Object[]> Variables;
+      public static ArrayList<Object[]> MetodosFunc;
+      public static ArrayList<String> comentarios;
+      public static int parametro=0;
+      public static int lineas=0;
+      public static String clase="";
+   public static String error="";
+
+:};
+
+/*---------------------TERMINALES-----------------------*/
+terminal MAYORIGUAL,MENORIGUAL,MAYOR,MENOR,IGUAL,MAS,MENOS,DIVISION,MULTIPLICACION; /*SIMBOLOS*/
+terminal PUNTO,COMA,PUNTOCOMA,CORA,CORC,PARA,PARC,DOSPUNTOS,LLAVEA,LLAVEC;
+terminal IMPORT,IF,ELSE,WHILE,SWITCH,FOR,DO,CASE,BREAK,RETURN,CLASS;
+terminal PUBLIC,PRIVATE,PROTECTED,FINAL;
+terminal BOOLEAN,CHAR,INT,DOUBLE,STRING,OBJECT;
+terminal IGUALIGUAL,DISTINTO,AND,OR,NOT;
+terminal IDENTIFICADOR,DIGITO,CADENA,ELSEIF,DEFAULT;
+terminal PRINT, SYSTEM,NEW,OUT,DIGITONEG;
+terminal COMENTARIO,INCREMENTO,DECREMENTO,VOID;
+
+/*---------------------NO TERMINALES-----------------------*/
+non terminal inicio,cuerpo,estructura,visibilidad,lista,tipo;
+non terminal declaracion,asignacion,expresion,listaexp;
+non terminal metodo,funcion,parametro,separador,retornar;
+non terminal sentenciaif,condicion,sentelse,sentelseif;
+non terminal ctipo,simbolo,partop;
+non terminal sentwhile,sentenciadowhile,condiwhile;
+non terminal sentenciafor,condicionfor;
+non terminal sentenciaswitch,condcase,parteswitch,partedefault,estructuraswitch;
+non terminal llamadas,constructor,declaobject,importar,metodofuncion;
+non terminal varios,condi,sentbreak,paraenvio,operador,comen;    
+
+
+
+
+/* INICIO DE MIS PRODUCCIONES*/
+
+
+start with inicio;/*la produccion comienza con inicio*/
+
+inicio::= importar comen cuerpo{:
+String cadena="";
+RESULT=cadena;
+:};
+
+importar::=IMPORT IDENTIFICADOR PUNTO IDENTIFICADOR PUNTO MULTIPLICACION PUNTOCOMA importar{:
+String cadena="";
+RESULT=cadena;
+:}|
+IMPORT IDENTIFICADOR PUNTO IDENTIFICADOR PUNTO IDENTIFICADOR PUNTOCOMA importar{:
+String cadena="";
+RESULT=cadena;
+:}|{:
+String cadena="";
+RESULT=cadena; 
+:};
+
+
+
+
+cuerpo::= visibilidad CLASS IDENTIFICADOR:n LLAVEA lista LLAVEC{:
+:};
+
+
+metodofuncion::= visibilidad tipo:n IDENTIFICADOR:n1 PARA parametro:n2 PARC LLAVEA {:Sintactico.lineas=0;:} lista:n3  LLAVEC {:
+Object[] dato=new Object[]{(String)n,(String)n1,(int)n2,(int)n3,Sintactico.clase};
+Sintactico.MetodosFunc.add(dato);
+Sintactico.parametro=0;
+Sintactico.lineas=0;
+:}|visibilidad VOID IDENTIFICADOR:n1 PARA parametro:n2 PARC LLAVEA {:Sintactico.lineas=0;:} lista:n3  LLAVEC{:
+Object[] dato=new Object[]{"void",(String)n1,(int)n2,(int)n3,Sintactico.clase};
+Sintactico.MetodosFunc.add(dato);
+Sintactico.parametro=0;
+Sintactico.lineas=0;
+:};
+
+
+
+
+
+
+
+
+/*---------------------------------------------VISIBILIDAD QUE PUEDEN TENER LAS VARIABLES Y LAS CLASESE Y METODOS---------------*/
+visibilidad::=PUBLIC:n{:
+String cadena=(String)n;
+RESULT=cadena;
+:}|FINAL:n{:
+String cadena=(String)n;
+RESULT=cadena;
+:}|PROTECTED:n{:
+String cadena=(String)n;
+RESULT=cadena;
+:}|PRIVATE:n{:
+String cadena=(String)n;
+RESULT=cadena;
+:}|{:
+String cadena="";
+RESULT=cadena;
+:};
+
+lista::= estructura lista{:
+ Sintactico.lineas=Sintactico.lineas+1;
+  int li=Sintactico.lineas;
+RESULT=li;
+:}|{:
+int li=Sintactico.lineas;
+RESULT=li;
+:};
+
+estructura::= declaracion:n1{:RESULT=n1;:}
+                |asignacion:n {:RESULT=n;:}
+                |sentenciaif:n{:RESULT=n;:} 
+                |sentwhile:n{:RESULT=n;:}
+                |sentenciadowhile:n{:RESULT=n;:}
+                |sentenciafor:n{:RESULT=n;:}
+                |sentenciaswitch:n{:RESULT=n;:}
+                |llamadas:n PUNTOCOMA{:RESULT=n;:}
+                |constructor:n{:RESULT=n;:}
+                |declaobject:n{:RESULT=n;:}
+                |retornar:n{:RESULT=n;:}
+                |metodofuncion:n{:RESULT=n;:}
+                |sentbreak:n{:RESULT=n;:}
+                |COMENTARIO:n{:
+                  String comentario=(String)n;
+                  Sintactico.comentarios.add(comentario);
+                  :};
+                
+
+
+
+
+comen::= COMENTARIO:n{:
+  String comentario=(String)n;
+  Sintactico.comentarios.add(comentario);
+  :}
+|;
+
+
+/*---------------------------------CONSTRUCTOR----------------------------------------------*/
+constructor::= PUBLIC IDENTIFICADOR PARA parametro PARC LLAVEA lista LLAVEC{:
+String cadena="";
+RESULT=cadena;
+:};
+
+/*-------------------------------------DECLARACION Y ASIGNACION  DE VARIABLES-------------------------*/
+
+declaracion::= visibilidad:n tipo:n1 varios:n2 PUNTOCOMA{:
+  Object[] vari= new Object[]{(String)n,(String)n1,(String)n2,Sintactico.clase};
+Sintactico.Variables.add(vari);
+:};
+
+asignacion::= varios expresion {:
+String cadena="";
+RESULT=cadena;
+:}|visibilidad:n tipo:n1 IDENTIFICADOR:n2 expresion{:
+  Object[] dato=new Object[]{(String)n,(String)n1,(String)n2,Sintactico.clase};
+  Sintactico.Variables.add(dato);
+:};
+
+
+varios::=IDENTIFICADOR:n COMA  varios:n2{:
+String cadena=(String)n+","+(String)n2;
+RESULT=cadena;
+:}|IDENTIFICADOR:n{:
+String cadena=(String)n;
+RESULT=cadena;
+:};
+
+declaobject::= IDENTIFICADOR IDENTIFICADOR IGUAL NEW IDENTIFICADOR PARA parametro PARC PUNTOCOMA{:
+String cadena="";
+RESULT=cadena;
+:};
+
+/*--------------------------EXPRESIONES CON LAS VARIABLES PUEDEN SER DECLARADAS----------------------------*/
+expresion::=IGUAL listaexp PUNTOCOMA{:
+String cadena="";
+RESULT=cadena;
+:}|IGUAL PARA listaexp PARC PUNTOCOMA{:
+String cadena="";
+RESULT=cadena;
+:};
+
+listaexp::=ctipo:n operador:n1{:
+   String dato=(String)n+(String)n1;
+   RESULT=dato;
+   :}|llamadas:n operador:n1{:
+   String dato=(String)n+(String)n1;
+   RESULT=dato;
+   :};
+ //----------------------------------------------------------------------Operadores----------*/
+operador::=MAS:n listaexp:n1{:
+   String dato=(String)n+(String)n1;
+   RESULT=dato;
+   :}
+   |MENOS:n listaexp:n1{:
+   String dato=(String)n+(String)n1;
+   RESULT=dato;
+   :}
+   |DIVISION:n listaexp:n1{:
+   String dato=(String)n+(String)n1;
+   RESULT=dato;
+   :}
+   |MULTIPLICACION:n listaexp:n1{:
+   String dato=(String)n+(String)n1;
+   RESULT=dato;
+   :}|{:
+   String dato="";
+   RESULT=dato;
+   :};
+/*------------------------------------------TIPO DE VARIABLES QUE PUEDEN VENIR------------------------------------*/
+tipo::=INT:n{:
+String cadena=(String)n;
+RESULT=cadena;
+:}|CHAR:n{:
+String cadena=(String)n;
+RESULT=cadena;
+:}|DOUBLE:n{:
+String cadena=(String)n;
+RESULT=cadena;
+:}|BOOLEAN:n{:
+String cadena=(String)n;
+RESULT=cadena;
+:}|STRING:n{:
+String cadena=(String)n;
+RESULT=cadena;
+:}|OBJECT:n{:
+String cadena=(String)n;
+RESULT=cadena;
+:};
+
+/*-----------------------------------------PARAMETROS QUE PUEDEN VENIR EN LAS FUNCIONES Y METODOS O VACIOS-------------*/
+parametro::= tipo ctipo separador:n
+{:
+int resultado=1+(int)n;
+RESULT=resultado;
+:}|ctipo separador:n{:
+int resultado=1+(int)n;
+RESULT=resultado;
+:}| {:
+RESULT=0;
+:};
+
+separador::= COMA parametro{:
+Sintactico.parametro=Sintactico.parametro+1;
+int numero=Sintactico.parametro;
+RESULT=numero;
+:}|{:
+   int numero=Sintactico.parametro;
+RESULT=numero;
+:};
+
+
+/*-------------------------------------RETORNAR SOLO EN LAS FUNCIONES--------------------------------------------*/
+retornar::= RETURN listaexp PUNTOCOMA{:
+String adena="";
+RESULT=adena;
+:};
+
+/*----------------------------------SENTENCIA IF-----------------------------------*/
+
+sentenciaif::= IF PARA condicion PARC LLAVEA lista LLAVEC  sentelseif sentelse{:
+String adena="";
+RESULT=adena;
+//System.out.println("funciona");
+:};
+
+
+
+
+/*----------------------------condicion -------------------------------------*/
+condicion::= ctipo simbolo ctipo partop 
+{:
+String adena="";
+RESULT=adena;
+
+:}|ctipo;
+
+ctipo::= IDENTIFICADOR{:
+String adena="";
+RESULT=adena;
+
+:}| DIGITO{:
+String adena="";
+RESULT=adena;
+
+:}| CADENA{:
+String adena="";
+RESULT=adena;
+
+:};
+
+simbolo::=MAYOR{:
+ String dato=">";
+ RESULT=dato;
+  :}
+ |MAYORIGUAL{:
+ String dato=">=";
+ RESULT=dato;
+ :}
+ |IGUAL{:
+ String dato="==";
+ RESULT=dato;
+ :}
+ |DISTINTO{:
+ String dato="!=";
+  RESULT=dato;
+ :}
+ |MENOR{:
+ String dato="<";
+ RESULT=dato;
+ :}
+|IGUALIGUAL{:
+ String dato="<";
+ RESULT=dato;
+ :}
+ |MENORIGUAL{:
+ String dato="<=";
+  RESULT=dato;
+  :}
+|MAS{:
+ String dato="<=";
+  RESULT=dato;
+  :}|INCREMENTO{:
+ String dato="<=";
+  RESULT=dato;
+  :}|MENOS{:
+ String dato="<=";
+  RESULT=dato;
+  :}|DECREMENTO{:
+ String dato="<=";
+  RESULT=dato;
+  :}||DIVISION{:
+ String dato="<=";
+  RESULT=dato;
+  :};    
+
+partop::= AND condicion:n1{:
+            String dato="&& "+n1;
+            RESULT=dato;
+         :}
+         |OR condicion:n1{:
+            String dato="|| "+n1;
+            RESULT=dato;
+         :}
+         |NOT condicion:n1{:
+            String dato="!"+n1;
+            RESULT=dato;
+         :}|{:
+            String dato="";
+            RESULT=dato;
+            :};
+
+
+/*-----------------------------sentencia break-----------------------------------------*/
+
+sentbreak::= BREAK PUNTOCOMA{:
+String cadena="";
+RESULT=cadena;
+:};
+/*----------------------------sentencia else------------------------------*/
+
+sentelse::= ELSE LLAVEA lista LLAVEC{:
+String dato="";
+RESULT=dato;
+:}  
+|{:String dato="";
+ RESULT=dato;
+ :};
+
+
+sentelseif::= ELSEIF PARA condicion PARC LLAVEA lista LLAVEC {:
+String dato="";
+ RESULT=dato;
+ :}
+|{:String dato="";
+ RESULT=dato;
+ :};
+
+
+/*----------------------------------sentencia while---------------------*/
+
+sentwhile::= WHILE PARA condicion PARC LLAVEA lista   LLAVEC
+{:String dato="";
+ RESULT=dato;
+ :};
+
+/*----------------------------------sentencia do while---------------------------*/
+
+sentenciadowhile::= DO LLAVEA lista LLAVEC condiwhile{:
+String dato="";
+ RESULT=dato;
+ :};
+
+condiwhile::= WHILE PARA condicion PARC PUNTOCOMA  {: 
+String dato="";
+ RESULT=dato;
+ :};
+
+
+/*--------------------------------sentencia for-----------------------------*/
+
+sentenciafor::= FOR PARA condicionfor PARC LLAVEA lista  LLAVEC {: 
+String dato="";
+ RESULT=dato;
+ :};
+
+condicionfor::= INT IDENTIFICADOR IGUAL listaexp PUNTOCOMA IDENTIFICADOR simbolo listaexp PUNTOCOMA 
+IDENTIFICADOR simbolo{: 
+String dato="";
+System.out.println("funciona el for");
+RESULT=dato;
+ :};
+
+/*---------------------------------------sentencia switch-----------------------------------*/
+
+sentenciaswitch::= SWITCH PARA ctipo PARC LLAVEA estructuraswitch  LLAVEC
+{: 
+String dato="";
+System.out.println("funciona");
+RESULT=dato;
+ :};
+
+estructuraswitch::= CASE ctipo DOSPUNTOS lista    estructuraswitch{:
+String dato="";
+RESULT=dato;
+ :}|DEFAULT DOSPUNTOS lista{:
+String dato="";
+RESULT=dato;
+ :};
+
+/*-----------------------------------LLAMADAS A FUNCIONES O METODOS-------------------------*/
+
+llamadas::=IDENTIFICADOR PARA listaexp paraenvio PARC {:
+String dato="";
+RESULT=dato;
+ :}| IDENTIFICADOR PARA PARC  {:
+String dato="";
+RESULT=dato;
+ :};
+
+paraenvio::=COMA listaexp paraenvio|;
+
+
+

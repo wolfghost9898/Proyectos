@@ -1,0 +1,168 @@
+Module Archivo3
+
+    Sub Main()
+        TercerArchivo()
+    End Sub
+
+    Public Sub TercerArchivo()
+        Dim op As Integer = 0
+
+        While op <> 8
+            Console.WriteLine("Seleccione una opcion")
+            Console.WriteLine("2 Crear Matriz")
+            Console.WriteLine("1 Mostrar Transpuesta")
+            Console.WriteLine("4 Sumar Matrices")
+            Console.WriteLine("3 Serie Fibonacci")
+            Console.WriteLine("8 Salir")
+
+            Public op As Integer = Console.ReadLine
+
+            Select Case op
+                Case 2
+                    Console.WriteLine("Ingrese la cantidad de filas")
+                    Dim filas As Integer = Console.ReadLine
+                    Console.WriteLine("Ingrese la cantidad de columnas")
+                    Dim col As Integer = Console.ReadLine
+
+                    Dim matriz[filas, col] As Integer
+                    For i As Integer = 0 To 5 Step 1
+                        For j As Integer = 0 To 5 Step 1
+                            matriz[i][j] = i * 2
+                        Next
+                    Next
+
+                    Console.WriteLine("Imprimir valores de las matrices")
+                    Dim impresionMatriz As String = "_"
+
+                    For i As Integer = 0 To 5 Step 1
+                        impresionMatriz = "_"
+                        For j As Integer = 0 To 5 Step 1
+                            impresionMatriz = impresionMatriz & "_" & matriz[i][j] & "_ "
+                        Next
+                        Console.WriteLine(impresionMatriz)
+                    Next
+
+                Case 1
+                    Console.WriteLine("Ingrese la cantidad de filas")
+                    Dim filas As Integer = Console.ReadLine
+                    Console.WriteLine("Ingrese la cantidad de columnas")
+                    Dim col As Integer = Console.ReadLine
+
+                    Dim matriz[filas, col] As Integer
+                    For i As Integer = 0 To 5 Step 1
+                        For j As Integer = 0 To 5 Step 1
+                            matriz[i][j] = i * 2
+                        Next
+                    Next
+
+                    Console.WriteLine("VALORES MATRIZ")
+                    Dim impresionMatriz As String = "_"
+
+                    For i As Integer = 0 To 5 Step 1
+                        impresionMatriz = "_"
+                       For j As Integer = 0 To 5 Step 1
+                            impresionMatriz = impresionMatriz & "_" & matriz[i][ j] & "_ "
+                        Next
+                        Console.WriteLine(impresionMatriz)
+                    Next
+
+                    Console.WriteLine("VALORES TRANSPUESTA")
+                    Dim impresionMatrizT As String = "_"
+
+                   For i As Integer = 0 To 5 Step 1
+                        impresionMatrizT = "_"
+                        For j As Integer = 0 To 5 Step 1
+                            impresionMatrizT = impresionMatrizT & "_" & matriz[j][i] & "_"
+                        Next
+                        Console.WriteLine(impresionMatrizT)
+                    Next
+
+
+                Case 4
+                    Console.WriteLine("Ingrese la cantidad de filas")
+                    Dim filas1 As Integer = Console.ReadLine
+                    Console.WriteLine("Ingrese la cantidad de columnas")
+                    Dim col1 As Integer = Console.ReadLine
+
+                    Dim matriz1[filas1, col1] As Integer
+                    For i As Integer = 0 To 5 Step 1
+                        For j As Integer = 0 To 5 Step 1
+                            matriz1[i][j] = i * 2
+                        Next
+                    Next
+
+                    Dim matriz2[filas1, col1] As Integer
+                    For i As Integer = 0 To 5 Step 1
+                        For j As Integer = 0 To 5 Step 1
+                            matriz2[i][j] = i * j
+                        Next
+                    Next
+
+
+                    Console.WriteLine("MATRIZ1")
+                    Dim impresionMatriz1 As String = "_"
+
+                    For i As Integer = 0 To 5 Step 1
+                        impresionMatriz1 = "_"
+                        For j As Integer = 0 To 5 Step 1
+                            impresionMatriz1 = impresionMatriz1 & "_" & matriz1[i][j] & "_ "
+                        Next
+                        Console.WriteLine(impresionMatriz1)
+                    Next
+
+                    Console.WriteLine("MATRIZ2")
+
+                    Console.WriteLine("Imprimir valores de las matrices")
+                    Dim impresionMatriz2 As String = "_"
+
+                    For i As Integer = 0 To 5 Step 1
+                        impresionMatriz2 = "_"
+                        For j As Integer = 0 To 5 Step 1
+                            impresionMatriz2 = impresionMatriz2 & "_" & matriz2[i][ j] & "_ "
+                        Next
+                        Console.WriteLine(impresionMatriz2)
+                    Next
+
+                    Console.WriteLine("MATRIZ1 + MATRIZ2")
+
+                    For i As Integer = 0 To 5 Step 1
+                        impresionMatriz2 = "_"
+                        For j As Integer = 0 To 5 Step 1
+                            impresionMatriz2 = impresionMatriz2 & "_" & matriz1[i][j] + matriz2[i][j] & "_ "
+                        Next
+                        Console.WriteLine(impresionMatriz2)
+                    Next
+
+                Case 3
+                    Console.WriteLine("Ingrese el numero limite de la serie")
+                    Dim limit As Integer = Console.ReadLine
+                Console.WriteLine("La serie de " & limit & " es")
+                    Dim res As String = "_"
+                    For i As Integer = 0 To 8 Step 1
+                        If i = limit Then
+                            res = res & serieFibonacci(i)
+                        Else
+                            res = res & serieFibonacci(i) & "_"
+                        End If
+
+                    Next
+
+                    Console.WriteLine(res)
+
+            End Select
+        End While
+
+    End Sub
+
+   Public Function serieFibonacci(ByVal n As Integer) As Integer
+        Dim res As Integer
+        If n > 1 Then
+            Return serieFibonacci(n) + serieFibonacci(n)
+        ElseIf n = 1 Or n = 0 Then
+            res = n
+        End If
+
+        Return res
+    End Function
+
+End Module

@@ -1,0 +1,41 @@
+
+
+
+<< 
+    +--------------------------------+
+    |Contiene solo uso de            |
+    |requerimientos mínimos.         |
+    |Se evaluan las sentencias de    |
+    |Flujo                           |
+    +--------------------------------+
+>>
+
+Int  varGlobal_1 = 13;
+
+Vacio  Funcionalidad6(){
+    Int i =0;
+    Char vari = 'a';
+    Para(Double ll = i;ll<10; ++){
+        i = i+2;        
+        Mientras(ll<i){
+            Selecciona(vari){
+                'c': 
+                    Mostrar("Está a punto de terminar");
+                    Retorno;
+                'a': 
+                    Selecciona(i){
+                        3:
+                            Mostrar("No funciona");
+                        2:
+                            Mostrar("funciona"); 
+                            Detener;   
+                    }
+                Detener;
+            }           
+            Detener;
+        }
+        vari = 'c';
+        Mostrar("Se acaba de cambiar el valor a c");     
+    }
+}
+

@@ -1,0 +1,44 @@
+
+<HTML>
+<HEAD>
+<title>calificacion3</title>
+</HEAD>
+<BODY  color="azul" textcolor="rojo" font="Arial ">
+$$ Print(RESULT.score); $$
+<TABLE align="centrado" >
+	<TR >
+		<TH>Nombre</TH> <TH>Tipo</TH> <TH>clase</TH>
+	</TR>
+	<TR >
+		<TD>$$ print(RESULT.variables[0].nombre);$$</TD> <TD>$$ print(RESULT.variables[0].tipo);$$</TD> <TD>$$ print(RESULT.variables[0].clase);$$</TD>
+	</TR>
+	<TR >
+		<TD>$$ print(RESULT.variables[1].nombre);$$</TD> <TD>$$ print(RESULT.variables[1].tipo);$$</TD> <TD>$$ print(RESULT.variables[1].clase);$$</TD>
+	</TR>
+</TABLE>
+
+
+<TABLE align="centrado" >
+	<TR >
+		<TH>Nombre</TH> <TH>Tipo</TH> <TH>parametross</TH>
+	</TR>
+	<TR >
+		<TD>$$ print(RESULT.metodos[0].nombre);$$</TD> <TD>$$ print(RESULT.metodos[0].tipo);$$</TD> <TD>$$ print(RESULT.metodos[0].parametros);$$</TD>
+	</TR>
+	<TR >
+		<TD>$$ print(RESULT.metodos[1].nombre);$$</TD> <TD>$$ print(RESULT.metodos[1].tipo);$$</TD> <TD>$$ print(RESULT.metodos[1].parametros);$$</TD>
+	</TR>
+</TABLE>
+$$ String Var1 = "El resultado es igual a " + RESULT.Score; 
+int hola="hola ";
+ boolean Var2 =  (RESULT.Score<100 && Var1==Var1) || (RESULT.metodos[0].nombre!=RESULT.metodos[1].nombre && !(10>=20)) ;
+ print(Var2); 
+int var3 = 8;
+
+Print(Var3);
+
+
+Print(Var3);
+ $$
+</BODY>
+</HTML>

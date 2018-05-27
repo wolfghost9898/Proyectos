@@ -1,0 +1,62 @@
+
+
+Importar File1.clr;
+Definir 0.002;
+Definir "C:\Users\Eduardo\Documents\Visual Studio 2017\Projects\Proyectocompi2\Proyectocompi2";
+Int a, b, c = 45.79;
+Bool b1,b4 = true;
+Bool f4_b = true || false;
+
+
+Vacio Funcionalidad1(){
+	Int d = 70;
+	d = (d -a*70 + 7/5 + 2*c*c % 3^5) - 100000; 
+    Mostrar(" multiplicado por 9: {0}",d*9, d);
+    Mostrar("Valor de d sin multiplicar:{0} y restado por 56^3-2: {1}",d,d-(56^3-2));  
+    Si(5.785~5.78){
+    	Mostrar("Son semejantes");
+    }Sino{
+    	Mostrar("No son semejantes");
+    }
+}
+
+Vacio Funcionalidad4(){
+	Mostrar("Inicio de Funcionalidad 4");
+	Bool varB = true + true;
+	Mostrar("{0} se imprimió varB ", varB);
+	Retorno;
+	Mostrar("Se está mostrando el mostrar 3 de la funcionalidad 4 ******---******");
+	Mostrar("Se está mostrando el mostrar 4 de la funcionalidad 4 ******---******");
+	Mostrar("Se está mostrando el mostrar 5 de la funcionalidad 4 ******---******");
+	Mostrar("Se está mostrando el mostrar 6 de la funcionalidad 4 ******---******");	
+}
+
+
+Vacio Principal(){
+	Funcionalidad1();
+                 Int a=5;
+	Bool b3 = true;
+	Si(b3){
+		Mostrar("El valor de Funcionalidad2() es verdadero");
+	}Sino{
+		Si(!b3){
+			Mostrar("El valor de Funcionalidad2() es falso, pero verdadero...");
+		}
+	}
+
+	Mostrar("b4 {0} ", b4);
+	Mostrar("b4 negado {0} ", !b4);
+               
+	Mostrar("Ahora b4 guarda el valor de Funcionalidad3() y vale {0}", b4);
+	Funcionalidad4();
+	Selecciona( a* 2 ) {
+	10 : Mostrar("El doble de  es 10");
+	100: Mostrar("El doble de  es 100");
+	Defecto : Mostrar("No sé cuánto es el doble de ");
+	}
+	
+
+
+	DibujarEXP(3==3 || 6^2<=90*70.5 |& 30!=3.5 || 78*3>9-20+f4_b);
+
+}

@@ -1,0 +1,37 @@
+﻿programa HT [ 
+int nombre (var x, var b)[
+var as; 
+imprimir(1+1); 
+imprimir(operar_1(5+9-9,a, true));
+raíz(potencia(2,8)*1+15 , 2);
+graficar("y","a+a+a^2", 0, 10,"verde");
+
+ ]
+
+ void multiplicar ()[
+  print_2("Entro en mutiplicar");     //llamada a método/función print_2 
+  var a ::= 19*9+sumar(15,2*5);        //llamada a función sumar 
+  calcular(9*9, "u",raíz(9,9)); 
+  calcular(9*9, vari); 
+  var mmmm ::= "abc"+raíz(2,2); 
+
+SI(a>5) [
+ a ::= 770;
+  ] SINO[ 
+  mmmm  ::= 50; 
+  ] 
+
+INTERRUMPIR (a+5) [
+ CASO 100:
+  imprimir("con 100"); 
+ var c ::= 300 + a ;
+  DEFECTO: 
+  a ::= 0; ] 
+
+MIENTRAS(a>10) [
+ salir; 
+ var vari ::= 15; //no se ejecuta porque "salir" termino la ejecución del bucle mientras
+  ] 
+
+  ]
+ ]

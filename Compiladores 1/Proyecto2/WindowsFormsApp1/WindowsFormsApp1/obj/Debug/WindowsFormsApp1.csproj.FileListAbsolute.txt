@@ -1,0 +1,13 @@
+C:\Users\Carlos\Desktop\PROGRAMAS Y MAS\5to semestre\Compiladores 1\Proyecto2\WindowsFormsApp1\WindowsFormsApp1\bin\Debug\WindowsFormsApp1.exe.config
+C:\Users\Carlos\Desktop\PROGRAMAS Y MAS\5to semestre\Compiladores 1\Proyecto2\WindowsFormsApp1\WindowsFormsApp1\bin\Debug\WindowsFormsApp1.exe
+C:\Users\Carlos\Desktop\PROGRAMAS Y MAS\5to semestre\Compiladores 1\Proyecto2\WindowsFormsApp1\WindowsFormsApp1\bin\Debug\WindowsFormsApp1.pdb
+C:\Users\Carlos\Desktop\PROGRAMAS Y MAS\5to semestre\Compiladores 1\Proyecto2\WindowsFormsApp1\WindowsFormsApp1\bin\Debug\Irony.dll
+C:\Users\Carlos\Desktop\PROGRAMAS Y MAS\5to semestre\Compiladores 1\Proyecto2\WindowsFormsApp1\WindowsFormsApp1\bin\Debug\Irony.pdb
+C:\Users\Carlos\Desktop\PROGRAMAS Y MAS\5to semestre\Compiladores 1\Proyecto2\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.Form1.resources
+C:\Users\Carlos\Desktop\PROGRAMAS Y MAS\5to semestre\Compiladores 1\Proyecto2\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.Properties.Resources.resources
+C:\Users\Carlos\Desktop\PROGRAMAS Y MAS\5to semestre\Compiladores 1\Proyecto2\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csproj.GenerateResource.Cache
+C:\Users\Carlos\Desktop\PROGRAMAS Y MAS\5to semestre\Compiladores 1\Proyecto2\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.exe
+C:\Users\Carlos\Desktop\PROGRAMAS Y MAS\5to semestre\Compiladores 1\Proyecto2\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.pdb
+C:\Users\Carlos\Desktop\PROGRAMAS Y MAS\5to semestre\Compiladores 1\Proyecto2\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csprojResolveAssemblyReference.cache
+C:\Users\Carlos\Desktop\PROGRAMAS Y MAS\5to semestre\Compiladores 1\Proyecto2\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\Interop.WINGRAPHVIZLib.dll
+C:\Users\Carlos\Desktop\PROGRAMAS Y MAS\5to semestre\Compiladores 1\Proyecto2\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csproj.ResolveComReference.cache

@@ -1,0 +1,677 @@
+package examenfinal;
+import java.io.*;
+import java.lang.*;
+import java_cup.runtime.*;
+import java_cup.runtime.Symbol;
+import java.util.ArrayList;
+import java.util.*;
+import examenfinal.*;
+
+parser code
+{:
+
+	/**---------------CUANDO HAY ERROR SINTACTICO IMPRIME EN CONSOLA-----------------**/
+	public void syntax_error(Symbol  s){
+
+Sintactico.error="Error Sintactico en la Linea "+(s.left+1) + " Y Columna "+s.right+". Identificador "
+		+s.value+" "+s.sym+" no reconocido";  
+
+		System.out.println("Error Sintactico en la Linea "+(s.left+1) + " Columna "+s.right+". Identificador "
+		+s.value+" "+s.sym+" no reconocido");
+
+
+	}
+
+	/**----------------Si no es posible recuperacion de errores-----**/
+	public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception{
+
+	}
+
+    public static Nodo padre;
+      public static ArrayList<Object[]> Variables;
+      public static ArrayList<Object[]> MetodosFunc;
+      public static ArrayList<String> comentarios;
+      public static int parametro=0;
+      public static int lineas=0;
+      public static String clase="";
+   public static String error="";
+       public static int cont = 0;
+
+
+:};
+
+
+
+terminal MAYORIGUAL,MENORIGUAL,MAYOR,MENOR,IGUAL,MAS,MENOS,DIVISION,MULTIPLICACION; /*SIMBOLOS*/
+terminal PUNTO,COMA,PUNTOCOMA,CORA,CORC,PARA,PARC,DOSPUNTOS,LLAVEA,LLAVEC;
+terminal IGUALIGUAL,DISTINTO,AND,OR,NOT,XOR,INCREMENTO,DECREMENTO,PORCENTAJE,DIFERENCIA;
+terminal BOOL,CHAR,INT,DOUBLE,STRING,VACIO,IMPORTAR,DEFINIR,RETORNO,PRINCIPAL;
+terminal SI,SINO,SELECCIONA,DEFECTO,PARAB,HASTA,MIENTRAS,DETENER,CONTINUAR,MOSTRAR;
+terminal DIBUJARAST,DIBUJAREXP,DIBUJARTS;
+terminal COMENTARIO,IDENTIFICADOR,DIGITO,CADENA,DECIMAL,ID,APOSTROFE,POT,INVERS;
+
+
+non terminal inicio,comen,cuerpo,importar;
+non terminal estructura,lista,declaracion,ctipo,varios,expresion;
+non terminal listaexp,operador,llamadas,tipo,asignacion,paraenvio;
+non terminal metodo,funcion,parametros,separador,metodofuncion,retorno;
+non terminal principal,sentenciasi,condicion,sentenciasino;
+non terminal partop,simbolo,sentenciaselecciona,estrucselec,sentenciapara;
+non terminal condicionpara,condicionhasta,condicionmientras,mostrar,condmostrar;
+non terminal dibujarast,dibujarexp,dibujarts,condicionexp;
+
+start with inicio;/*la produccion comienza con inicio*/
+
+inicio::= importar:n cuerpo:n1{:
+    Nodo nd = new Nodo();
+    nd.setEtiqueta("INICIO");
+    nd.setValor("inicio");
+    nd.setId(Sintactico.cont);
+    Sintactico.cont++;
+    //nd2.setEtiqueta("CUERPO");
+    //nd2.setId(parser.cont);
+    //parser.cont++;
+    nd.AddHijos((Nodo) n);
+    nd.AddHijos((Nodo)n1);
+    //nd.AddHijos((Nodo)nd2);
+    //nd.AddHijos((Nodo)nd3);
+    Sintactico.padre = (Nodo) nd;
+    RESULT = nd;
+:};
+
+importar::=IMPORTAR:n IDENTIFICADOR:n1 PUNTO:n2 IDENTIFICADOR:n3 PUNTOCOMA:n4  importar:n5 {:
+
+  Nodo nd=new Nodo(); nd.setEtiqueta("IMPORTAR"); nd.setId(Sintactico.cont); nd.setValor(n.toString());
+  Sintactico.cont++;
+
+  Nodo nd2=new Nodo(); nd2.setEtiqueta("ID"); nd2.setId(Sintactico.cont); nd2.setValor(n1.toString());
+  Sintactico.cont++;
+
+  Nodo nd3=new Nodo(); nd3.setEtiqueta("Punto"); nd3.setId(Sintactico.cont); nd3.setValor(n2.toString());
+  Sintactico.cont++;
+
+  Nodo nd4=new Nodo(); nd4.setEtiqueta("ID"); nd4.setId(Sintactico.cont); nd4.setValor(n3.toString());
+  Sintactico.cont++;
+
+  Nodo nd5=new Nodo(); nd5.setEtiqueta("PUNTOYCOMA"); nd5.setId(Sintactico.cont); nd5.setValor(n4.toString());
+  Sintactico.cont++;
+
+  nd.AddHijos((Nodo)nd2);
+  nd.AddHijos((Nodo)nd3);
+  nd.AddHijos((Nodo)nd4);
+  if(n5!=null) nd.AddHijos((Nodo)n5);
+  RESULT= nd;
+
+
+:}| DEFINIR:n DECIMAL:n1 PUNTOCOMA:n2 importar:n3{:
+ 
+  Nodo nd=new Nodo();
+  nd.setEtiqueta("Definir");
+  nd.setId(Sintactico.cont);
+  nd.setValor(n.toString());
+  Sintactico.cont++;
+
+
+  Nodo nd2=new Nodo(); nd2.setEtiqueta("DECiMAL"); nd2.setId(Sintactico.cont); nd2.setValor(n1.toString());
+  Sintactico.cont++;
+
+  Nodo nd3=new Nodo(); nd3.setEtiqueta("PUNTOCOMA"); nd3.setId(Sintactico.cont); nd3.setValor(n2.toString());
+  Sintactico.cont++;
+
+ nd.AddHijos((Nodo)nd2);
+  nd.AddHijos((Nodo)nd3);
+  if(n3!=null) nd.AddHijos((Nodo)n3);
+  RESULT= nd;
+  :}
+| DEFINIR:n CADENA:n1 PUNTOCOMA:n2 importar:n3{:
+ 
+  Nodo nd=new Nodo();
+  nd.setEtiqueta("Definir");
+  nd.setId(Sintactico.cont);
+  nd.setValor(n.toString());
+  Sintactico.cont++;
+  String cadena=n1.toString();
+  cadena=cadena.replace("\"","");
+
+
+  Nodo nd2=new Nodo(); nd2.setEtiqueta("CADENA"); nd2.setId(Sintactico.cont); nd2.setValor(cadena);
+  Sintactico.cont++;
+
+  Nodo nd3=new Nodo(); nd3.setEtiqueta("PUNTOCOMA"); nd3.setId(Sintactico.cont); nd3.setValor(n2.toString());
+  Sintactico.cont++;
+
+  nd.AddHijos((Nodo)nd2);
+  nd.AddHijos((Nodo)nd3);
+  if(n3!=null) nd.AddHijos((Nodo)n3);
+  RESULT= nd;
+  :} |{:RESULT=null;:};
+
+cuerpo::=lista:n {:
+ Nodo nd=new Nodo();
+  nd.setEtiqueta("CUERPO");
+  nd.setId(Sintactico.cont);
+  nd.setValor("Cuerpo");
+  Sintactico.cont++;
+
+  nd.AddHijos((Nodo)n);
+RESULT=nd;
+:};
+
+
+
+lista::=estructura:n lista:n1
+  {:
+    Nodo nd=new Nodo();
+  nd.setEtiqueta("Lista");
+  nd.setId(Sintactico.cont);
+  nd.setValor("Lista");
+  Sintactico.cont++;
+
+  if(n!=null)nd.AddHijos((Nodo)n);
+  if(n1!=null) nd.AddHijos((Nodo)n1);
+  RESULT=nd;
+
+    :}
+|{:RESULT=null;:};
+
+
+
+ 
+estructura::=declaracion:n
+             {:
+                Nodo nd=new Nodo();
+                 nd.setEtiqueta("Declaracion");
+                nd.setId(Sintactico.cont);
+                nd.setValor("declaracion");
+                Sintactico.cont++;
+
+                nd.AddHijos((Nodo)n);
+                RESULT=nd;
+              :} 
+            |asignacion{:RESULT=null;:}
+            |metodofuncion{:RESULT=null;:}
+            |retorno{:RESULT=null;:}
+            |llamadas PUNTOCOMA{:RESULT=null;:}
+            |principal{:RESULT=null;:}
+            |sentenciasi{:RESULT=null;:}
+            |sentenciaselecciona{:RESULT=null;:}
+            |sentenciapara{:RESULT=null;:}
+            |condicionhasta{:RESULT=null;:}
+            |condicionmientras{:RESULT=null;:}
+            |DETENER PUNTOCOMA{:RESULT=null;:}
+            |CONTINUAR PUNTOCOMA{:RESULT=null;:}
+            |mostrar{:RESULT=null;:}
+            |dibujarast{:RESULT=null;:}
+            |dibujarexp{:RESULT=null;:};
+
+
+declaracion::= ctipo:n varios:n1 expresion:n2
+                {:
+                    Nodo nd=new Nodo();
+                    nd.setEtiqueta("Declaracion");
+                    nd.setId(Sintactico.cont);
+                    nd.setValor("declaracion");
+                    Sintactico.cont++;
+
+                    nd.AddHijos((Nodo)n);
+                    nd.AddHijos((Nodo)n1);
+                    nd.AddHijos((Nodo)n2);
+                    RESULT=nd;
+
+                :} ;
+
+asignacion::= varios expresion;
+
+ctipo::=CHAR:n
+        {:
+                    Nodo nd=new Nodo();
+                    nd.setEtiqueta("Char");
+                    nd.setId(Sintactico.cont);
+                    nd.setValor(n.toString());
+                    Sintactico.cont++;
+                    RESULT=nd;
+
+          :}
+        |STRING:n
+                {:
+                    Nodo nd=new Nodo();
+                    nd.setEtiqueta("STRING");
+                    nd.setId(Sintactico.cont);
+                    nd.setValor(n.toString());
+                    Sintactico.cont++;
+                    RESULT=nd;
+
+          :}
+        |VACIO:n
+        {:
+                    Nodo nd=new Nodo();
+                    nd.setEtiqueta("VACIO");
+                    nd.setId(Sintactico.cont);
+                    nd.setValor(n.toString());
+                    Sintactico.cont++;
+                    RESULT=nd;
+
+          :}
+        |BOOL:n
+                {:
+                    Nodo nd=new Nodo();
+                    nd.setEtiqueta("BOOL");
+                    nd.setId(Sintactico.cont);
+                    nd.setValor(n.toString());
+                    Sintactico.cont++;
+                    RESULT=nd;
+
+          :}
+        |INT:n
+        {:
+                    Nodo nd=new Nodo();
+                    nd.setEtiqueta("INT");
+                    nd.setId(Sintactico.cont);
+                    nd.setValor(n.toString());
+                    Sintactico.cont++;
+                    RESULT=nd;
+
+          :}
+        |DOUBLE:n
+                {:
+                    Nodo nd=new Nodo();
+                    nd.setEtiqueta("DOUBLE");
+                    nd.setId(Sintactico.cont);
+                    nd.setValor(n.toString());
+                    Sintactico.cont++;
+                    RESULT=nd;
+
+          :};
+
+tipo::= DIGITO:n
+        {:
+                    Nodo nd=new Nodo();
+                    nd.setEtiqueta("DIGITO");
+                    nd.setId(Sintactico.cont);
+                    nd.setValor(n.toString());
+                    Sintactico.cont++;
+                    RESULT=nd;
+
+          :}
+        |IDENTIFICADOR:n
+        {:
+                    Nodo nd=new Nodo();
+                    nd.setEtiqueta("IDENTIFICADOR");
+                    nd.setId(Sintactico.cont);
+                    nd.setValor(n.toString());
+                    Sintactico.cont++;
+                    RESULT=nd;
+
+          :}
+        |ID:n
+        {:
+                    Nodo nd=new Nodo();
+                    nd.setEtiqueta("ID");
+                    nd.setId(Sintactico.cont);
+                    nd.setValor(n.toString());
+                    Sintactico.cont++;
+                    RESULT=nd;
+
+          :}
+        |DECIMAL:n
+        {:
+                    Nodo nd=new Nodo();
+                    nd.setEtiqueta("DECIMAL");
+                    nd.setId(Sintactico.cont);
+                    nd.setValor(n.toString());
+                    Sintactico.cont++;
+                    RESULT=nd;
+
+          :}
+        |CADENA:n
+        {:
+                    Nodo nd=new Nodo();
+                    nd.setEtiqueta("CADENA");
+                    nd.setId(Sintactico.cont);
+                    String caden=n.toString();
+                    caden=caden.replace("\"","");
+                    nd.setValor(caden);
+                    Sintactico.cont++;
+                    RESULT=nd;
+
+          :};
+
+varios::=IDENTIFICADOR:n COMA:n1  varios:n2{:
+  Nodo nd=new Nodo();
+  nd.setEtiqueta("VARIOS");
+  nd.setId(Sintactico.cont);
+  nd.setValor("varios");
+  Sintactico.cont++;
+
+  Nodo nd2=new Nodo(); nd2.setEtiqueta("IDENTIFICADOR"); nd2.setId(Sintactico.cont); nd2.setValor(n.toString());
+  Sintactico.cont++;
+
+  Nodo nd3=new Nodo(); nd3.setEtiqueta("COMA"); nd3.setId(Sintactico.cont); nd3.setValor(n1.toString());
+  Sintactico.cont++;
+
+  nd.AddHijos((Nodo)nd2);
+  nd.AddHijos((Nodo)nd3);
+  nd.AddHijos((Nodo)n2);
+
+RESULT=nd;
+:}|IDENTIFICADOR:n
+  {:
+     Nodo nd2=new Nodo(); nd2.setEtiqueta("IDENTIFICADOR"); nd2.setId(Sintactico.cont); nd2.setValor(n.toString());
+      Sintactico.cont++;
+      RESULT=nd2;
+
+    :};
+
+/*--------------------------EXPRESIONES CON LAS VARIABLES PUEDEN SER DECLARADAS----------------------------*/
+expresion::=IGUAL:n listaexp:n1 PUNTOCOMA:n2{:
+ Nodo nd=new Nodo();
+  nd.setEtiqueta("EXPRESION");
+  nd.setId(Sintactico.cont);
+  nd.setValor("expresion");
+  Sintactico.cont++;
+
+  Nodo nd2=new Nodo(); nd2.setEtiqueta("IGUAL"); nd2.setId(Sintactico.cont); nd2.setValor(n.toString());
+  Sintactico.cont++;
+
+  Nodo nd3=new Nodo(); nd3.setEtiqueta("PUNTOCOMA"); nd3.setId(Sintactico.cont); nd3.setValor(n2.toString());
+  Sintactico.cont++;
+
+  nd.AddHijos((Nodo)nd2);
+  nd.AddHijos((Nodo)n1);
+  nd.AddHijos((Nodo)nd3);
+RESULT=nd;
+:}|IGUAL:n PARAB:n1 listaexp:n2 PARC:n3 PUNTOCOMA:n4{:
+ Nodo nd=new Nodo();
+  nd.setEtiqueta("EXPRESION");
+  nd.setId(Sintactico.cont);
+  nd.setValor("expresion");
+  Sintactico.cont++;
+
+  Nodo nd2=new Nodo(); nd2.setEtiqueta("IGUAL"); nd2.setId(Sintactico.cont); nd2.setValor(n.toString());
+  Sintactico.cont++;
+
+  Nodo nd3=new Nodo(); nd3.setEtiqueta("PUNTOCOMA"); nd3.setId(Sintactico.cont); nd3.setValor(n4.toString());
+  Sintactico.cont++;
+
+  Nodo nd4=new Nodo(); nd4.setEtiqueta("PARAB"); nd4.setId(Sintactico.cont); nd4.setValor(n1.toString());
+  Sintactico.cont++;
+
+  Nodo nd5=new Nodo(); nd5.setEtiqueta("PARC"); nd5.setId(Sintactico.cont); nd5.setValor(n3.toString());
+  Sintactico.cont++;
+
+  nd.AddHijos((Nodo)nd2);
+  nd.AddHijos((Nodo)nd3);
+  nd.AddHijos((Nodo)nd4);
+  nd.AddHijos((Nodo)nd5);
+  nd.AddHijos((Nodo)n2);
+RESULT=nd;
+:};
+
+listaexp::=tipo:n operador:n1{:
+
+    Nodo nd=new Nodo();
+    nd.setEtiqueta("LISTAEXP");
+    nd.setId(Sintactico.cont);
+    nd.setValor("listaexp");
+    Sintactico.cont++;
+
+    nd.AddHijos((Nodo)n);
+    if(n1!=null)nd.AddHijos((Nodo)n1);
+    RESULT=nd;
+   :}
+   |llamadas:n operador:n1{:
+    Nodo nd=new Nodo();
+    nd.setEtiqueta("LISTAEXP");
+    nd.setId(Sintactico.cont);
+    nd.setValor("listaexp");
+    Sintactico.cont++;
+
+    nd.AddHijos((Nodo)n);
+    if(n1!=null)nd.AddHijos((Nodo)n1);
+    RESULT=nd;
+   :};
+
+operador::=MAS:n listaexp:n1{:
+    Nodo nd=new Nodo();
+    nd.setEtiqueta("OPERADOR");
+    nd.setId(Sintactico.cont);
+    nd.setValor("operador");
+    Sintactico.cont++;
+
+    Nodo nd2=new Nodo(); nd2.setEtiqueta("MAS"); nd2.setId(Sintactico.cont); nd2.setValor(n.toString());
+    Sintactico.cont++;
+    
+    nd.AddHijos((Nodo)nd2);
+    nd.AddHijos((Nodo)n1);
+    RESULT=nd;
+   :}
+   |MENOS:n listaexp:n1{:
+    Nodo nd=new Nodo();
+    nd.setEtiqueta("OPERADOR");
+    nd.setId(Sintactico.cont);
+    nd.setValor("operador");
+    Sintactico.cont++;
+
+    Nodo nd2=new Nodo(); nd2.setEtiqueta("MENOS"); nd2.setId(Sintactico.cont); nd2.setValor(n.toString());
+    Sintactico.cont++;
+    
+    nd.AddHijos((Nodo)nd2);
+    nd.AddHijos((Nodo)n1);
+    RESULT=nd;
+   :}
+   |DIVISION:n listaexp:n1{:
+    Nodo nd=new Nodo();
+    nd.setEtiqueta("OPERADOR");
+    nd.setId(Sintactico.cont);
+    nd.setValor("operador");
+    Sintactico.cont++;
+
+    Nodo nd2=new Nodo(); nd2.setEtiqueta("DIVISON"); nd2.setId(Sintactico.cont); nd2.setValor(n.toString());
+    Sintactico.cont++;
+    
+    nd.AddHijos((Nodo)nd2);
+    nd.AddHijos((Nodo)n1);
+    RESULT=nd;
+   :}
+   |MULTIPLICACION:n listaexp:n1{:
+    Nodo nd=new Nodo();
+    nd.setEtiqueta("OPERADOR");
+    nd.setId(Sintactico.cont);
+    nd.setValor("operador");
+    Sintactico.cont++;
+
+    Nodo nd2=new Nodo(); nd2.setEtiqueta("MULTIPLICACION"); nd2.setId(Sintactico.cont); nd2.setValor(n.toString());
+    Sintactico.cont++;
+    
+    nd.AddHijos((Nodo)nd2);
+    nd.AddHijos((Nodo)n1);
+    RESULT=nd;
+   :}|POT:n listaexp:n1{:
+   Nodo nd=new Nodo();
+    nd.setEtiqueta("OPERADOR");
+    nd.setId(Sintactico.cont);
+    nd.setValor("operador");
+    Sintactico.cont++;
+
+    Nodo nd2=new Nodo(); nd2.setEtiqueta("POTENCIA"); nd2.setId(Sintactico.cont); nd2.setValor(n.toString());
+    Sintactico.cont++;
+    
+    nd.AddHijos((Nodo)nd2);
+    nd.AddHijos((Nodo)n1);
+    RESULT=nd;
+   :}
+   |{:RESULT=null;:};
+
+llamadas::=IDENTIFICADOR:n PARAB:n1 listaexp:n2 paraenvio:n3 PARC:n4 {:
+  Nodo nd=new Nodo();
+  nd.setEtiqueta("LLAMADAS");
+  nd.setId(Sintactico.cont);
+  nd.setValor("llamadas");
+  Sintactico.cont++;
+
+  Nodo nd2=new Nodo(); nd2.setEtiqueta("IDENTIFICADOR"); nd2.setId(Sintactico.cont); nd2.setValor(n.toString());
+  Sintactico.cont++;
+
+  Nodo nd3=new Nodo(); nd3.setEtiqueta("PARAB"); nd3.setId(Sintactico.cont); nd3.setValor(n1.toString());
+  Sintactico.cont++;
+  
+  Nodo nd4=new Nodo(); nd4.setEtiqueta("PARC"); nd4.setId(Sintactico.cont); nd4.setValor(n4.toString());
+  Sintactico.cont++;
+
+  nd.AddHijos((Nodo)nd2);
+  nd.AddHijos((Nodo)nd3);
+  nd.AddHijos((Nodo)nd4);
+  nd.AddHijos((Nodo)n2);
+  if(n3!=null)nd.AddHijos((Nodo)n3);
+  RESULT=nd;
+ :}| IDENTIFICADOR:n PARAB:n1 PARC:n2  {:
+  Nodo nd=new Nodo();
+  nd.setEtiqueta("LLAMADAS");
+  nd.setId(Sintactico.cont);
+  nd.setValor("llamadas");
+  Sintactico.cont++;
+
+  Nodo nd2=new Nodo(); nd2.setEtiqueta("IDENTIFICADOR"); nd2.setId(Sintactico.cont); nd2.setValor(n.toString());
+  Sintactico.cont++;
+
+  Nodo nd3=new Nodo(); nd3.setEtiqueta("PARAB"); nd3.setId(Sintactico.cont); nd3.setValor(n1.toString());
+  Sintactico.cont++;
+  
+  Nodo nd4=new Nodo(); nd4.setEtiqueta("PARC"); nd4.setId(Sintactico.cont); nd4.setValor(n2.toString());
+  Sintactico.cont++;
+
+  nd.AddHijos((Nodo)nd2);
+  nd.AddHijos((Nodo)nd3);
+  nd.AddHijos((Nodo)nd4);
+ :} ;
+
+paraenvio::=COMA:n listaexp:n1 paraenvio:n2
+            {:
+                 Nodo nd=new Nodo();
+                  nd.setEtiqueta("paraenvio");
+                  nd.setId(Sintactico.cont);
+                  nd.setValor("paraenvio");
+                  Sintactico.cont++;
+
+                  Nodo nd2=new Nodo(); nd2.setEtiqueta("COMA"); nd2.setId(Sintactico.cont); nd2.setValor(n.toString());
+                  Sintactico.cont++;
+
+                  nd.AddHijos((Nodo)nd2);
+                  nd.AddHijos((Nodo)n1);
+                  if(n2!=null)nd.AddHijos((Nodo)n2);
+                  RESULT=nd;
+              :}
+            |{:RESULT=null;:};
+
+metodofuncion::= ctipo IDENTIFICADOR PARAB parametros PARC LLAVEA lista LLAVEC;
+
+parametros::= ctipo tipo separador
+|tipo separador
+| ;
+
+separador::= COMA parametros|;
+
+retorno::= RETORNO listaexp PUNTOCOMA|RETORNO PUNTOCOMA;
+
+principal::= VACIO PRINCIPAL PARAB PARC LLAVEA lista LLAVEC;
+
+/*----------------------IF--------------------------*/
+sentenciasi::= SI PARAB condicion PARC LLAVEA lista LLAVEC sentenciasino;
+
+sentenciasino::= SINO LLAVEA lista LLAVEC;
+
+condicion::= tipo simbolo tipo partop 
+{:
+String adena="";
+RESULT=adena;
+
+:}|tipo|llamadas simbolo listaexp partop;
+
+simbolo::=MAYOR{:
+ String dato=">";
+ RESULT=dato;
+  :}
+ |MAYORIGUAL{:
+ String dato=">=";
+ RESULT=dato;
+ :}
+ |IGUAL{:
+ String dato="==";
+ RESULT=dato;
+ :}
+ |DISTINTO{:
+ String dato="!=";
+  RESULT=dato;
+ :}
+ |MENOR{:
+ String dato="<";
+ RESULT=dato;
+ :}
+|IGUALIGUAL{:
+ String dato="<";
+ RESULT=dato;
+ :}
+ |MENORIGUAL{:
+ String dato="<=";
+  RESULT=dato;
+  :}
+|MAS{:
+ String dato="<=";
+  RESULT=dato;
+  :}|INCREMENTO{:
+ String dato="<=";
+  RESULT=dato;
+  :}|MENOS{:
+ String dato="<=";
+  RESULT=dato;
+  :}|DECREMENTO{:
+ String dato="<=";
+  RESULT=dato;
+  :}
+|DIVISION{:
+ String dato="<=";
+  RESULT=dato;
+  :}|MULTIPLICACION;    
+
+partop::= AND condicion:n1{:
+            String dato="&& "+n1;
+            RESULT=dato;
+         :}
+         |OR condicion:n1{:
+            String dato="|| "+n1;
+            RESULT=dato;
+         :}
+         |NOT condicion:n1{:
+            String dato="!"+n1;
+            RESULT=dato;
+         :}|XOR{:
+            String dato="";
+            RESULT=dato;
+            :}|;
+
+
+sentenciaselecciona::= SELECCIONA PARAB condicion PARC LLAVEA estrucselec LLAVEC;
+
+
+estrucselec::= DIGITO DOSPUNTOS lista estrucselec|DEFECTO DOSPUNTOS lista|;
+
+sentenciapara::= PARA PARAB condicionpara PARC LLAVEA lista LLAVEC;
+
+condicionpara::= DOUBLE IDENTIFICADOR IGUAL listaexp PUNTOCOMA IDENTIFICADOR simbolo listaexp PUNTOCOMA  simbolo;
+
+
+condicionhasta::= HASTA PARAB condicion PARC LLAVEA lista LLAVEC;
+
+condicionmientras::= MIENTRAS PARAB condicion PARC LLAVEA lista LLAVEC;
+
+mostrar::= MOSTRAR PARAB condmostrar PARC PUNTOCOMA;
+
+condmostrar::= tipo COMA condmostrar|tipo;
+
+dibujarast::= DIBUJARAST PARAB IDENTIFICADOR PARC PUNTOCOMA;
+
+dibujarexp::=DIBUJAREXP PARAB condicionexp PARC PUNTOCOMA;
+
+condicionexp::=  condicion  condicionexp|;
+
+dibujarts::= DIBUJARTS PARAB PARC;

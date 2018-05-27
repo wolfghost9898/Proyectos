@@ -1,0 +1,1056 @@
+package proyecto1_cliente;
+import java.io.*;
+import java.lang.*;
+import java_cup.runtime.*;
+import java_cup.runtime.Symbol;
+import java.util.ArrayList;
+import java.util.*;
+import proyecto1_cliente.*;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
+import org.json.simple.parser.JSONParser;
+
+parser code
+{:
+
+	/**---------------CUANDO HAY ERROR SINTACTICO IMPRIME EN CONSOLA-----------------**/
+	public void syntax_error(Symbol  s){
+		Sintactico.errores="Error Sintactico en la Linea "+(s.left+1) + " Columna "+s.right+". Identificador "
+		+s.value+" "+s.sym+" no reconocido,";
+		System.out.println("Error Sintactico en la Linea "+(s.left+1) + " Columna "+s.right+". Identificador "
+		+s.value+" "+s.sym+" no reconocido,");
+	}
+
+	/**----------------Si no es posible recuperacion de errores-----**/
+	public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception{
+
+	}
+
+	  public static ArrayList<Object[]> variables=new ArrayList<Object[]>();
+      public static ArrayList<String> traduccion= new ArrayList<String>();
+      public static String errores="";
+      public static String tipo="";
+      public static ArrayList<Object> operaciones=new ArrayList<Object>();
+      public static String html="";
+
+      /*----------------------------Variables para RESULT----------------
+      -----------------------------------------------------------------*/
+      public static JSONArray score=new JSONArray();
+      public static JSONArray clases=new JSONArray();
+      public static JSONArray varia=new JSONArray();
+      public static JSONArray metodos=new JSONArray();
+      public static JSONArray comentarios=new JSONArray();
+
+      /*---------------------------------------FIN
+      ----------------------------------------------------------------*/
+:};
+
+terminal OPENHTML,CLOSEHTML,HEAD,BODY,H,TITLE,TABLE,TH;
+terminal TD,TR,DIV,P,HR,BR;
+terminal CLOSEHEAD,CLOSEBODY,CLOSEH,CLOSETITLE,CLOSETABLE,CLOSETH;
+terminal CLOSETD,CLOSETR,CLOSEDIV,CLOSEP,CLOSEHR,CLOSEBR;
+terminal COLORES,ALIGN,FONT,IGUAL,COMILLAS,ACOLOR,TEXTCOLOR,ALINEACION;
+terminal DIVISION,MAYOR,MENOR;
+terminal COMENTARIO,IDENTIFICADOR,DIGITO,CADENA,DIGITONEG;
+terminal PARA,PARC,PUNTO,COMA,PUNTOCOMA,DOSPUNTOS;
+terminal DOLAR,DOUBLE,STRING,INT,RESULT,OPEN,CLOSE,FLOAT,BOOLEAN,DECIMAL;
+terminal APOS,MAS,MENOS,MULTIPLICACION,MODULO,MAYORIGUAL,MENORIGUAL;
+terminal IGUALIGUAL,DISTINTO,AND,NOT,INCREMENTO,DECREMENTO,PRINT,OR;
+terminal SIMBOLO,CADENA2,CA3,CHAR;
+terminal SCORE,VARIABLES,NOMBRE,CANTIDAD,METODOS,CLASES,TIPO,CLASE,LINEAS,PARAMETROS;
+
+
+non terminal inicio, cuerpo,estructura,atributo;
+non terminal ehead,etitle,ebody;
+non terminal eh,etable,eth,etd,etr,ediv;
+non terminal ep,ebr,ehr,pru,cuerpotabla;
+non terminal cuerpotr;
+
+non terminal text;
+non terminal titletext;
+
+//---------------------------------------CP REPORT--------------------------
+/*
+-----------------------------------
+----------------------------------------
+*/
+non terminal cpreport,cuerporeport,cicloreport;
+non terminal decla,sepa,tipo,expresion,expr,sum,rest,div,multi,modu;
+non terminal typeval,typeoperador;
+non terminal res,imprimir,condicion,cuerpocondicion,equivalencias;
+/*
+------------------------------------
+---------------------------------------
+*/
+
+
+start with inicio;/*la produccion comienza con inicio*/
+
+inicio::= OPENHTML ehead:n ebody:n1 CLOSEHTML{:
+String cadena="<html>\n"+(String)n+(String)n1+"\n</html>";
+Sintactico.html=cadena;
+:};
+
+ehead::= MENOR HEAD MAYOR etitle:n  CLOSEHEAD
+{:
+String cadena="<head>\n"+(String)n+"\n</head>";
+RESULT=cadena;
+:};
+/*---------------etiqueta titulo-----------------*/
+etitle::= MENOR TITLE atributo:n  MAYOR titletext:n1  CLOSETITLE
+{:
+	String cadena="<title "+(String)n+">"+(String)n1+"</title>";
+	RESULT=cadena;
+:}|{:
+String cadena="";
+RESULT=cadena;
+:};
+
+titletext::=IDENTIFICADOR:n titletext:n1
+			{:RESULT=(String)n+" "+(String)n1;:}
+			|{:RESULT="";:};
+
+/*--------------------------atributos-------------------------*/
+atributo::=FONT IGUAL CADENA:n atributo:n1{:
+String cadena="font=\""+(String)n+"\" "+(String)n1;
+RESULT=cadena;
+:}|TEXTCOLOR IGUAL COLORES:n atributo:n1{:
+	String gets=(String)n;
+	String get=gets.toLowerCase();
+	String color="";
+	if(get.equals("\"rojo\"")){
+		color="red";
+	}else if(get.equals("\"amarillo\"")){
+		color="yellow";
+	}else if(get.equals("\"azul\"")){
+		color="blue";
+	}else if(get.equals("\"verde\"")){
+		color="green";
+	}else if(get.equals("\"gris\"")){
+		color="gray";
+	}else if(get.equals("\"anaranjado\"")){
+		color="orange";
+	}else if(get.equals("\"morado\"")){
+		color="purple";
+	}
+	String cadena="textcolor=\""+color+"\" "+(String)n1;
+	RESULT=cadena;
+:}| ACOLOR IGUAL  COLORES:n atributo:n1{:
+	String get=(String)n;
+	get=get.toLowerCase();
+	String color="";
+	if(get.equals("\"rojo\"")){
+		color="red";
+	}else if(get.equals("\"amarillo\"")){
+		color="yellow";
+	}else if(get.equals("\"azul\"")){
+		color="blue";
+	}else if(get.equals("\"verde\"")){
+		color="green";
+	}else if(get.equals("\"gris\"")){
+		color="gray";
+	}else if(get.equals("\"anaranjado\"")){
+		color="orange";
+	}else{
+		color="purple";
+	}
+	String cadena="color=\""+color+"\" "+(String)n1;
+	RESULT=cadena;
+:}|ALIGN IGUAL  ALINEACION:n  atributo:n1{:
+	String get=(String)n;
+	get=get.toLowerCase();
+	String color="";
+	if(get.equals("\"izquierda\"")){
+		color="left";
+	}else if(get.equals("\"derecha\"")){
+		color="right";
+	}else{
+		color="center";
+	}
+	String cadena="align=\""+color+"\" "+(String)n1;
+	RESULT=cadena;
+:}|{:
+	String cadena="";
+	RESULT=cadena;
+	:};
+
+/*----------------------etiqueta body-------------------------*/
+ebody::= MENOR BODY atributo:n MAYOR  cuerpo:n1 CLOSEBODY{:
+String cadena="\n<body "+(String)n+">\n"+(String)n1+"\n</body>";
+RESULT=cadena;
+:}|{:
+String cadena="";
+RESULT=cadena;
+:};
+
+
+cuerpo::= estructura:n cuerpo:n1{:
+String cadena=(String)n+(String)n1;
+RESULT=cadena;
+:}|{:
+String cadena="";
+RESULT=cadena;
+:};
+
+estructura::= eh:n1{:RESULT="\n"+n1+"\n";:}
+              |etable:n1{:RESULT="\n"+n1+"\n";:}
+              |ediv:n1{:RESULT="\n"+n1+"\n";:}
+              |ebr:n1{:RESULT="\n"+n1+"\n";:}
+              |ehr:n1{:RESULT="\n"+n1+"\n";:}
+              |ep:n1{:RESULT="\n"+n1+"\n";:}
+              |IDENTIFICADOR:n1{:RESULT=n1+" ";:}
+              |CADENA:n1{:RESULT=n1+" ";:}
+              |CADENA2:n1{:RESULT=n1+" ";:}
+              |SIMBOLO:n1{:RESULT=n1+" ";:}
+              |SCORE:n1{:RESULT=n1+" ";:}
+              |VARIABLES:n1{:RESULT=n1+" ";:}
+              |NOMBRE:n1{:RESULT=n1+" ";:}
+              |CANTIDAD:n1{:RESULT=n1+" ";:}
+              |METODOS:n1{:RESULT=n1+" ";:}
+              |CLASES:n1{:RESULT=n1+" ";:}
+              |TIPO:n1{:RESULT=n1+" ";:}
+              |CLASE:n1{:RESULT=n1+" ";:}
+              |LINEAS:n1{:RESULT=n1+" ";:}
+              |MAS:n1{:RESULT=n1+" ";:}
+              |MENOS:n1{:RESULT=n1+" ";:}
+              |MULTIPLICACION:n1{:RESULT=n1+" ";:}
+              |cpreport:n1{:RESULT=n1+" ";:};
+
+/*----------------------------TEXTO----------------------------------*/
+text::=IDENTIFICADOR:n text:n1{:RESULT=(String)n+" "+(String)n1;:}
+	   |CADENA:n text:n1{:RESULT=(String)n+" "+(String)n1;:}
+	   |SIMBOLO:n text:n1{:RESULT=(String)n+" "+(String)n1;:}
+	   |DIGITO:n text:n1{:RESULT=(String)n+" "+(String)n1;:}
+	   |CADENA2:n text:n1{:RESULT=(String)n+" "+(String)n1;:}
+	   |cpreport:n text:n1{:RESULT=(String)n+" "+(String)n1;:}
+	   |IGUAL:n text:n1{:RESULT=(String)n+" "+(String)n1;:}
+	   |PUNTO:n text:n1{:RESULT=(String)n+" "+(String)n1;:}
+	   |PUNTOCOMA:n text:n1{:RESULT=(String)n+" "+(String)n1;:}
+	   |NOMBRE:n text:n1{:RESULT=(String)n+" "+(String)n1;:}
+	   |SCORE:n text:n1{:RESULT=(String)n+" "+(String)n1;:}
+	   |VARIABLES:n text:n1{:RESULT=(String)n+" "+(String)n1;:}
+	   |CANTIDAD:n text:n1{:RESULT=(String)n+" "+(String)n1;:}
+	   |METODOS:n text:n1{:RESULT=(String)n+" "+(String)n1;:}
+	   |CLASES:n text:n1{:RESULT=(String)n+" "+(String)n1;:}
+	   |TIPO:n text:n1{:RESULT=(String)n+" "+(String)n1;:}
+	   |CLASE:n text:n1{:RESULT=(String)n+" "+(String)n1;:}
+	   |LINEAS:n text:n1{:RESULT=(String)n+" "+(String)n1;:}
+	   |{:RESULT="";:};
+
+
+
+
+
+
+//-----------------------------------CP REPORT-------------------------------------
+/*
+----------------------------------
+------------------------------
+--------------------------------
+*/
+
+//---------------------cuerpo del CPREPORT---------------------------------
+cpreport::= DOLAR cicloreport:n DOLAR{:RESULT=(String)n;:} ;
+cicloreport::=cuerporeport:n cicloreport:n1{:RESULT=(String)n+(String)n1;:}
+			  |{:RESULT="";:};
+cuerporeport::=decla{:RESULT="";:}
+			   |res:n PUNTOCOMA{:RESULT="";:}
+			   |COMENTARIO
+			   |imprimir:n PUNTOCOMA
+			   		{:
+			   			Sintactico.errores=Sintactico.errores+"\n"+(String)n;
+			   			RESULT=n;
+			   		:};
+
+
+//---------------------------Tipo de Dato-----------------------------------
+tipo::=DOUBLE:n{:RESULT=n;:}
+	   |STRING:n{:RESULT=n;:}
+	   |INT:n{:RESULT=n;:}
+	   |FLOAT:n{:RESULT=n;:}
+	   |BOOLEAN:n{:RESULT=n;:};
+
+//--------------------------------Declaracion de variables----------------------
+decla::=tipo:n{:Sintactico.tipo=String.valueOf(n);:} sepa:n1{:Sintactico.tipo="";:}
+
+		|IDENTIFICADOR:n
+		{:
+			Object[] data;
+			for(int i=0;i<Sintactico.variables.size();i++){
+				data=Sintactico.variables.get(i);
+				if(((String)n).equals((String)data[1])){
+					Sintactico.tipo=String.valueOf(data[0]);
+				}
+			}
+		:} 
+		expresion:n1 PUNTOCOMA
+		{:
+			Object[] data;
+			for(int i=0;i<Sintactico.variables.size();i++){
+				data=Sintactico.variables.get(i);
+				if(((String)n).equals((String)data[1])){
+					data[2]=n1;
+					Sintactico.variables.set(i,data);
+				}
+			}
+	    :};
+
+//--------------------------------------cantidad de identificadores--------------
+sepa::= IDENTIFICADOR:n expresion:n1 COMA sepa
+		{:
+			Object[] data=new Object[]{Sintactico.tipo,n,n1};
+			Sintactico.variables.add(data);
+			:}
+		|IDENTIFICADOR:n expresion:n1 PUNTOCOMA
+		{:
+			Object[] data=new Object[]{Sintactico.tipo,n,n1};
+			Sintactico.variables.add(data);
+			:};
+
+expresion::=IGUAL expr:n{:RESULT=n;:}
+			|{:RESULT=null;:};
+
+//------------------------------------Que expresiones pueden venir---------------------
+
+expr::= typeval:n MAS expr:n1
+			{:
+				if(Sintactico.tipo.equals("String")){
+					String result=String.valueOf(n)+String.valueOf(n1);
+					String mandar=result.replace("\"","");
+					RESULT=mandar;
+				}else if(Sintactico.tipo.equals("int")){
+					try{
+						int num1=Integer.parseInt(String.valueOf(n))+Integer.parseInt(String.valueOf(n1));
+						RESULT=num1;
+					}catch(NumberFormatException e){
+						Sintactico.errores=Sintactico.errores+"\n"+" No se puede castear a entero";
+						RESULT="";	
+					}
+				}else if(Sintactico.tipo.equals("double")){
+					try{
+						double num1=Double.parseDouble(String.valueOf(n))+Double.parseDouble(String.valueOf(n1));
+						RESULT=num1;
+					}catch(NumberFormatException e){
+						Sintactico.errores=Sintactico.errores+"\n"+" No se puede castear a double";
+						RESULT="";	
+					}
+				}else{
+					String result=String.valueOf(n)+String.valueOf(n1);
+					String mandar=result.replace("\"","");
+					RESULT=mandar;
+				}
+			:}
+	   |typeval:n MULTIPLICACION expr:n1
+	   		{:
+				if(Sintactico.tipo.equals("String")){
+						Sintactico.errores=Sintactico.errores+"\n"+" No se puede multiplicar String";
+					RESULT="";
+				}else if(Sintactico.tipo.equals("int")){
+					try{
+						int num1=Integer.parseInt(String.valueOf(n))*Integer.parseInt(String.valueOf(n1));
+						RESULT=num1;
+					}catch(NumberFormatException e){
+						Sintactico.errores=Sintactico.errores+"\n"+" No se puede castear a entero";
+						RESULT="";	
+					}
+				}else if(Sintactico.tipo.equals("double")){
+					try{
+						double num1=Double.parseDouble(String.valueOf(n))*Double.parseDouble(String.valueOf(n1));
+						RESULT=num1;
+					}catch(NumberFormatException e){
+						Sintactico.errores=Sintactico.errores+"\n"+" No se puede castear a double";
+						RESULT="";	
+					}
+				}else{
+					String result=String.valueOf(n)+String.valueOf(n1);
+					String mandar=result.replace("\"","");
+					RESULT=mandar;
+				}
+	   		:}
+	   |typeval:n MENOS expr:n1
+	   		{:
+				if(Sintactico.tipo.equals("String")){
+						Sintactico.errores=Sintactico.errores+"\n"+" No se puede restar String";
+					RESULT="";
+				}else if(Sintactico.tipo.equals("int")){
+					try{
+						int num1=Integer.parseInt(String.valueOf(n))-Integer.parseInt(String.valueOf(n1));
+						RESULT=num1;
+					}catch(NumberFormatException e){
+						Sintactico.errores=Sintactico.errores+"\n"+" No se puede castear a entero";
+						RESULT="";	
+					}
+				}else if(Sintactico.tipo.equals("double")){
+					try{
+						double num1=Double.parseDouble(String.valueOf(n))-Double.parseDouble(String.valueOf(n1));
+						RESULT=num1;
+					}catch(NumberFormatException e){
+						Sintactico.errores=Sintactico.errores+"\n"+" No se puede castear a double";
+						RESULT="";	
+					}
+				}else{
+					String result=String.valueOf(n)+String.valueOf(n1);
+					String mandar=result.replace("\"","");
+					RESULT=mandar;
+				}	   			
+	   		:}
+	   |typeval:n MODULO expr:n1
+	   		{:
+				if(Sintactico.tipo.equals("String")){
+						Sintactico.errores=Sintactico.errores+"\n"+" No se puede sacar modulo de un String";
+					RESULT="";
+				}else if(Sintactico.tipo.equals("int")){
+					try{
+						int num1=Integer.parseInt(String.valueOf(n))%Integer.parseInt(String.valueOf(n1));
+						RESULT=num1;
+					}catch(NumberFormatException e){
+						Sintactico.errores=Sintactico.errores+"\n"+" No se puede castear a entero";
+						RESULT="";	
+					}
+				}else if(Sintactico.tipo.equals("double")){
+					try{
+						double num1=Double.parseDouble(String.valueOf(n))%Double.parseDouble(String.valueOf(n1));
+						RESULT=num1;
+					}catch(NumberFormatException e){
+						Sintactico.errores=Sintactico.errores+"\n"+" No se puede castear a double";
+						RESULT="";	
+					}
+				}else{
+					String result=String.valueOf(n)+String.valueOf(n1);
+					String mandar=result.replace("\"","");
+					RESULT=mandar;
+				}	   			
+	   		:}
+	   |PARA expr:n PARC
+	   		{:
+				RESULT=n;	   			
+	   		:} 
+	   |PARA expr:n PARC MAS expr:n1
+	   	    {:
+				if(Sintactico.tipo.equals("String")){
+					String result=String.valueOf(n)+String.valueOf(n1);
+					String mandar=result.replace("\"","");
+					RESULT=mandar;
+				}else if(Sintactico.tipo.equals("int")){
+					try{
+						int num1=Integer.parseInt(String.valueOf(n))+Integer.parseInt(String.valueOf(n1));
+						RESULT=num1;
+					}catch(NumberFormatException e){
+						Sintactico.errores=Sintactico.errores+"\n"+" No se puede castear a entero";
+						RESULT="";	
+					}
+				}else if(Sintactico.tipo.equals("double")){
+					try{
+						double num1=Double.parseDouble(String.valueOf(n))+Double.parseDouble(String.valueOf(n1));
+						RESULT=num1;
+					}catch(NumberFormatException e){
+						Sintactico.errores=Sintactico.errores+"\n"+" No se puede castear a double";
+						RESULT="";	
+					}
+				}else{
+					String result=String.valueOf(n)+String.valueOf(n1);
+					String mandar=result.replace("\"","");
+					RESULT=mandar;
+				}
+			:}
+	   |PARA expr:n PARC MENOS expr:n1   
+	   		{:
+				if(Sintactico.tipo.equals("String")){
+						Sintactico.errores=Sintactico.errores+"\n"+" No se puede restar String";
+					RESULT="";
+				}else if(Sintactico.tipo.equals("int")){
+					try{
+						int num1=Integer.parseInt(String.valueOf(n))-Integer.parseInt(String.valueOf(n1));
+						RESULT=num1;
+					}catch(NumberFormatException e){
+						Sintactico.errores=Sintactico.errores+"\n"+" No se puede castear a entero";
+						RESULT="";	
+					}
+				}else if(Sintactico.tipo.equals("double")){
+					try{
+						double num1=Double.parseDouble(String.valueOf(n))-Double.parseDouble(String.valueOf(n1));
+						RESULT=num1;
+					}catch(NumberFormatException e){
+						Sintactico.errores=Sintactico.errores+"\n"+" No se puede castear a double";
+						RESULT="";	
+					}
+				}else{
+					String result=String.valueOf(n)+String.valueOf(n1);
+					String mandar=result.replace("\"","");
+					RESULT=mandar;
+				}	   			
+	   		:}
+	   |PARA expr:n PARC MULTIPLICACION expr:n1	   
+	   		{:
+				if(Sintactico.tipo.equals("String")){
+						Sintactico.errores=Sintactico.errores+"\n"+" No se puede multiplicar String";
+					RESULT="";
+				}else if(Sintactico.tipo.equals("int")){
+					try{
+						int num1=Integer.parseInt(String.valueOf(n))*Integer.parseInt(String.valueOf(n1));
+						RESULT=num1;
+					}catch(NumberFormatException e){
+						Sintactico.errores=Sintactico.errores+"\n"+" No se puede castear a entero";
+						RESULT="";	
+					}
+				}else if(Sintactico.tipo.equals("double")){
+					try{
+						double num1=Double.parseDouble(String.valueOf(n))*Double.parseDouble(String.valueOf(n1));
+						RESULT=num1;
+					}catch(NumberFormatException e){
+						Sintactico.errores=Sintactico.errores+"\n"+" No se puede castear a double";
+						RESULT="";	
+					}
+				}else{
+					String result=String.valueOf(n)+String.valueOf(n1);
+					String mandar=result.replace("\"","");
+					RESULT=mandar;
+				}
+	   		:}
+	   |PARA expr:n PARC MODULO expr:n1	   
+	   		{:
+				if(Sintactico.tipo.equals("String")){
+						Sintactico.errores=Sintactico.errores+"\n"+" No se puede sacar modulo de un String";
+					RESULT="";
+				}else if(Sintactico.tipo.equals("int")){
+					try{
+						int num1=Integer.parseInt(String.valueOf(n))%Integer.parseInt(String.valueOf(n1));
+						RESULT=num1;
+					}catch(NumberFormatException e){
+						Sintactico.errores=Sintactico.errores+"\n"+" No se puede castear a entero";
+						RESULT="";	
+					}
+				}else if(Sintactico.tipo.equals("double")){
+					try{
+						double num1=Double.parseDouble(String.valueOf(n))%Double.parseDouble(String.valueOf(n1));
+						RESULT=num1;
+					}catch(NumberFormatException e){
+						Sintactico.errores=Sintactico.errores+"\n"+" No se puede castear a double";
+						RESULT="";	
+					}
+				}else{
+					String result=String.valueOf(n)+String.valueOf(n1);
+					String mandar=result.replace("\"","");
+					RESULT=mandar;
+				}	   			
+	   		:}
+	   |PARA expr:n PARC DIVISION expr:n1   
+	   		{:
+				if(Sintactico.tipo.equals("String")){
+						Sintactico.errores=Sintactico.errores+"\n"+" No se puede sacar dividir un String";
+					RESULT="";
+				}else if(Sintactico.tipo.equals("int")){
+					try{
+						int num1=Integer.parseInt(String.valueOf(n))/Integer.parseInt(String.valueOf(n1));
+						RESULT=num1;
+					}catch(NumberFormatException e){
+						Sintactico.errores=Sintactico.errores+"\n"+" No se puede castear a entero";
+						RESULT="";	
+					}
+				}else if(Sintactico.tipo.equals("double")){
+					try{
+						double num1=Double.parseDouble(String.valueOf(n))/Double.parseDouble(String.valueOf(n1));
+						RESULT=num1;
+					}catch(NumberFormatException e){
+						Sintactico.errores=Sintactico.errores+"\n"+" No se puede castear a double";
+						RESULT="";	
+					}
+				}else{
+					String result=String.valueOf(n)+String.valueOf(n1);
+					String mandar=result.replace("\"","");
+					RESULT=mandar;
+				}	   			
+	   		:} 
+	   |typeval:n DIVISION expr:n1	   
+	   		{:
+				if(Sintactico.tipo.equals("String")){
+						Sintactico.errores=Sintactico.errores+"\n"+" No se puede sacar dividir un String";
+					RESULT="";
+				}else if(Sintactico.tipo.equals("int")){
+					try{
+						int num1=Integer.parseInt(String.valueOf(n))/Integer.parseInt(String.valueOf(n1));
+						RESULT=num1;
+					}catch(NumberFormatException e){
+						Sintactico.errores=Sintactico.errores+"\n"+" No se puede castear a entero";
+						RESULT="";	
+					}
+				}else if(Sintactico.tipo.equals("double")){
+					try{
+						double num1=Double.parseDouble(String.valueOf(n))/Double.parseDouble(String.valueOf(n1));
+						RESULT=num1;
+					}catch(NumberFormatException e){
+						Sintactico.errores=Sintactico.errores+"\n"+" No se puede castear a double";
+						RESULT="";	
+					}
+				}else{
+					String result=String.valueOf(n)+String.valueOf(n1);
+					String mandar=result.replace("\"","");
+					RESULT=mandar;
+				}	   			
+	   		:} 
+	   |DIGITO:n INCREMENTO
+	   		{:
+				if(Sintactico.tipo.equals("String")){
+						Sintactico.errores=Sintactico.errores+"\n"+" No se puede incrementar String";
+					RESULT="";
+				}else if(Sintactico.tipo.equals("int")){
+					try{
+						int num1=Integer.parseInt(String.valueOf(n))+1;
+						RESULT=num1;
+					}catch(NumberFormatException e){
+						Sintactico.errores=Sintactico.errores+"\n"+" No se puede castear a entero";
+						RESULT="";	
+					}
+				}else if(Sintactico.tipo.equals("double")){
+					try{
+						double num1=Double.parseDouble(String.valueOf(n))+1;
+						RESULT=num1;
+					}catch(NumberFormatException e){
+						Sintactico.errores=Sintactico.errores+"\n"+" No se puede castear a double";
+						RESULT="";	
+					}
+				}else{
+					String result=String.valueOf(n);
+					String mandar=result.replace("\"","");
+					RESULT=mandar;
+				}
+	   		:}
+	   |DIGITO:n DECREMENTO
+	   		{:
+				if(Sintactico.tipo.equals("String")){
+						Sintactico.errores=Sintactico.errores+"\n"+" No se puede decrementar String";
+					RESULT="";
+				}else if(Sintactico.tipo.equals("int")){
+					try{
+						int num1=Integer.parseInt(String.valueOf(n))-1;
+						RESULT=num1;
+					}catch(NumberFormatException e){
+						Sintactico.errores=Sintactico.errores+"\n"+" No se puede castear a entero";
+						RESULT="";	
+					}
+				}else if(Sintactico.tipo.equals("double")){
+					try{
+						double num1=Double.parseDouble(String.valueOf(n))-1;
+						RESULT=num1;
+					}catch(NumberFormatException e){
+						Sintactico.errores=Sintactico.errores+"\n"+" No se puede castear a double";
+						RESULT="";	
+					}
+				}else{
+					String result=String.valueOf(n);
+					String mandar=result.replace("\"","");
+					RESULT=mandar;
+				}
+	   		:}
+	   |typeval:n
+			{:
+				if(Sintactico.tipo.equals("String")){
+					String result=String.valueOf(n);
+					String mandar=result.replace("\"","");
+					RESULT=mandar;
+				}else if(Sintactico.tipo.equals("int")){
+					try{
+						int num1=Integer.parseInt(String.valueOf(n));
+						RESULT=num1;
+					}catch(NumberFormatException e){
+						Sintactico.errores=Sintactico.errores+"\n"+" No se puede castear a entero";
+						RESULT="";	
+					}
+				}else if(Sintactico.tipo.equals("double")){
+					try{
+						double num1=Double.parseDouble(String.valueOf(n));
+						RESULT=num1;
+					}catch(NumberFormatException e){
+						Sintactico.errores=Sintactico.errores+"\n"+" No se puede castear a double";
+						RESULT="";	
+					}
+				}else{
+					String result=String.valueOf(n);
+					String mandar=result.replace("\"","");
+					RESULT=mandar;
+				}
+			:}
+	   |condicion:n{:RESULT=n;:};
+
+
+typeval::=IDENTIFICADOR:n
+		  	{:
+			  	Object[] data;
+			  	String result="";
+				for(int i=0;i<Sintactico.variables.size();i++){
+					data=Sintactico.variables.get(i);
+					if(((String)n).equals((String)data[1])){
+						result=String.valueOf(data[2]);
+					}
+				}	
+		  		RESULT=result;
+		  	:}
+		  |CADENA:n
+		  	{:
+		  		RESULT=n;
+		  	:}
+		  |DIGITO:n
+		  	{:
+		  		RESULT=n;
+		  	:}
+		  |DECIMAL:n
+		  	{:
+		  		RESULT=n;
+		  	:}
+		  |res:n{:
+		  		RESULT=n;
+		  	:};
+
+
+condicion::= PARA cuerpocondicion:n PARC AND condicion:n1 
+				 		{:
+				 			boolean var1=((Boolean) n).booleanValue();
+				 			boolean var2=((Boolean) n1).booleanValue();
+				 			boolean result= var1 && var2;
+				 			RESULT=result;
+				 		:}
+			 |PARA cuerpocondicion:n PARC OR condicion:n1		 
+				  		{:
+				 			boolean var1=((Boolean) n).booleanValue();
+				 			boolean var2=((Boolean) n1).booleanValue();
+				 			boolean result= var1 || var2;
+				 			RESULT=result;
+				 		:} 
+		     |PARA cuerpocondicion:n PARC
+				 		{:
+				 			boolean var1=((Boolean) n).booleanValue();
+				 			boolean result= var1;
+				 			RESULT=result;
+				 		:}; 
+
+cuerpocondicion::=  equivalencias:n AND cuerpocondicion:n1 			
+				 		{:
+				 			boolean var1=((Boolean) n).booleanValue();
+				 			boolean var2=((Boolean) n1).booleanValue();
+				 			boolean result= var1 && var2;
+				 			RESULT=result;
+				 		:}
+				  | equivalencias:n OR cuerpocondicion:n1
+				  		{:
+				 			boolean var1=((Boolean) n).booleanValue();
+				 			boolean var2=((Boolean) n1).booleanValue();
+				 			boolean result= var1 || var2;
+				 			RESULT=result;
+				 		:} 
+				  |NOT PARA equivalencias:n PARC
+				 		{:
+				 			boolean var1=((Boolean) n).booleanValue();
+				 			boolean result= !(var1);
+				 			RESULT=result;
+				 		:}
+				  | equivalencias:n
+				 		{:
+				 			boolean var1=((Boolean) n).booleanValue();
+				 			boolean result= var1;
+				 			RESULT=result;
+				 		:};
+
+equivalencias::= typeval:n MAYORIGUAL typeval:n1
+					{:
+						double num1=Double.parseDouble(String.valueOf(n));
+						double num2=Double.parseDouble(String.valueOf(n1));
+						boolean result=num1>=num2;
+						RESULT=result;
+					:} 
+				 | typeval:n MENORIGUAL typeval:n1 
+				 		{:
+						double num1=Double.parseDouble(String.valueOf(n));
+						double num2=Double.parseDouble(String.valueOf(n1));
+						boolean result=num1<=num2;
+						RESULT=result;
+						:} 
+				 | typeval:n IGUALIGUAL typeval:n1 
+				 		{:
+				 			String strn=String.valueOf(n);
+				 			String strn1=String.valueOf(n1);
+				 			boolean result= strn.equals(strn1);
+				 			RESULT=result;
+				 		:}
+				 | typeval:n DISTINTO typeval:n1 
+						 {:
+				 			String strn=String.valueOf(n);
+				 			String strn1=String.valueOf(n1);
+				 			boolean result= !(strn.equals(strn1));
+				 			RESULT=result;
+				 		 :}
+				 | typeval:n MAYOR typeval:n1				 
+				 		{:
+						double num1=Double.parseDouble(String.valueOf(n));
+						double num2=Double.parseDouble(String.valueOf(n1));
+						boolean result=num1>num2;
+						RESULT=result;
+						:}  
+				 | typeval:n MENOR typeval:n1 			 
+				 		{:
+						double num1=Double.parseDouble(String.valueOf(n));
+						double num2=Double.parseDouble(String.valueOf(n1));
+						boolean result=num1<num2;
+						RESULT=result;
+						:} ;
+
+
+imprimir::=PRINT{:Sintactico.tipo="otro";:} PARA expr:n PARC {:RESULT=n;:};
+
+/*--------------------------------------------------------------------
+---------------------------------------------------------------------------
+---------------------------------------------------------------------------*/
+//--------------------------------------variable Result------------------------------
+res::=RESULT PUNTO SCORE 
+	{:
+		RESULT=String.valueOf(Sintactico.score.get(0))+"\n";
+	:}
+	|RESULT PUNTO VARIABLES 
+		{:
+		String cadena=String.valueOf(Sintactico.varia)+"\n";
+		RESULT=cadena;
+		:}
+	|RESULT PUNTO VARIABLES OPEN DIGITO:n CLOSE PUNTO NOMBRE 
+		{:
+			Iterator i;
+			int contador=0;
+			int enumera=Integer.parseInt((String)n);
+			i=Sintactico.varia.iterator();
+			String cadena="";
+			while(i.hasNext()){
+				JSONObject innerObj=(JSONObject)i.next();
+				if(contador==enumera) cadena=String.valueOf(innerObj.get("Nombre"));
+				contador++;
+			}
+			RESULT=cadena;
+		:}
+	|RESULT PUNTO VARIABLES OPEN DIGITO:n CLOSE PUNTO TIPO 
+		{:
+			Iterator i;
+			int contador=0;
+			int enumera=Integer.parseInt((String)n);
+			i=Sintactico.varia.iterator();
+			String cadena="";
+			while(i.hasNext()){
+				JSONObject innerObj=(JSONObject)i.next();
+				if(contador==enumera) cadena=String.valueOf(innerObj.get("Tipo"));
+				contador++;
+			}
+			RESULT=cadena;
+		:}
+	|RESULT PUNTO VARIABLES OPEN DIGITO:n CLOSE PUNTO CLASE 
+		{:
+			Iterator i;
+			int contador=0;
+			int enumera=Integer.parseInt((String)n);
+			i=Sintactico.varia.iterator();
+			String cadena="";
+			while(i.hasNext()){
+				JSONObject innerObj=(JSONObject)i.next();
+				if(contador==enumera) cadena=String.valueOf(innerObj.get("Clase"));
+				contador++;
+			}
+			RESULT=cadena;
+		:}	
+	|RESULT PUNTO VARIABLES PUNTO NOMBRE 
+		{:
+			Iterator i;
+			i=Sintactico.varia.iterator();
+			String cadena="";
+			while(i.hasNext()){
+				JSONObject innerObj=(JSONObject)i.next();
+				cadena=cadena+","+String.valueOf(innerObj.get("Nombre"));
+			}
+			RESULT=cadena;
+		:}
+	|RESULT PUNTO VARIABLES PUNTO CANTIDAD 
+		{:
+			String cant=String.valueOf(Sintactico.varia.size());
+			RESULT=cant;
+		:}
+
+	|RESULT PUNTO METODOS 
+		{:
+		String cadena=String.valueOf(Sintactico.metodos)+"\n";
+		RESULT=cadena;
+		:}
+	|RESULT PUNTO METODOS OPEN DIGITO:n CLOSE PUNTO NOMBRE 
+		{:
+			Iterator i;
+			int contador=0;
+			int enumera=Integer.parseInt((String)n);
+			i=Sintactico.metodos.iterator();
+			String cadena="";
+			while(i.hasNext()){
+				JSONObject innerObj=(JSONObject)i.next();
+				if(contador==enumera) cadena=String.valueOf(innerObj.get("Nombre"));
+				contador++;
+			}
+			RESULT=cadena;
+		:}
+	|RESULT PUNTO METODOS OPEN DIGITO:n CLOSE PUNTO TIPO 
+		{:
+			Iterator i;
+			int contador=0;
+			int enumera=Integer.parseInt((String)n);
+			i=Sintactico.metodos.iterator();
+			String cadena="";
+			while(i.hasNext()){
+				JSONObject innerObj=(JSONObject)i.next();
+				if(contador==enumera) cadena=String.valueOf(innerObj.get("Tipo"));
+				contador++;
+			}
+			RESULT=cadena;
+		:}	
+	|RESULT PUNTO METODOS OPEN DIGITO:n CLOSE PUNTO LINEAS 
+		{:
+			Iterator i;
+			int contador=0;
+			int enumera=Integer.parseInt((String)n);
+			i=Sintactico.metodos.iterator();
+			String cadena="";
+			while(i.hasNext()){
+				JSONObject innerObj=(JSONObject)i.next();
+				if(contador==enumera) cadena=String.valueOf(innerObj.get("Lineas"));
+				contador++;
+			}
+			RESULT=cadena;
+		:}		
+	|RESULT PUNTO METODOS OPEN DIGITO:n CLOSE PUNTO PARAMETROS 
+		{:
+			Iterator i;
+			int contador=0;
+			int enumera=Integer.parseInt((String)n);
+			i=Sintactico.metodos.iterator();
+			String cadena="";
+			while(i.hasNext()){
+				JSONObject innerObj=(JSONObject)i.next();
+				if(contador==enumera) cadena=String.valueOf(innerObj.get("Parametros"));
+				contador++;
+			}
+			RESULT=cadena;
+		:}			
+	|RESULT PUNTO METODOS PUNTO NOMBRE 
+		{:
+			Iterator i;
+			i=Sintactico.metodos.iterator();
+			String cadena="";
+			while(i.hasNext()){
+				JSONObject innerObj=(JSONObject)i.next();
+				cadena=cadena+","+String.valueOf(innerObj.get("Nombre"));
+			}
+			RESULT=cadena;
+		:}
+	|RESULT PUNTO METODOS PUNTO CANTIDAD 
+		{:
+			String cant=String.valueOf(Sintactico.metodos.size());
+			RESULT=cant;
+		:}
+
+
+	|RESULT PUNTO CLASES 
+		{:
+		String cadena=String.valueOf(Sintactico.clases)+"\n";
+		RESULT=cadena;
+		:}
+	|RESULT PUNTO CLASES OPEN DIGITO:n CLOSE PUNTO NOMBRE 
+		{:
+			Iterator i;
+			int contador=0;
+			int enumera=Integer.parseInt((String)n);
+			i=Sintactico.clases.iterator();
+			String cadena="";
+			while(i.hasNext()){
+				JSONObject innerObj=(JSONObject)i.next();
+				if(contador==enumera) cadena=String.valueOf(innerObj.get("Nombre"))+","+String.valueOf(innerObj.get("Nombre2"));
+				contador++;
+			}
+			RESULT=cadena;
+		:}
+	|RESULT PUNTO CLASES PUNTO NOMBRE 
+		{:
+			Iterator i;
+			i=Sintactico.clases.iterator();
+			String cadena="";
+			while(i.hasNext()){
+				JSONObject innerObj=(JSONObject)i.next();
+				cadena=cadena+","+String.valueOf(innerObj.get("Nombre"));
+			}
+			RESULT=cadena;
+		:}
+	|RESULT PUNTO CLASES PUNTO CANTIDAD 
+		{:
+			String cant=String.valueOf(Sintactico.clases.size());
+			RESULT=cant;
+		:};
+
+/*
+---------------------------------------FIN CP REPORT--------------------
+-------------------------------------------------------------------
+*/
+
+
+
+
+
+
+
+
+
+/*----------------------etiqueta tamaño de texto-----------------------*/
+eh::= MENOR H:n atributo:n1 MAYOR text:n2 MENOR DIVISION H:n3 MAYOR
+{:
+String cadena="<"+(String)n+" "+(String)n1+">"+(String)n2+"</"+(String)n3+">";
+RESULT=cadena;
+:};
+
+
+/*---------------------------------etiqueta tabla---------------*/
+etable::= MENOR TABLE atributo:n MAYOR cuerpotabla:n1  CLOSETABLE 
+{:
+String cadena="<table "+(String)n+">\n"+(String)n1+"\n</table>"; 
+RESULT=cadena;
+:};
+
+cuerpotabla::= etr:n cuerpotabla:n1
+				{:RESULT=(String)n+"\n"+(String)n1;:}
+		       |{:RESULT="";:};
+
+etr::= MENOR TR atributo:n MAYOR cuerpotr:n1 CLOSETR{:
+String cadena="<tr "+(String)n+">\n"+(String)n1+"\n</tr>"; 
+RESULT=cadena;
+:};
+
+cuerpotr::= etd:n cuerpotr:n1{:RESULT=(String)n+"\n"+(String)n1;:}
+		    |eth:n cuerpotr:n1{:RESULT=(String)n+"\n"+(String)n1;:}
+		    |{:RESULT="\n";:};
+
+etd::= MENOR TD MAYOR text:n CLOSETD{:RESULT="<td>"+(String)n+"</td>";:};
+
+eth::= MENOR TH MAYOR text:n CLOSETH{:RESULT="<th>"+(String)n+"</th>";:};
+
+
+
+/*-------------------------------etiqueta parrafo-------------------*/
+ep::= MENOR P atributo:n MAYOR text:n1 CLOSEP
+{:
+RESULT="<p "+(String)n+">"+(String)n1+"</p>";
+:};
+
+
+/*--------------------------etiqueta separador-------------------*/
+ehr::= MENOR HR atributo:n  DIVISION MAYOR {:
+RESULT="<hr "+(String)n+"</hr>";
+:};
+
+/*----------------------------etiqueta salto linea--------------*/
+ebr::=MENOR BR MAYOR{:RESULT="<br>";:};
+
+
+
+/*---------------------etiqueta div----------------------*/
+ediv::= MENOR DIV atributo:n MAYOR cuerpo:n1 CLOSEDIV{:RESULT="<div "+(String)n+">\n"+(String)n1+"\n</div>\n";:};
+
+/*-------------------lo que puede venir en un texto o parrafo----------------*/
+
+

@@ -1,0 +1,10 @@
+C:\Users\Carlos\Desktop\PROGRAMAS Y MAS\5to semestre\Compiladores 1\Practica2\WebApplication1\WebApplication1\bin\WebApplication1.dll.config
+C:\Users\Carlos\Desktop\PROGRAMAS Y MAS\5to semestre\Compiladores 1\Practica2\WebApplication1\WebApplication1\bin\WebApplication1.dll
+C:\Users\Carlos\Desktop\PROGRAMAS Y MAS\5to semestre\Compiladores 1\Practica2\WebApplication1\WebApplication1\bin\WebApplication1.pdb
+C:\Users\Carlos\Desktop\PROGRAMAS Y MAS\5to semestre\Compiladores 1\Practica2\WebApplication1\WebApplication1\bin\Irony.dll
+C:\Users\Carlos\Desktop\PROGRAMAS Y MAS\5to semestre\Compiladores 1\Practica2\WebApplication1\WebApplication1\bin\Irony.pdb
+C:\Users\Carlos\Desktop\PROGRAMAS Y MAS\5to semestre\Compiladores 1\Practica2\WebApplication1\WebApplication1\obj\Debug\Interop.WINGRAPHVIZLib.dll
+C:\Users\Carlos\Desktop\PROGRAMAS Y MAS\5to semestre\Compiladores 1\Practica2\WebApplication1\WebApplication1\obj\Debug\WebApplication1.csproj.ResolveComReference.cache
+C:\Users\Carlos\Desktop\PROGRAMAS Y MAS\5to semestre\Compiladores 1\Practica2\WebApplication1\WebApplication1\obj\Debug\WebApplication1.dll
+C:\Users\Carlos\Desktop\PROGRAMAS Y MAS\5to semestre\Compiladores 1\Practica2\WebApplication1\WebApplication1\obj\Debug\WebApplication1.pdb
+C:\Users\Carlos\Desktop\PROGRAMAS Y MAS\5to semestre\Compiladores 1\Practica2\WebApplication1\WebApplication1\obj\Debug\WebApplication1.csprojResolveAssemblyReference.cache

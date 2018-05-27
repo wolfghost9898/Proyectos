@@ -1,0 +1,41 @@
+Module cagada
+cagada="mi amor"
+Public cadada As String
+Private miamor As Integer=cagada +"hola" & hola
+Dim id As Integer=Console.ReadLine
+Console.WriteLine("gia")
+Public cagada[2,2] As String
+cagada[0][0]=jola
+cagada=hola(2,3)+hola[2][2]
+Public Sub hola()
+Console.WriteLine("gia")
+End Sub
+If hola Then
+Console.WriteLine("gia")
+Elself hola=3 Then
+Console.WriteLine("gia")
+End If
+For is As Integer=3 To 4 Step 1
+Console.WriteLine("gia")
+Next
+Select Case hola
+Case 1
+Console.WriteLine("gia")
+Case Else
+Console.WriteLine("solasc ascsaca 4")
+End Select
+End Module
+
+
+
+
+Module cagada
+Public Sub main()
+End Sub
+End Module
+
+Module Salida
+Public Sub main()
+Console.WriteLine("Hola Mundo")
+End Sub
+End Module

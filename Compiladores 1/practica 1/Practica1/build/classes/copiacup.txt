@@ -1,0 +1,130 @@
+NICIO::= MODULE ID:id  lista:cuerpo END MODULE{:
+String cadena="import java.util.Scanner;\n public class "+id+"{\n"+cuerpo+"\n}";
+analizadosin.traduccion.add(cadena);
+RESULT=cadena;:};
+
+lista::= ESTRUCTURA:n lista:n1{:
+String cadena;
+cadena=(String)n+(String)n1;
+RESULT=cadena;
+:}
+|{:
+String cadena="";
+RESULT=cadena;
+:};
+
+ESTRUCTURA::=declaracion:n1{:RESULT=n1;:}
+             |asignacion:n{:RESULT=n;:}
+             |asignacionydecla:n{:RESULT=n;:};
+
+//---------------------------------------------------------------------------DECLARACION DE VARIABLES--------------------------------------------------------------------------------
+declaracion::=acceso:n1 ID:n3 partid:n AS tipodato:n2{:
+String cadena;
+cadena="\n"+(String)n1+" "+n2+" "+n3+n+";";
+RESULT=cadena;
+:};
+
+partid::=partid:n1 COMA ID:n{:
+String cadena=n1+","+n;
+RESULT=cadena;
+:}|{:
+String cadena="";
+RESULT=cadena;
+:};
+//-----------------------------------------------------------------------Acceso de DATO---------------------------------------------------------------------------------
+acceso::=PUBLIC:n1{:
+String cadena="public";
+RESULT=cadena;
+:}
+|PRIVATE:n1{:
+String cadena="private";
+RESULT=cadena;
+:}
+|DIM:n1{:
+String cadena="private";
+RESULT=cadena;
+:}
+|STATIC:n1{:
+String cadena="static";
+RESULT=cadena;
+:};
+
+
+//--------------------------------------------------------------------Tipos de Datos------------------------------------------------------------------------------------------
+tipodato::=BOOLEAN:n1{:
+String cadena="boolean";
+RESULT=cadena;
+:}
+|CHAR:n1{:
+String cadena="char";
+RESULT=cadena;
+:}
+|DOUBLE:n1{:
+String cadena="double";
+RESULT=cadena;
+:}
+|INTEGER:n1{:
+String cadena="int";
+RESULT=cadena;
+:}
+|LONG:n1{:
+String cadena="long";
+RESULT=cadena;
+:}
+|STRING:n1{:
+String cadena="String";
+RESULT=cadena;
+:};
+//----------------------------------------------------------------Asignacion de Variables---------------------------------------------------------
+asignacion::=ID:n expresion:n1{:
+   String dato="\n"+(String)n+(String)n1;
+   RESULT=dato;
+   :};
+expresion::=IGUAL listexpresion:n1{:
+      String dato="="+n1+";";
+      RESULT=dato;
+      :};
+listexpresion::=NUMERO:n operador:n1{:
+   String dato=(String)n+(String)n1;
+   RESULT=dato;
+   :}
+   | CADENA:n operador:n1{:
+   String dato=(String)n+(String)n1;
+   RESULT=dato;
+   :}
+   | ID:n operador:n1{:
+   String dato=(String)n+(String)n1;
+   RESULT=dato;
+   :}
+   |FUNCION:n operador:n1{:
+   String dato=(String)n+(String)n1;
+   RESULT=dato;
+   :};
+   //----------------------------------------------------------------------Operadores--------------------------------------------------------------------------------------------------------------------
+operador::=MAS:n listexpresion:n1{:
+   String dato=(String)n+(String)n1;
+   RESULT=dato;
+   :}
+   |MENOS:n listexpresion:n1{:
+   String dato=(String)n+(String)n1;
+   RESULT=dato;
+   :}
+   |DIVISION:n listexpresion:n1{:
+   String dato=(String)n+(String)n1;
+   RESULT=dato;
+   :}
+   |MULTIPLICACION:n listexpresion:n1{:
+   String dato=(String)n+(String)n1;
+   RESULT=dato;
+   :}
+   |CONCATENAR:n listexpresion:n1{:
+   String dato="+"+(String)n1;
+   RESULT=dato;
+   :}
+   | {:
+   String dato="";
+   RESULT=dato;
+   :};
+   //-----------------------------------------------------------------------------------Asignacion y Declaracion-----------------------------------------------------------------------------------------------
+ asignacionydecla::=acceso:n ID:n1 pedirdato;
+ pedirdato::=AS tipodato pedirdato2;

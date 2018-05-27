@@ -1,0 +1,57 @@
+!!Archivo importar 2 contiene dos metodos
+
+<<
+	|------------------------|
+	|  Validacion #2         |
+	|------------------------|
+>>
+
+Char c1,c2,c3= 'L';
+
+
+Vacio Funcionalidad4(){
+    Mostrar("Esta valida el retorno");
+    Bool varB = true || true;
+    varB = !varB;
+    Mostrar(correcto);
+    Mostrar("{0} se imprimió varB", varB);
+    Retorno;
+    Mostrar(incorrecto);
+    Mostrar("Se está mostrando el mostrar 4 de la funcionalidad 4 - no respeto el retorno");    
+}
+
+Vacio Funcionalidad5(){
+    Int i =0;
+    Mientras(i<2*7+2){
+        Selecciona(i) {
+	        3: 
+	        	Mostrar("{0} Calificando ando... Iteración 3, correcto", i);
+
+	        6: 
+	        	Mostrar("Case 6 en valor:{0}, el valor sumado con true y multiplicado por 5 es:{1}", i,(i+true)*5);
+	        12: 
+	        	Mostrar("{0} Correcto, no hay break en 6, ni en 5. el valor de i es:{0}\n", i); Detener;   
+	        14: 
+	        	String strPrueba = "Esto es de la 14";
+	                Para (Int j = 0; j<50;j++){
+	                    Si(j>10){
+	                        Mostrar("{0}", strPrueba+"\n");
+	                    }
+	                    Si (i==j && varGlobal_1 + 1 == j || varGlobal_1 > 30){
+	                        Mostrar("Iteración final, valor i:{1} valor j:{0}\n",j,i);
+	                        Mostrar("{0}", strPrueba);
+	                        Retorno;
+	                    }
+	                }
+	            
+	        15: 
+	        	Mostrar("La 15");   
+	        Defecto: 
+	        	Mostrar("Operación por defecto :)"); 
+        }
+        i = i+1;
+        Si(i==8){
+        i = i + true*70/70;
+        }
+    }
+}

@@ -1,0 +1,30 @@
+
+Int varGlobal_1 = 19;
+
+Vacio Funcionalidad5(){
+	Int i =0;
+	Mientras(i<2*5*3){
+		Selecciona(i){
+		
+		3: Mostrar("{0} Calificando ando... Iteración 3, correcto", i);
+		6: Mostrar("Case 6 en valor:{0}, el valor sumado con true y multiplicado por 5 es:{1}", i,(i+true)*5);
+		12: Mostrar("{0} Correcto, no hay break en 6, ni en 5. el valor de i es:{0}", i); Detener;		
+		20: 
+				String strPrueba = "Esto muchas veces...";
+				Para (Double j = 0; j<50;++){
+					Mostrar("{0}", strPrueba);
+					Si (i==j && varGlobal_1 + 1 == j || varGlobal_1 > 30){ 
+						Mostrar("Iteración final, valor i:{1} valor j:{0}",j,i);
+						Mostrar("{0}", strPrueba);
+						Retorno;
+					}
+				}
+			
+		Defecto: Mostrar("Operación por defecto :)");
+		}	
+		i = i+1;
+		Si(i==21){
+			i = i + true*70;
+		}
+	}
+}
