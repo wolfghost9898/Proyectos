@@ -1,0 +1,123 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Site.master.cs" Inherits="SiteMaster" %>
+
+<!DOCTYPE html>
+
+<html lang="es">
+<head runat="server">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ReviewSoft</title>
+
+    <asp:PlaceHolder runat="server">
+        <%: Scripts.Render("~/bundles/modernizr") %>
+    </asp:PlaceHolder>
+    <webopt:bundlereference runat="server" path="~/Content/css" />
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <link rel="stylesheet" href="css/style.css">
+
+
+</head>
+<body>
+    <form runat="server" >
+        <asp:ScriptManager runat="server">
+            <Scripts>
+                <%--Para obtener más información sobre la unión de scripts en ScriptManager, consulte https://go.microsoft.com/fwlink/?LinkID=301884 --%>
+                <%--Scripts de marco--%>
+                <asp:ScriptReference Name="MsAjaxBundle" />
+                <asp:ScriptReference Name="jquery" />
+                <asp:ScriptReference Name="bootstrap" />
+                <asp:ScriptReference Name="respond" />
+                <asp:ScriptReference Name="WebForms.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebForms.js" />
+                <asp:ScriptReference Name="WebUIValidation.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebUIValidation.js" />
+                <asp:ScriptReference Name="MenuStandards.js" Assembly="System.Web" Path="~/Scripts/WebForms/MenuStandards.js" />
+                <asp:ScriptReference Name="GridView.js" Assembly="System.Web" Path="~/Scripts/WebForms/GridView.js" />
+                <asp:ScriptReference Name="DetailsView.js" Assembly="System.Web" Path="~/Scripts/WebForms/DetailsView.js" />
+                <asp:ScriptReference Name="TreeView.js" Assembly="System.Web" Path="~/Scripts/WebForms/TreeView.js" />
+                <asp:ScriptReference Name="WebParts.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebParts.js" />
+                <asp:ScriptReference Name="Focus.js" Assembly="System.Web" Path="~/Scripts/WebForms/Focus.js" />
+                <asp:ScriptReference Name="WebFormsBundle" />
+                <%--Scripts del sitio--%>
+            </Scripts>
+        </asp:ScriptManager>
+<header>
+  <div class="container_12">
+    <div class="grid_12">
+      <h1><a href="index.html"><img src="imagenes/logo.png" width="200" height="50" alt=""></a></h1>
+      <div class="menu_block">
+        <nav>
+          <ul class="sf-menu">
+            <li><a href="Default.aspx" runat="server">Inicio</a></li>
+            <li ID="Gestion" runat="server"><a>Gestion</a>
+                <ul>
+                    <li><a href="Licencias.aspx">Licencias</a></li>
+                    <li><a href="Metricas.aspx">Metricas</a></li>
+                    <li><a href="Empresas.aspx">Empresas</a></li>
+                    <li><a href="Plataformas.aspx">Plataformas Soportadas</a></li>
+                    <li><a href="Categoria.aspx">Categorias</a></li>
+                    <li><a href="Software.aspx">Aplicaciones</a></li>
+                </ul>
+            </li>
+            <li id="Gestion_Retro" runat="server"><a>Software</a>
+                <ul>
+                    <li><a href="MyRetro.aspx">Mis Retroalimentaciones</a></li>
+                    <li><a href="Software_View.aspx">Retroalimentacion</a></li>
+                </ul>
+            </li>
+            <li id="Usuarios"  runat="server"><a href="#">Usuarios</a>
+                 <ul>
+                  <li><a href="Buscar.aspx">Gestionar Usuarios</a></li>
+                  <li><a href="Crear.aspx">Crear</a></li>
+                 </ul>
+            </li>
+            <li id="Comparaciones" runat="server"><a>Comparaciones</a>
+                 <ul>
+                  <li runat="server" id="miscompara"><a href="Mis_Comparaciones.aspx">Mis Comparaciones</a></li>
+                  <li runat="server" id="comparaciones_c"><a href="Comparaciones_Muro.aspx">Comparaciones</a></li>
+                  <li runat="server" id="vercompara"><a href="Comparaciones_Actual.aspx">Ver Comparacion</a></li>
+                 </ul>
+            </li>
+              <li id="Recomendaciones" runat="server"><a>Recomendaciones</a>
+                   <ul>
+                  <li><a href="Mis_Recomendaciones.aspx">Mis Recomendaciones</a></li>
+                  <li><a href="Recomendaciones.aspx">Recomendaciones</a></li>
+                 </ul>
+              </li>
+            <li id="Cuentas" runat="server"><a href="#">Cuenta</a>
+                <ul>
+                    <li><a href="Gestionar_Cuenta.aspx">Gestionar Cuenta</a></li>
+                    <li><a href="Change_Password.aspx">Cambiar Contraseña</a></li>
+                    <li><asp:LinkButton ID="eliminar_cuenta" runat="server" 
+         OnClientClick = "return confirm('¿Seguro que quieres eliminar tu cuenta?')"
+        Text = "Eliminar Cuenta" OnClick = "DeleteCustomer"/></li>
+                </ul>
+            </li>
+            <li id="Reporteria" runat="server"><a href="#">Reporteria</a>
+                <ul>
+                    <li><a href="Report_Aplicacion.aspx">Por Aplicacion</a></li>
+                    <li><a href="Report_Usuarios.aspx">Por Usuario</a></li>
+                </ul>
+            </li>
+            <li><a><asp:Button ID="Salir" runat="server" Text="Salir" BackColor="#009FB3" BorderStyle="None" ForeColor="#FFFFCC" OnClick="Salir_Click" /></a></li>
+          </ul>
+        </nav>
+        <div class="clear"></div>
+      </div>
+      <div class="clear"></div>
+    </div>
+  </div>
+</header>
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder" runat="server">
+               
+            </asp:ContentPlaceHolder>    
+  <footer>
+  <div class="container_12">
+    <div class="grid_12">
+      <div class="socials"> <a href="#"></a> <a href="#"></a> <a href="#"></a> <a href="#"></a> </div>
+      <div class="copy"> ReviewSoft &copy; 2017 | <a href="#">Privacy Policy</a> | Design by: Carlos Hernandez </div>
+    </div>
+  </div>
+</footer>
+    </form>
+</body>
+</html>

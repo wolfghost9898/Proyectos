@@ -1,0 +1,49 @@
+.menu_block {
+    position: relative;
+    z-index: 999;
+    float: right;
+    padding-top: 6px;
+}
+
+nav {
+    position: relative;
+    padding: 0px 0 0 0;
+}
+
+.sf-menu > li {
+    float: left;
+}
+
+.sf-menu  li  a {
+        font-size: 16px;
+        font-family: 'Open Sans Condensed', sans-serif;
+        color: #fff;
+        display: block;
+        text-transform: uppercase;
+        position: relative;
+        line-height: 16px;
+        z-index: 999;
+        position: relative;
+        padding: 9px 20px 9px;
+}
+
+ .sf-menu > li.sfHover > a, .sf-menu > li.current > a, .sf-menu > li:hover > a:hover {
+        background-color: #fd9220;
+ }
+
+ /*-------------------------------------------------------SEGUNDO NIVEL---------------------------------------------*/
+.sf-menu li ul{
+    display:none;
+    position:absolute;
+    min-width:140px;
+    background:black;
+}
+
+.sf-menu li:hover> ul {
+    display: block;
+}
+
+.sf-menu li ul li:hover a{
+    color: black;
+    background: white;
+}
