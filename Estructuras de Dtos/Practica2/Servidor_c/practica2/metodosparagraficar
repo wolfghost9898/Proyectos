@@ -1,0 +1,122 @@
+               //--------------------------------------Graficar Autobuses
+                struct colision_autobuses *aux=hashAuto[i].primero;
+
+                if(aux!=NULL){
+                long int point2 = reinterpret_cast<long int>(aux);
+                text<<point<<"->"<<point2<<endl;
+
+                while(aux!=NULL){
+                        if(aux!=hashAuto[i].ultimo){
+                              long int point3 = reinterpret_cast<long int>(aux);
+                              long int point4 = reinterpret_cast<long int>(aux->siguiente);
+
+                              text<<point3<<"[shape=\"none\",label= <<TABLE><TR><TD>No: ";
+                              text<<i<<"</TD><TD>Placa: "<<aux->placa<<"</TD><TD>Modelo: "<<aux->modelo<<"</TD><TD> Estado: "<<aux->estado<<"</TD></TR></TABLE>>]"<<endl;
+                              text<<point3<<"->"<<point4<<";"<<endl;
+                         }else if(aux==hashAuto[i].primero || aux==hashAuto[i].ultimo){
+                               long int point3 = reinterpret_cast<long int>(aux);
+                               text<<point3<<"[shape=\"none\",label= <<TABLE><TR><TD>No: ";
+                               text<<i<<"</TD><TD>Placa: "<<aux->placa<<"</TD><TD>Modelo: "<<aux->modelo<<"</TD><TD> Estado: "<<aux->estado<<"</TD></TR></TABLE>>]"<<endl;
+                         }
+                          aux=aux->siguiente;
+                    }
+
+
+                }
+                //---------------------------------------Pilotos------------------------
+
+                  QFile file("Hash.dot");
+        file.open(QIODevice::WriteOnly | QIODevice::Truncate);
+        textarbol=new QTextStream();
+        textarbol->setDevice(&file);
+        *textarbol<<"digraph G{\n rankdir=LR;\n"<<endl;
+        for(int i=0;i<tam_autobuses;i++){
+            if(hashPilotos[i].estado!=false){
+                long int point = reinterpret_cast<long int>(&(hashPilotos[i]));
+                *textarbol<<point<<"[shape=\"none\",label= <<TABLE><TR><TD>No: ";
+                *textarbol<<i<<"</TD><TD>DPI: "<<hashPilotos[i].dpi<<"</TD><TD>Nombre: "<<hashPilotos[i].nombre<<"</TD><TD>Edad: "<<hashPilotos[i].edad<<"</TD><TD>"<<hashPilotos[i].genero<<"</TD></TR></TABLE>>]"<<endl;
+                un_arbol=hashPilotos[i].arbolavl;
+                if(un_arbol!=NULL){
+                    graficarArbol(un_arbol);
+                }
+
+            }
+
+        }
+        *textarbol<<"}"<<endl;
+        file.close();
+        system("dot -Tpng Hash.dot -o Hash.png");
+
+
+        //--------------------------------------ESTACIONES----------------------------------
+        QFile file("Estaciones.dot");
+        file.open(QIODevice::WriteOnly | QIODevice::Truncate);
+        QTextStream text(&file);
+            text<<"digraph G{\n rankdir=LR;\n"<<endl;
+        struct estaciones *aux=primeroesta;
+        while(aux!=NULL){
+            if(aux!=ultimoesta){
+                long int point = reinterpret_cast<long int>(aux);
+                long int point2 = reinterpret_cast<long int>(aux->siguiente);
+                 text<<point<<"->"<<point2<<";"<<endl;
+                 text<<point<<"[label=\"Codigo: "<<aux->codigo<<" \\nNombre: "<<aux->nombre<<" \\n Direccion: "<<aux->ubicacion<<"\"];"<<endl;
+            }else if(aux==primeroesta || aux==ultimoesta){
+                long int point = reinterpret_cast<long int>(aux);
+                text<<point<<"[label=\"Codigo: "<<aux->codigo<<" \\nNombre: "<<aux->nombre<<" \\n Direccion: "<<aux->ubicacion<<"\"];"<<endl;
+
+            }
+            aux=aux->siguiente;
+        }
+
+        text<<"}"<<endl;
+        file.close();
+        system("dot -Tpng Estaciones.dot -o Estaciones.png");
+
+
+        //---------------------------------------PARQUEO------------------------------------------
+         struct parqueo *parqueo=cabecera_parqueo;
+        QFile file("Parqueo.dot");
+        file.open(QIODevice::WriteOnly | QIODevice::Truncate);
+        QTextStream text(&file);
+        text<<"digraph G{\n rankdir=LR;\n"<<endl;
+        if(cabecera_parqueo!=NULL){
+            do{
+                long int point = reinterpret_cast<long int>(parqueo);
+                long int point2 = reinterpret_cast<long int>(parqueo->siguiente);
+                text<<point<<"->"<<point2<<";"<<endl;
+                text<<point2<<"->"<<point<<";"<<endl;
+
+                text<<point<<"[label=\"Archivo: "<<parqueo->archivo<<"\"];"<<endl;
+
+                parqueo=parqueo->siguiente;
+            }while(parqueo!=cabecera_parqueo);
+        }
+        text<<"}"<<endl;
+        file.close();
+        system("dot -Tpng Parqueo.dot -o Parqueo.png");
+
+        //------------------------------------Usuarios----------------------------
+            struct usuarios *aux=primerUsuario;
+        QFile file("Lista.dot");
+        file.open(QIODevice::WriteOnly | QIODevice::Truncate);
+        QTextStream text(&file);
+        text<<"digraph G{"<<endl;
+        text<<"subgraph cluster{"<<endl;
+        text<<"label =\" Arboles en memoria \";"<<endl;
+        while(aux!=NULL){
+            if(aux!=ultimoUsuario){
+             long int point = reinterpret_cast<long int>(aux);
+             long int point2 = reinterpret_cast<long int>(aux->siguiente);
+             text<<point<<"->"<<point2<<";"<<endl;
+             text<<point<<"[label= \"flag "<<aux->flag<<"\"];"<<endl;
+             text<<point2<<"->"<<point<<";"<<endl;
+             }else if(aux==primerUsuario || aux==ultimoUsuario){
+             long int point = reinterpret_cast<long int>(aux);
+             text<<point<<"[label= \"flag "<<aux->flag<<"\"];"<<endl;
+             }
+          aux=aux->siguiente;
+        }
+        text<<"}"<<endl;
+        text<<"}"<<endl;
+        file.close();
+        system("dot -Tpng Lista.dot -o Lista.png");

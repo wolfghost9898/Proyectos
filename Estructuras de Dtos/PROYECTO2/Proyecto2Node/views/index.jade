@@ -1,0 +1,22 @@
+doctype html
+html(lang="es")
+	head
+		title Aplicacion Web
+		meta(charset="utf-8")
+		link(href="/css/style.css" type="text/css" rel="stylesheet")
+	body
+		div(class="login-page")
+			div(class="form")
+				form( class="register-form", name="formulario", method="post")
+							h1(class="motiv") Login
+							span.label Ingresa tu Usuario
+							input(type="text",id="usuario",class="inputText") 
+							span.label Ingresa tu Contraseña
+							input(type="password",id="contraseña",class="inputText")
+							input(type="button",id="boton-enviar",value="Login",class="button")
+							p(class="Message")
+								label Iniciar Sesion Como Cliente 
+								a(href="pages/usuario.html") Ir
+	script(src="js/javascript.js")							
+						
+

@@ -1,0 +1,33 @@
+digraph G{
+subgraph matriz{
+0[shape="square",label="ID: 0
+Nombre: entrada1
+Fecha: 13/04/2018
+Hora: 19:40:26"];
+0->1;
+1->0;
+1[shape="square",label="ID: 1
+Nombre: entrada1
+Fecha: 13/04/2018
+Hora: 19:40:47"];
+1->2;
+2->1;
+2[shape="square",label="ID: 2
+Nombre: entrada2
+Fecha: 13/04/2018
+Hora: 19:42:01"];
+2->3;
+3->2;
+3[shape="square",label="ID: 3
+Nombre: entrada2
+Fecha: 13/04/2018
+Hora: 19:42:12"];
+3->4;
+4->3;
+4[shape="square",color="red",label="ID: 4
+Nombre: entrada2
+Fecha: 13/04/2018
+Hora: 19:42:47"];
+
+}
+}

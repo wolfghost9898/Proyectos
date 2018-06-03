@@ -1,0 +1,16 @@
+digraph G{
+subgraph cluster_area{
+{rank=same raiz 140063983820832  }
+}
+subgraph cluster_lista_columna{
+raiz[shape=box,label="*"];
+raiz->140063983820832;
+140063983820832[shape=box,label="0"];
+140063983820832->140063983798464;
+140063983798464[label="0,0"]
+raiz->140063983822528;
+140063983822528[shape=box,label="0"];
+{rank=same 140063983822528 140063983798464  }
+140063983822528->140063983798464;
+}
+}

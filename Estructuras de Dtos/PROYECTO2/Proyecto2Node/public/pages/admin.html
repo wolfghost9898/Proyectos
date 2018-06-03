@@ -1,0 +1,39 @@
+<html>
+	<head>
+		<title>Pagina de Administrador</title>
+	    <link href="/css/style.css" type="text/css" rel="stylesheet">
+	    	    <link href="/css/vis-network.min.css" type="text/css" rel="stylesheet">
+	    <script type="text/javascript" src="/pages/jquery-1.7.1.min.js"></script>
+	 <script type="text/javascript" src="/pages/javascript2.js"></script>
+	 	 <script type="text/javascript" src="/js/vis.js"></script>
+
+	</head>
+    <body>
+
+    	<?php
+    	if($_FILES['chooseFile']['temp_chooseFile']){
+    		move_uploaded_file($_FILES['chooseFile']['temp_chooseFile'],'/files/bitacora.txt');
+    	}
+    	?>
+
+	<form ref='uploadForm' action="http://localhost:8080/upload" enctype="multipart/form-data" method="post" target="uploader_iframe">
+
+    	<div class="file-upload">
+		  <div class="file-select">
+		    <div class="file-select-button" id="fileName">Choose File</div>
+		    <div class="file-select-name" id="noFile">No file chosen...</div> 
+		    <input type="file" name="sampleFile" id="chooseFile" >
+		  </div>
+		</div>
+	    <input type="submit" value="Subir" onclick="leerArchivo()" class="boton-2">
+	</form>
+	<iframe id="uploader_iframe" name="uploader_iframe" style="display: none;"></iframe>
+		<input type="button" name="bloque" value="Bloque" onclick="generarBloque()">
+		<input type="button" name="Ruta" value="Ruta" onclick="generarRuta()">
+			<div id="mynetwork"></div>
+
+
+
+    </body>
+</html>
+

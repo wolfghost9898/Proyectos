@@ -1,0 +1,7 @@
+digraph G{
+subgraph enemigo{
+140063715400352[shape=box,label="Enemigo"];
+140063715380688[shape=box,label="Enemigo"];
+140063715380688->140063715400352;
+}
+}

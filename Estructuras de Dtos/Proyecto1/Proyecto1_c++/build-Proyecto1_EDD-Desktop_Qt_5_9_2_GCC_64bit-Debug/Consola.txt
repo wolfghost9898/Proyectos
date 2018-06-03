@@ -1,0 +1,6 @@
+Mensaje de 201612118: Se Creo un enemigo con id 805323344 de tipo 0 en las posiciones x0 y0
+Mensaje de 201612118: izquierda Se movio el enemigo  805323344 de tipo 0 a las posiciones x0 y0
+Mensaje de 201612118: izquierda Se movio el enemigo  805323344 de tipo 0 a las posiciones x0 y0
+Mensaje de 201612118: Se Creo un enemigo con id 805326944 de tipo 1 en las posiciones x0 y0
+Mensaje de 201612118: izquierda Se movio el enemigo  805326944 de tipo 1 a las posiciones x0 y0
+Mensaje de 201612118: derecha Se movio el enemigo  805326944 de tipo 1 a las posiciones x0 y0

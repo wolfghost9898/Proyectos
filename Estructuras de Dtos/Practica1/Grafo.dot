@@ -1,0 +1,66 @@
+digraph G{
+subgraph cluster{
+label="Carretera";
+carro4[label="Carro :4"];carro4->carro3;
+carro3[label="Carro :3"];carro3->carro1;
+carro1[label="Carro :1"];carro1->entrada;
+entrada->carro0;
+carro0;
+carro0[label="Carro :0"];
+}
+subgraph parqueo{
+label="Parqueo";
+parqueo1[label="parqueo :1
+ Carro: 2"];parqueo1->parqueo2;
+parqueo2[label="parqueo :2
+ Carro: 3"];parqueo2->parqueo3;
+parqueo3[label="parqueo :3
+ Carro: 4"];parqueo3->parqueo1;
+
+}
+subgraph pasillos{
+label="Pasillos";
+pasillo1[label="pasillo :1"];pasillo1->pasillo2;
+pasillo2->pasillo1;
+pasillo2[label="pasillo :2"];pasillo2->pasillo3;
+pasillo3->pasillo2;
+pasillo3[label="pasillo :3"];pasillo3->pasillo4;
+pasillo4->pasillo3;
+pasillo4[label="pasillo :4"];pasillo4->pasillo1;
+pasillo1->pasillo4;
+}
+subgraph pila_producto1{
+pasillo1->producto21->producto31;
+producto21[shape=box,label="Producto :1"];producto31;
+producto31[shape=box,label="Producto :1"];}
+subgraph pila_producto2{
+pasillo2->producto32->producto42;
+producto32[shape=box,label="Producto :2"];producto42->producto52;
+producto42[shape=box,label="Producto :2"];producto52;
+producto52[shape=box,label="Producto :2"];}
+subgraph pila_producto3{
+pasillo3->producto43->producto53;
+producto43[shape=box,label="Producto :3"];producto53->producto63;
+producto53[shape=box,label="Producto :3"];producto63->producto73;
+producto63[shape=box,label="Producto :3"];producto73;
+producto73[shape=box,label="Producto :3"];}
+subgraph pila_producto4{
+pasillo4->producto54->producto64;
+producto54[shape=box,label="Producto :4"];producto64->producto74;
+producto64[shape=box,label="Producto :4"];producto74->producto84;
+producto74[shape=box,label="Producto :4"];producto84->producto94;
+producto84[shape=box,label="Producto :4"];producto94;
+producto94[shape=box,label="Producto :4"];}
+subgraph pila_cliente1{
+pasillo1->cliente14->cliente12;
+cliente14[shape=box,label="cliente :4"];cliente12;
+cliente12[shape=box,label="cliente :2"];}
+subgraph pila_cliente2{
+}
+subgraph pila_cliente3{
+pasillo3->cliente33;
+cliente33[shape=box,label="cliente :3"];}
+subgraph pila_cliente4{
+}
+
+}

@@ -1,0 +1,14 @@
+digraph G{
+rutaCB13->rutaCC28
+rutaCB13[label="Nombre: Abubakr"];
+rutaCC28->rutaCB15
+rutaCC28[label="Nombre: Abud"];
+rutaCB15->rutaCC33
+rutaCB15[label="Nombre: Abuel"];
+rutaCC33[label="Nombre: Abugn"];
+rutaCB15->rutaBB11
+rutaCB15[label="Nombre: Abuel"];
+rutaBB11->rutaCB13
+rutaBB11[label="Nombre: Abundis"];
+rutaCB13[label="Nombre: Abubakr"];
+}

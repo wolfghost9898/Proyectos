@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>807</width>
+    <height>539</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <widget class="QScrollArea" name="scrollArea">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>20</y>
+      <width>781</width>
+      <height>431</height>
+     </rect>
+    </property>
+    <property name="widgetResizable">
+     <bool>true</bool>
+    </property>
+    <widget class="QWidget" name="scrollAreaWidgetContents">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>779</width>
+       <height>429</height>
+      </rect>
+     </property>
+     <widget class="QLabel" name="imagen">
+      <property name="geometry">
+       <rect>
+        <x>80</x>
+        <y>80</y>
+        <width>53</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </widget>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>807</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuAbrir">
+    <property name="title">
+     <string>Abrir</string>
+    </property>
+    <addaction name="actionAutobuses"/>
+    <addaction name="actionPilotos"/>
+    <addaction name="actionUbicacion"/>
+    <addaction name="actionParqueos"/>
+    <addaction name="actionUsuarios"/>
+    <addaction name="actionRutas"/>
+   </widget>
+   <widget class="QMenu" name="menuCrear">
+    <property name="title">
+     <string>Crear</string>
+    </property>
+    <addaction name="actionCrear_Bloque"/>
+   </widget>
+   <widget class="QMenu" name="menuBitacora">
+    <property name="title">
+     <string>Bitacora</string>
+    </property>
+    <addaction name="separator"/>
+    <addaction name="actionCargar_Bitacora"/>
+   </widget>
+   <widget class="QMenu" name="menuVer">
+    <property name="title">
+     <string>Ver</string>
+    </property>
+    <widget class="QMenu" name="menuAutobuses">
+     <property name="title">
+      <string>Autobuses</string>
+     </property>
+     <addaction name="actionGeneral"/>
+     <addaction name="actionUn_solo_AutoBus"/>
+     <addaction name="actionColision"/>
+    </widget>
+    <widget class="QMenu" name="menuPilotos">
+     <property name="title">
+      <string>Pilotos</string>
+     </property>
+     <addaction name="actionGeneral_2"/>
+     <addaction name="actionColision_2"/>
+     <addaction name="actionIndividual"/>
+    </widget>
+    <widget class="QMenu" name="menuEstaciones">
+     <property name="title">
+      <string>Estaciones</string>
+     </property>
+     <addaction name="actionGeneral_3"/>
+     <addaction name="actionIndividual_2"/>
+    </widget>
+    <widget class="QMenu" name="menuRutas">
+     <property name="title">
+      <string>Rutas</string>
+     </property>
+     <addaction name="actionRutas_General"/>
+     <addaction name="actionVer_Ruta"/>
+    </widget>
+    <widget class="QMenu" name="menuParqueo">
+     <property name="title">
+      <string>Parqueo</string>
+     </property>
+     <addaction name="actionGeneral_4"/>
+     <addaction name="actionParqueo_Individual"/>
+    </widget>
+    <widget class="QMenu" name="menuUsuarios">
+     <property name="title">
+      <string>Usuarios</string>
+     </property>
+     <addaction name="actionGeneral_5"/>
+     <addaction name="actionIndividual_3"/>
+    </widget>
+    <widget class="QMenu" name="menuBloque">
+     <property name="title">
+      <string>Bloque</string>
+     </property>
+     <widget class="QMenu" name="menumostrar_Avl">
+      <property name="title">
+       <string>mostrar Avl</string>
+      </property>
+      <addaction name="actionid"/>
+      <addaction name="actionvuelta"/>
+     </widget>
+     <addaction name="actionGeneral_6"/>
+     <addaction name="actionRutas_de_un_Bloque"/>
+     <addaction name="actionAvl_de_Rutas_de_un_Bloque"/>
+     <addaction name="menumostrar_Avl"/>
+    </widget>
+    <widget class="QMenu" name="menuReporte">
+     <property name="title">
+      <string>Reporte</string>
+     </property>
+     <widget class="QMenu" name="menuReporte_por_Bloque">
+      <property name="title">
+       <string>Reporte por Bloque</string>
+      </property>
+      <addaction name="actionIndividual_4"/>
+      <addaction name="actionGeneral_7"/>
+     </widget>
+     <widget class="QMenu" name="menuReporte_por_Ruta">
+      <property name="title">
+       <string>Reporte por Ruta</string>
+      </property>
+      <addaction name="actionGeneral_8"/>
+     </widget>
+     <addaction name="menuReporte_por_Bloque"/>
+     <addaction name="menuReporte_por_Ruta"/>
+    </widget>
+    <addaction name="actionVer_Informacion"/>
+    <addaction name="menuAutobuses"/>
+    <addaction name="menuPilotos"/>
+    <addaction name="menuEstaciones"/>
+    <addaction name="menuRutas"/>
+    <addaction name="menuParqueo"/>
+    <addaction name="menuUsuarios"/>
+    <addaction name="menuBloque"/>
+    <addaction name="menuReporte"/>
+   </widget>
+   <widget class="QMenu" name="menuReportes">
+    <property name="title">
+     <string>Reportes</string>
+    </property>
+    <addaction name="actionPor_Bloque"/>
+    <addaction name="actionPor_Ruta"/>
+   </widget>
+   <widget class="QMenu" name="menuEliminar">
+    <property name="title">
+     <string>Eliminar</string>
+    </property>
+    <addaction name="actionAutobus"/>
+    <addaction name="actionPiloto"/>
+    <addaction name="actionEstacion"/>
+    <addaction name="actionRuta"/>
+    <addaction name="actionParqueo_2"/>
+    <addaction name="actionUsuario"/>
+   </widget>
+   <widget class="QMenu" name="menuGenerar">
+    <property name="title">
+     <string>Generar</string>
+    </property>
+    <addaction name="actionReportes"/>
+   </widget>
+   <addaction name="menuAbrir"/>
+   <addaction name="menuCrear"/>
+   <addaction name="menuBitacora"/>
+   <addaction name="menuReportes"/>
+   <addaction name="menuVer"/>
+   <addaction name="menuEliminar"/>
+   <addaction name="menuGenerar"/>
+  </widget>
+  <widget class="QToolBar" name="mainToolBar">
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+  <action name="actionAutobuses">
+   <property name="text">
+    <string>Autobuses</string>
+   </property>
+  </action>
+  <action name="actionPilotos">
+   <property name="text">
+    <string>Pilotos</string>
+   </property>
+  </action>
+  <action name="actionUbicacion">
+   <property name="text">
+    <string>Estaciones</string>
+   </property>
+  </action>
+  <action name="actionParqueos">
+   <property name="text">
+    <string>Parqueos</string>
+   </property>
+  </action>
+  <action name="actionUsuarios">
+   <property name="text">
+    <string>Usuarios</string>
+   </property>
+  </action>
+  <action name="actionRutas">
+   <property name="text">
+    <string>Rutas</string>
+   </property>
+  </action>
+  <action name="actionCrear_Bloque">
+   <property name="text">
+    <string>Crear Bloque</string>
+   </property>
+  </action>
+  <action name="actionCargar_Bitacora">
+   <property name="text">
+    <string>Cargar Bitacora</string>
+   </property>
+  </action>
+  <action name="actionVer_Informacion">
+   <property name="text">
+    <string>Ver Informacion</string>
+   </property>
+  </action>
+  <action name="actionPor_Bloque">
+   <property name="text">
+    <string>Por Bloque</string>
+   </property>
+  </action>
+  <action name="actionPor_Ruta">
+   <property name="text">
+    <string>Por Ruta</string>
+   </property>
+  </action>
+  <action name="actionGeneral">
+   <property name="text">
+    <string>General</string>
+   </property>
+  </action>
+  <action name="actionUn_solo_AutoBus">
+   <property name="text">
+    <string>Individual</string>
+   </property>
+  </action>
+  <action name="actionColision">
+   <property name="text">
+    <string>Colision</string>
+   </property>
+  </action>
+  <action name="actionGeneral_2">
+   <property name="text">
+    <string>General</string>
+   </property>
+  </action>
+  <action name="actionColision_2">
+   <property name="text">
+    <string>Colision</string>
+   </property>
+  </action>
+  <action name="actionIndividual">
+   <property name="text">
+    <string>Individual</string>
+   </property>
+  </action>
+  <action name="actionAutobus">
+   <property name="text">
+    <string>Autobus</string>
+   </property>
+  </action>
+  <action name="actionPiloto">
+   <property name="text">
+    <string>Piloto</string>
+   </property>
+  </action>
+  <action name="actionGeneral_3">
+   <property name="text">
+    <string>General</string>
+   </property>
+  </action>
+  <action name="actionIndividual_2">
+   <property name="text">
+    <string>Individual</string>
+   </property>
+  </action>
+  <action name="actionEstacion">
+   <property name="text">
+    <string>Estacion</string>
+   </property>
+  </action>
+  <action name="actionRutas_General">
+   <property name="text">
+    <string>General</string>
+   </property>
+  </action>
+  <action name="actionVer_Ruta">
+   <property name="text">
+    <string>Ver Ruta</string>
+   </property>
+  </action>
+  <action name="actionRuta">
+   <property name="text">
+    <string>Ruta</string>
+   </property>
+  </action>
+  <action name="actionGeneral_4">
+   <property name="text">
+    <string>General</string>
+   </property>
+  </action>
+  <action name="actionParqueo_Individual">
+   <property name="text">
+    <string>Parqueo Individual</string>
+   </property>
+  </action>
+  <action name="actionParqueo_2">
+   <property name="text">
+    <string>Parqueo</string>
+   </property>
+  </action>
+  <action name="actionGeneral_5">
+   <property name="text">
+    <string>General</string>
+   </property>
+  </action>
+  <action name="actionIndividual_3">
+   <property name="text">
+    <string>Individual</string>
+   </property>
+  </action>
+  <action name="actionUsuario">
+   <property name="text">
+    <string>Usuario</string>
+   </property>
+  </action>
+  <action name="actionGeneral_6">
+   <property name="text">
+    <string>General</string>
+   </property>
+  </action>
+  <action name="actionRutas_de_un_Bloque">
+   <property name="text">
+    <string>Rutas de un Bloque</string>
+   </property>
+  </action>
+  <action name="actionAvl_de_Rutas_de_un_Bloque">
+   <property name="text">
+    <string>ver Grafo de Ruta</string>
+   </property>
+  </action>
+  <action name="actionid">
+   <property name="text">
+    <string>ida</string>
+   </property>
+  </action>
+  <action name="actionvuelta">
+   <property name="text">
+    <string>vuelta</string>
+   </property>
+  </action>
+  <action name="actionIndividual_4">
+   <property name="text">
+    <string>Individual</string>
+   </property>
+  </action>
+  <action name="actionGeneral_7">
+   <property name="text">
+    <string>General</string>
+   </property>
+  </action>
+  <action name="actionGeneral_8">
+   <property name="text">
+    <string>General</string>
+   </property>
+  </action>
+  <action name="actionReportes">
+   <property name="text">
+    <string>Reportes</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections/>
+</ui>

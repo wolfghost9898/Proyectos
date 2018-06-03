@@ -1,0 +1,15 @@
+digraph G{
+subgraph cluster{
+label =" Arboles en memoria ";
+94536185021728->139958891340480;
+94536185021728[label= <<TABLE><TR><TD>Id: 0 <br/> Nombre: entrada1 <br/>Fecha: mié. abr. 18 2018 <br/> Hora: 09:09:35</TD></TR></TABLE>>]
+139958891340480->94536185021728;
+139958891340480->94536184990832;
+139958891340480[label= <<TABLE><TR><TD>Id: 1 <br/> Nombre: entrada2 <br/>Fecha: mié. abr. 18 2018 <br/> Hora: 09:09:35</TD></TR></TABLE>>]
+94536184990832->139958891340480;
+94536184990832->139958891331520;
+94536184990832[label= <<TABLE><TR><TD>Id: 2 <br/> Nombre: entrada3 <br/>Fecha: mié. abr. 18 2018 <br/> Hora: 09:09:35</TD></TR></TABLE>>]
+139958891331520->94536184990832;
+139958891331520[label= <<TABLE><TR><TD><IMG SRC="checked.png"/></TD><TD>Id: 3 <br/> Nombre: entrada4 <br/>Fecha: mié. abr. 18 2018 <br/> Hora: 09:09:35</TD></TR></TABLE>>]
+}
+}
