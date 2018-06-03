@@ -7,6 +7,7 @@
    + Listas Dobles
    + Arbol AVL
    + Arbol B[5]
+   + Matriz Dispersa Estatica
    
    
    
