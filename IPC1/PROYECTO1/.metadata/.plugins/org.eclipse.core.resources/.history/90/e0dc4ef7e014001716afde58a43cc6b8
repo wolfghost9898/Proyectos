@@ -1,0 +1,83 @@
+package tareanodos;
+
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
+
+public class Lista {
+	
+	private Nodo inicio;
+	private int cantidad;
+	private int tamaño;
+	public void Lista(){
+		inicio=null;
+		tamaño=1;
+	}
+	
+	
+	//Obtener tamaño
+	public int getTamaño(){
+		return tamaño;
+	}
+	
+	
+	//Agregar Nodo
+	public void AgregarNodo(int valor){
+		Nodo nodo= new Nodo();//Instancear clase nodo
+		nodo.setCantidad(valor);// guardamos valor en el nodo
+		nodo.setSiguiente(inicio);
+		if(getTamaño()==0){//Verificar si el tamaño de la lista es nulo
+			
+			inicio=nodo;
+		}else{//Si el nodo ya esta vacio
+			Nodo aux= inicio;
+            Nodo aux2=aux;//Nodo auxiliar para moverlo libremente
+            int igual=0;
+            while(aux.getSiguiente()!=null){//Repetir hasta el nodo final
+            	
+            	aux2=aux2.getSiguiente();//Obtenemos el valor siguiente al nodo aux
+
+            	if((aux.getCantidad()<valor) && (aux2.getCantidad()>valor)){//Comparacion de nodo anterior con valor y nodo siguiente
+            		break;//Rompemos en caso de que el valor este en medio
+                }
+            	
+            	aux = aux.getSiguiente();	//Se sigue recorriendo la lista
+            	if(aux2.getCantidad()==valor){
+            		igual=1;
+            		break;
+            	}
+            }
+            if(igual==1){
+            	
+            }else{
+                Nodo editar=aux.getSiguiente();//guardar el nodo siguiente a la posicion
+                aux.setSiguiente(nodo);//se inserta el nodo en la posicion indicada
+                nodo.setSiguiente(editar);//unir el dato con la demas lista
+            }
+
+
+		}
+		tamaño++;
+	}
+	
+	//Obtener el datos del Nodo
+	public void getDatos(DefaultListModel modelo,JList list){
+		if(getTamaño()>0){
+			modelo.clear();
+			list.setModel(modelo);
+			Nodo aux= inicio;
+			int i=0;
+			while(aux != null){
+                System.out.println(i + ".[ " + aux.getCantidad() + " ]");
+                // Avanza al siguiente nodo.
+                modelo.addElement(aux.getCantidad());
+        		list.setModel(modelo);
+                aux = aux.getSiguiente();
+                // Incrementa el contador de la posión.
+                i++;
+            }
+		}
+	}
+	
+	
+
+}

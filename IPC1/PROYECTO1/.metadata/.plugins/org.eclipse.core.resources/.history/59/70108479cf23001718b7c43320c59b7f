@@ -1,0 +1,17 @@
+import javax.swing.JFrame;
+
+public class MainActivity {
+	static JFrame ventana;
+	public static void main(String[] args){
+		ventana= new JFrame();
+		ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  
+		ventana.setLocationRelativeTo(null);      
+		ventana.setLayout(null); 
+		ventana.setSize(500,500);
+		Ejecutar();
+	}
+	
+	public static void Ejecutar(){
+		ventana.setVisible(true);
+	}
+}

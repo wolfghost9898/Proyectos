@@ -1,0 +1,35 @@
+
+public class Lista {
+	Nodo ultimo;
+	
+	public Lista(){
+		ultimo=null;
+	}
+	
+	//Lista esta vacia
+	public boolean estado(){
+		return ultimo==null;
+	}
+	
+	//Insertar lista
+	public Lista insertar(int elemento){
+		Nodo nuevo=new Nodo(elemento);
+		if(ultimo!=null){
+			nuevo.siguiente=ultimo.siguiente;
+			ultimo.siguiente=nuevo;
+		}
+		ultimo=nuevo;
+		return this;
+	}
+	
+	//Mostrar la Lista
+	public void mostrar(){
+		Nodo auxiliar=ultimo.siguiente;
+		String cadena="";
+		do{
+			cadena=cadena+"["+ auxiliar.numero+"]->";
+		}while(auxiliar!=ultimo.siguiente);
+		System.out.println(cadena);
+	}
+	
+}

@@ -1,0 +1,66 @@
+body{
+	position: absolute;
+	z-index: 9999;
+}
+#global{
+
+	position: absolute;
+	z-index: -100;
+	width: 100%;
+	height: 100%;
+}
+#background{
+	width: 100%;
+	height: 100%;
+}
+#primeralista{
+	list-style-type:none;
+	margin: 0;
+	text-align: center;
+	padding: 0;
+	overflow: hidden;
+	background-color: #333333;
+}
+
+#primeralista li{
+	display:inline-block; 
+}
+
+#primeralista li a{
+
+	color: white;
+	float: left;
+	text-align: center;
+	padding: 16px;
+	text-decoration: none;
+}
+
+li a:hover{
+	background-color: #111111; 
+}
+
+#image{
+	width: 150px;
+	float: left;
+	padding-right: 10px;
+	padding-bottom: 50px;
+}
+h2{
+	clear: both;
+}
+#footer{
+	background-color: #333333;
+	width: 100%;
+	padding:0;
+	margin: 0;
+	min-height:10%;
+}
+/*gato css*/
+#cuerpogato{
+	position: relative;
+	left: 20%;
+	width: 60%;
+	color: white;
+	padding:2px;
+	background: black;
+}

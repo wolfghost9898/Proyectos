@@ -1,0 +1,54 @@
+package tareanodos;
+
+import java.awt.BorderLayout;
+import java.awt.Container;
+import java.util.Scanner;
+import javax.swing.*;
+import javax.swing.DefaultListModel;
+import javax.swing.JScrollPane;
+
+public class MainActivity{
+	private static Lista lista;
+	private static JTextField numero;
+	private static JButton boton;
+	private static JList list;
+	private static DefaultListModel modelo;
+	private static JScrollPane scrolllista;
+	private static Scanner reader;
+	private static JFrame ventana;
+	private static Container contenedor;
+	
+	
+	public static void main(String[] args){
+		lista= new Lista();
+		
+		Ejecutar();
+	}
+	public static void Ejecutar(){
+		ventana= new JFrame();
+		ventana.setTitle("Tarea");
+		ventana.setSize(500,500);
+		ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		ventana.repaint();
+		ventana.setLayout(null);
+		
+		numero= new JTextField();
+		boton= new JButton("Guardar Numero");
+		
+		list= new JList();
+		modelo= new DefaultListModel();
+		scrolllista= new JScrollPane();
+		
+		numero.setBounds(5, 5, 100, 30);
+		boton.setBounds(5, 45, 110, 50);
+		scrolllista.setBounds(5,100,100,100);
+		scrolllista.setViewportView(list);
+		
+		
+		ventana.add(numero);
+		ventana.add(boton);
+		ventana.add(scrolllista);
+		ventana.setVisible(true);
+	}
+
+}

@@ -1,0 +1,22 @@
+import javax.swing.JFrame;
+import javax.swing.JTextField;
+
+public class MainActivity {
+	static JFrame ventana;
+	static JTextField ingresar;
+	public static void main(String[] args){
+		ventana= new JFrame();
+		ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  
+		ventana.setLocationRelativeTo(null);      
+		ventana.setLayout(null); 
+		ventana.setSize(500,500);
+		Ejecutar();
+	}
+	
+	public static void Ejecutar(){
+		ingresar= new JTextField();
+		ingresar.setBounds(0, 0, 10, 50);
+		ventana.add(ingresar);
+		ventana.setVisible(true);
+	}
+}

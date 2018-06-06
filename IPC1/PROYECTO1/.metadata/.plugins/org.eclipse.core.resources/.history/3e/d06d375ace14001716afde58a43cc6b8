@@ -1,0 +1,23 @@
+package tareanodos;
+
+import java.util.Scanner;
+import javax.swing.*;
+import javax.swing.DefaultListModel;
+import javax.swing.JScrollPane;
+
+public class MainActivity{
+	private Lista lista;
+	private JTextField numero;
+	private JButton boton;
+	private JList list;
+	private DefaultListModel modelo;
+	private JScrollPane scrolllista;
+	private Scanner reader;
+	public void main(String[] args){
+		lista= new Lista();
+		JFrame ventana= new JFrame();
+		ventana.setVisible(true);
+		ventana.setTitle("Tarea");
+	}
+
+}

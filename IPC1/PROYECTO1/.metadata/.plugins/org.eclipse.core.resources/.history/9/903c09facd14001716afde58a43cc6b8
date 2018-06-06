@@ -1,0 +1,20 @@
+package tareanodos;
+
+import java.util.Scanner;
+import javax.swing.*;
+import javax.swing.DefaultListModel;
+import javax.swing.JScrollPane;
+
+public class MainActivity extends JFrame{
+	private Lista lista;
+	private JTextField numero;
+	private JButton boton;
+	private JList list;
+	private DefaultListModel modelo;
+	private JScrollPane scrolllista;
+	private Scanner reader;
+	public static void(String[] args){
+		lista= new Lista();
+	}
+
+}

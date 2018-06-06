@@ -1,0 +1,63 @@
+
+public class Lista {
+	Nodo ultimo;
+	Nodo primero;
+	public Lista(){
+		ultimo=null;
+		primero=null;
+	}
+	
+	public void ingresarDato(int dato){
+		Nodo nuevo= new Nodo();
+		nuevo.numero=dato;
+		if(primero==null){
+			primero=nuevo;
+			ultimo=primero;
+			primero.siguiente=ultimo;
+		}else{
+			ultimo.siguiente=nuevo;
+			nuevo.siguiente=primero;
+			ultimo=nuevo;
+		}
+	}
+
+	public void Mostrar(){
+		Nodo actual= new Nodo();
+		actual=primero;
+		String cadena="";
+		do{
+			cadena=cadena+" "+actual.numero+"->";
+			actual=actual.siguiente;
+		}while(actual!=primero);
+	}
+	
+	public void insertarAbecedario(int elemento){
+		Nodo nuevo= new Nodo();
+		if(ultimo==null){
+			ultimo=nuevo;
+		}else{
+			Nodo aux=ultimo;
+			Nodo ant=null;
+			while(aux.siguiente!=ultimo && aux.numero>nuevo.numero){
+				ant=aux;
+				aux=aux.siguiente;
+			}
+			if(ant==null){
+				while(aux.siguiente!=ultimo){
+					aux=aux.siguiente;
+				}
+				nuevo.siguiente=ultimo;
+				aux.siguiente=nuevo;
+				ultimo=nuevo;
+			}else if(aux.siguiente==ultimo){
+				ant=aux;
+				ant.siguiente=nuevo;
+				nuevo.siguiente=ultimo;
+			}else{
+				ant.siguiente=nuevo;
+				nuevo.siguiente=aux;
+			}
+		}
+	}
+	
+}

@@ -1,0 +1,100 @@
+package AuxiliarTabla;
+
+import java.awt.BorderLayout;
+
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
+import javax.swing.ScrollPaneConstants;
+
+public class MyTable {
+
+	Object[][] data= new Object[100][100];
+	Object[][] datam= new  Object[100][100];
+	String[] columnNames = new String[100];
+	JTable table;
+	TableModel modelo;
+	
+	public MyTable(JPanel panel) {
+		for(int cono=0;cono<100;cono++){
+	           data[cono][0]=(cono+1);  
+	       }
+		 for(int con1=0;con1<100;con1++){
+	         for(int con2=1;con2<100;con2++){
+	           data[con1][con2]=("");  
+	       } }
+		 
+		 for(int con1=0;con1<100;con1++){
+	         for(int con2=1;con2<100;con2++){
+	           datam[con1][con2]=(1);  
+	       } }
+		 
+		 char letra;
+	        
+
+	        for(int l=1;l<27;l++){
+	          letra=(char)(64+l);
+	          columnNames[0]="No";
+	          columnNames[l]=String.valueOf(letra);
+	          }
+	        for(int l=27;l<53;l++){
+	          letra=(char)(64+l-26);
+	          columnNames[l]="A"+String.valueOf(letra);
+	          }
+	        for(int l=53;l<79;l++){
+	          letra=(char)(64+l-52);
+	          columnNames[l]="B"+String.valueOf(letra);
+	          }
+	         for(int l=79;l<100;l++){
+	          letra=(char)(64+l-78);
+	          columnNames[l]="C"+String.valueOf(letra);
+	          }
+	         
+	          modelo= new TableModel(data,columnNames);
+	          table= new JTable(modelo);
+	         table.setCellSelectionEnabled(true);
+	         table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+	         table.setColumnSelectionAllowed(true);
+	         table.setRowSelectionAllowed(true);
+	            
+	         JScrollPane scroll = new JScrollPane(table);
+	         scroll.setViewportView(table);
+	         scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+	         scroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+	         scroll.setBounds(0,0,1360,600);
+	         panel.add(scroll, BorderLayout.CENTER);
+	         
+		
+	}
+	
+	public void restarGetSelected(){
+		 int x=table.getSelectedRow();
+         int y=table.getSelectedColumn();
+         int v = 0,w = 0;
+           int[] s = table.getSelectedRows();
+           int[] ss = table.getSelectedColumns();        
+           double val=Double.parseDouble( (String) table.getValueAt(x,y));
+
+             for(int i=0;i< s.length ;i++){
+                    for(int ii=0;ii< ss.length ;ii++){
+                        if(!(i==0&&ii==0)){
+                      v=x+i;
+                      w=y+ii;
+                       val -= Double.parseDouble( (String) table.getValueAt(v,w));
+                       }
+                       
+                    }
+                 
+             }
+             try{
+            	 if((int)ss.length>1){
+                	 table.setValueAt(val, v, w+1);
+                 }else{
+                	 table.setValueAt(val, v+1, w);
+                 }	
+             }catch(Exception  e){}
+
+	}
+
+}

@@ -1,0 +1,70 @@
+package tareanodos;
+
+public class Lista {
+	
+	private Nodo inicio;
+	private int cantidad;
+	private int tamaño;
+	private int posicion;
+	public void Lista(){
+		inicio=null;
+		tamaño=0;
+	}
+	
+	
+	//Obtener tamaño
+	public int getTamaño(){
+		return tamaño;
+	}
+	
+	
+	//Agregar Nodo
+	public void AgregarNodo(int valor){
+		Nodo nodo= new Nodo();
+		nodo.setCantidad(valor);
+		if(getTamaño()==0){
+			nodo.setSiguiente(inicio);
+			inicio=nodo;
+		}else{
+			Nodo aux= inicio;
+            Nodo aux2=aux;
+            Nodo continuo=inicio;
+            posicion=0;
+            while(aux.getSiguiente()!=null){
+            	aux2=aux2.getSiguiente();
+            	if((aux.getCantidad()<valor) && (aux2.getCantidad()>valor)){
+            		break;
+                }
+            	aux = aux.getSiguiente();	
+            	posicion++;
+            }
+            System.out.println(posicion);
+            for(int i=0;i<(posicion+1);i++){
+            	continuo.getSiguiente();
+            }
+            
+            Nodo editar=continuo.getSiguiente();
+            continuo.setSiguiente(nodo);
+            nodo.setSiguiente(editar);
+
+		}
+		tamaño++;
+	}
+	
+	//Obtener el datos del Nodo
+	public void getDatos(){
+		if(getTamaño()>0){
+			Nodo aux= inicio;
+			int i=0;
+			while(aux != null){
+                System.out.println(i + ".[ " + aux.getCantidad() + " ]" + " ->  ");
+                // Avanza al siguiente nodo.
+                aux = aux.getSiguiente();
+                // Incrementa el contador de la posión.
+                i++;
+            }
+		}
+	}
+	
+
+}
