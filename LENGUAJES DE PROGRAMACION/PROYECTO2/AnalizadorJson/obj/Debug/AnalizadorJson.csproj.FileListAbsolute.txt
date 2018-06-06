@@ -1,0 +1,60 @@
+C:\Users\Rustic2\Desktop\PROGRAMAS Y MAS\LENGUAJES DE PROGRAMACION\AnalizadorJson\AnalizadorJson\bin\Debug\AnalizadorJson.exe.config
+C:\Users\Rustic2\Desktop\PROGRAMAS Y MAS\LENGUAJES DE PROGRAMACION\AnalizadorJson\AnalizadorJson\bin\Debug\AnalizadorJson.exe
+C:\Users\Rustic2\Desktop\PROGRAMAS Y MAS\LENGUAJES DE PROGRAMACION\AnalizadorJson\AnalizadorJson\bin\Debug\AnalizadorJson.pdb
+C:\Users\Rustic2\Desktop\PROGRAMAS Y MAS\LENGUAJES DE PROGRAMACION\AnalizadorJson\AnalizadorJson\obj\Debug\AnalizadorJson.csprojResolveAssemblyReference.cache
+C:\Users\Rustic2\Desktop\PROGRAMAS Y MAS\LENGUAJES DE PROGRAMACION\AnalizadorJson\AnalizadorJson\obj\Debug\AnalizadorJson.Form1.resources
+C:\Users\Rustic2\Desktop\PROGRAMAS Y MAS\LENGUAJES DE PROGRAMACION\AnalizadorJson\AnalizadorJson\obj\Debug\AnalizadorJson.Properties.Resources.resources
+C:\Users\Rustic2\Desktop\PROGRAMAS Y MAS\LENGUAJES DE PROGRAMACION\AnalizadorJson\AnalizadorJson\obj\Debug\AnalizadorJson.csproj.GenerateResource.Cache
+C:\Users\Rustic2\Desktop\PROGRAMAS Y MAS\LENGUAJES DE PROGRAMACION\AnalizadorJson\AnalizadorJson\obj\Debug\AnalizadorJson.exe
+C:\Users\Rustic2\Desktop\PROGRAMAS Y MAS\LENGUAJES DE PROGRAMACION\AnalizadorJson\AnalizadorJson\obj\Debug\AnalizadorJson.pdb
+E:\AnalizadorJson\AnalizadorJson\bin\Debug\AnalizadorJson.exe.config
+E:\AnalizadorJson\AnalizadorJson\bin\Debug\AnalizadorJson.exe
+E:\AnalizadorJson\AnalizadorJson\bin\Debug\AnalizadorJson.pdb
+E:\AnalizadorJson\AnalizadorJson\obj\Debug\AnalizadorJson.csprojResolveAssemblyReference.cache
+E:\AnalizadorJson\AnalizadorJson\obj\Debug\AnalizadorJson.Form1.resources
+E:\AnalizadorJson\AnalizadorJson\obj\Debug\AnalizadorJson.Properties.Resources.resources
+E:\AnalizadorJson\AnalizadorJson\obj\Debug\AnalizadorJson.csproj.GenerateResource.Cache
+E:\AnalizadorJson\AnalizadorJson\obj\Debug\AnalizadorJson.exe
+E:\AnalizadorJson\AnalizadorJson\obj\Debug\AnalizadorJson.pdb
+C:\Users\Carlos\Desktop\AnalizadorJson\AnalizadorJson\bin\Debug\AnalizadorJson.exe.config
+C:\Users\Carlos\Desktop\AnalizadorJson\AnalizadorJson\bin\Debug\AnalizadorJson.exe
+C:\Users\Carlos\Desktop\AnalizadorJson\AnalizadorJson\bin\Debug\AnalizadorJson.pdb
+C:\Users\Carlos\Desktop\AnalizadorJson\AnalizadorJson\obj\Debug\AnalizadorJson.csprojResolveAssemblyReference.cache
+C:\Users\Carlos\Desktop\AnalizadorJson\AnalizadorJson\obj\Debug\AnalizadorJson.Form1.resources
+C:\Users\Carlos\Desktop\AnalizadorJson\AnalizadorJson\obj\Debug\AnalizadorJson.Properties.Resources.resources
+C:\Users\Carlos\Desktop\AnalizadorJson\AnalizadorJson\obj\Debug\AnalizadorJson.csproj.GenerateResource.Cache
+C:\Users\Carlos\Desktop\AnalizadorJson\AnalizadorJson\obj\Debug\AnalizadorJson.exe
+C:\Users\Carlos\Desktop\AnalizadorJson\AnalizadorJson\obj\Debug\AnalizadorJson.pdb
+C:\Users\Rustic2\Desktop\PROGRAMAS Y MAS\LENGUAJES DE PROGRAMACION\AnalizadorJson\AnalizadorJson\AnalizadorJson\obj\Debug\AnalizadorJson.csprojResolveAssemblyReference.cache
+C:\Users\Rustic2\Desktop\PROGRAMAS Y MAS\LENGUAJES DE PROGRAMACION\AnalizadorJson\AnalizadorJson\AnalizadorJson\obj\Debug\AnalizadorJson.Form1.resources
+C:\Users\Rustic2\Desktop\PROGRAMAS Y MAS\LENGUAJES DE PROGRAMACION\AnalizadorJson\AnalizadorJson\AnalizadorJson\obj\Debug\AnalizadorJson.Properties.Resources.resources
+C:\Users\Rustic2\Desktop\PROGRAMAS Y MAS\LENGUAJES DE PROGRAMACION\AnalizadorJson\AnalizadorJson\AnalizadorJson\obj\Debug\AnalizadorJson.csproj.GenerateResource.Cache
+C:\Users\Rustic2\Desktop\PROGRAMAS Y MAS\LENGUAJES DE PROGRAMACION\AnalizadorJson\AnalizadorJson\AnalizadorJson\obj\Debug\AnalizadorJson.exe
+C:\Users\Rustic2\Desktop\PROGRAMAS Y MAS\LENGUAJES DE PROGRAMACION\AnalizadorJson\AnalizadorJson\AnalizadorJson\obj\Debug\AnalizadorJson.pdb
+C:\Users\Rustic2\Desktop\PROGRAMAS Y MAS\LENGUAJES DE PROGRAMACION\AnalizadorJson\AnalizadorJson\AnalizadorJson\bin\Debug\AnalizadorJson.exe.config
+C:\Users\Rustic2\Desktop\PROGRAMAS Y MAS\LENGUAJES DE PROGRAMACION\AnalizadorJson\AnalizadorJson\AnalizadorJson\bin\Debug\AnalizadorJson.exe
+C:\Users\Rustic2\Desktop\PROGRAMAS Y MAS\LENGUAJES DE PROGRAMACION\AnalizadorJson\AnalizadorJson\AnalizadorJson\bin\Debug\AnalizadorJson.pdb
+C:\Users\Rustic2\Desktop\PROGRAMAS Y MAS\LENGUAJES DE PROGRAMACION\AnalizadorJson\AnalizadorJson\AnalizadorJson\bin\Debug\MaterialSkin.dll
+C:\Users\Carlos\Desktop\AnalizadorJson\AnalizadorJson\bin\Debug\MaterialSkin.dll
+C:\Users\Carlos\Desktop\PROGRAMAS Y MAS\LENGUAJES\PROYECTO2\PROYECTO2\AnalizadorJson\bin\Debug\AnalizadorJson.exe.config
+C:\Users\Carlos\Desktop\PROGRAMAS Y MAS\LENGUAJES\PROYECTO2\PROYECTO2\AnalizadorJson\bin\Debug\AnalizadorJson.exe
+C:\Users\Carlos\Desktop\PROGRAMAS Y MAS\LENGUAJES\PROYECTO2\PROYECTO2\AnalizadorJson\bin\Debug\AnalizadorJson.pdb
+C:\Users\Carlos\Desktop\PROGRAMAS Y MAS\LENGUAJES\PROYECTO2\PROYECTO2\AnalizadorJson\bin\Debug\MaterialSkin.dll
+C:\Users\Carlos\Desktop\PROGRAMAS Y MAS\LENGUAJES\PROYECTO2\PROYECTO2\AnalizadorJson\obj\Debug\AnalizadorJson.csprojResolveAssemblyReference.cache
+C:\Users\Carlos\Desktop\PROGRAMAS Y MAS\LENGUAJES\PROYECTO2\PROYECTO2\AnalizadorJson\obj\Debug\AnalizadorJson.Form1.resources
+C:\Users\Carlos\Desktop\PROGRAMAS Y MAS\LENGUAJES\PROYECTO2\PROYECTO2\AnalizadorJson\obj\Debug\AnalizadorJson.Properties.Resources.resources
+C:\Users\Carlos\Desktop\PROGRAMAS Y MAS\LENGUAJES\PROYECTO2\PROYECTO2\AnalizadorJson\obj\Debug\AnalizadorJson.csproj.GenerateResource.Cache
+C:\Users\Carlos\Desktop\PROGRAMAS Y MAS\LENGUAJES\PROYECTO2\PROYECTO2\AnalizadorJson\obj\Debug\AnalizadorJson.exe
+C:\Users\Carlos\Desktop\PROGRAMAS Y MAS\LENGUAJES\PROYECTO2\PROYECTO2\AnalizadorJson\obj\Debug\AnalizadorJson.pdb
+C:\Users\Rustic2\Desktop\PROGRAMAS Y MAS\LENGUAJES DE PROGRAMACION\PROYECTO2\AnalizadorJson\bin\Debug\AnalizadorJson.exe.config
+C:\Users\Rustic2\Desktop\PROGRAMAS Y MAS\LENGUAJES DE PROGRAMACION\PROYECTO2\AnalizadorJson\bin\Debug\AnalizadorJson.exe
+C:\Users\Rustic2\Desktop\PROGRAMAS Y MAS\LENGUAJES DE PROGRAMACION\PROYECTO2\AnalizadorJson\bin\Debug\AnalizadorJson.pdb
+C:\Users\Rustic2\Desktop\PROGRAMAS Y MAS\LENGUAJES DE PROGRAMACION\PROYECTO2\AnalizadorJson\bin\Debug\MaterialSkin.dll
+C:\Users\Rustic2\Desktop\PROGRAMAS Y MAS\LENGUAJES DE PROGRAMACION\PROYECTO2\AnalizadorJson\obj\Debug\AnalizadorJson.csprojResolveAssemblyReference.cache
+C:\Users\Rustic2\Desktop\PROGRAMAS Y MAS\LENGUAJES DE PROGRAMACION\PROYECTO2\AnalizadorJson\obj\Debug\AnalizadorJson.Form1.resources
+C:\Users\Rustic2\Desktop\PROGRAMAS Y MAS\LENGUAJES DE PROGRAMACION\PROYECTO2\AnalizadorJson\obj\Debug\AnalizadorJson.Properties.Resources.resources
+C:\Users\Rustic2\Desktop\PROGRAMAS Y MAS\LENGUAJES DE PROGRAMACION\PROYECTO2\AnalizadorJson\obj\Debug\AnalizadorJson.csproj.GenerateResource.Cache
+C:\Users\Rustic2\Desktop\PROGRAMAS Y MAS\LENGUAJES DE PROGRAMACION\PROYECTO2\AnalizadorJson\obj\Debug\AnalizadorJson.exe
+C:\Users\Rustic2\Desktop\PROGRAMAS Y MAS\LENGUAJES DE PROGRAMACION\PROYECTO2\AnalizadorJson\obj\Debug\AnalizadorJson.pdb
+C:\Users\Carlos\Desktop\PROGRAMAS Y MAS\LENGUAJES\PROYECTO2\PROYECTO2\AnalizadorJson\obj\Debug\AnalizadorJson.Ventana_Juego.resources
+C:\Users\Rustic2\Desktop\PROGRAMAS Y MAS\LENGUAJES DE PROGRAMACION\PROYECTO2\AnalizadorJson\obj\Debug\AnalizadorJson.Ventana_Juego.resources

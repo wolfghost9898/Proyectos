@@ -1,0 +1,4 @@
+﻿Se trata de un célebre experimento imaginario concebido por el físico austriaco Edwin Schrödinger según el cual un gato está encerrado en una caja que contiene, además del animal, un átomo radiactivo, un contador Geiger y una ampolla de cianuro cuyo contenido cae en un cubo con ácido cada vez que el contador Geiger detecta la emisión de partículas radiactivas. Si se emite la partícula, el detector romperá la ampolla y el gato morirá. Si no se emite, la ampolla seguirá intacta y el gato vivirá. 
+
+La probabilidad de que el gato permanezca con vida es del 50%. Solo abriendo la caja averiguaríamos qué le ha ocurrido al gato, pero mientras tanto este estaría "vivo y muerto a la vez". Es una forma de expresar un concepto fundamental de la física cuántica: la dualidad onda-partícula, que hace, por ejemplo, que el electrón sea partícula y onda a la vez hasta que lo observamos. 
+

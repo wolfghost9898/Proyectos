@@ -1,0 +1,48 @@
+{
+  "Inicio": {
+    "Encabezado": { "TituloPagina": "GITÆ" },
+    "Cuerpo": {"Fondo": "gray", 
+      "Array": [
+        {"Color": {"blue": {
+            "Negrita":"BASIC GIT WORKFLOW "
+        }}},
+        {"Salto":1},
+        {"Titulo": {"Text":"GENERALIZATIONS","Tamaño":"t1", "Posicion":"izquierda", "Color":"red"}},
+        {"Texto": {"verdana":"Git is a "}},
+        {"Texto": {"verdana": {
+            "Cursiva": {"Negrita": "free and open source "}
+        }}},
+        {"Texto": {"verdana":"distributed version control system designed to handle everything from small to very large projects with speed and efficiency. Git is "}},
+        {"Texto": {"verdana": {
+            "Subrayado": {"Negrita": "easy to learn "}
+        }}},
+        {"Texto": {"verdana":"and has a tiny footprint with lightning fast performance. It outclasses SCM tools like Subversion, CVS, Perforce, and ClearCase with features like cheap local branching, convenient staging areas, and multiple workflows."}},
+        {"Salto": 1 },
+        {"Parrafo":{
+            "Color":{"brown":"Git is the industry-standard version control system for web developers."},
+            "Salto": 1,
+            "Color":{"orange":"Use Git commands to help keep track of changes made to a project."}
+        }},
+        {"Titulo": {"Tamaño":"t2", "Posicion":"centro", "Color":"yellow","Text":"Basic Commands"}},
+        {"Centro": {
+            "Imagen":"/Imagenes/GitLogo.png",
+            "Salto": 2,
+            "Tabla": {
+            "Fila": "COMMAND LINE, DESCRIPTION",
+            "Fila": "git init, Creates a new Git repository",
+            "Fila": "git status, Inspects the contents of the working directory and staging area",
+            "Fila": "git add, Adds files from the working directory to the staging area",
+            "Fila": "git diff, Shows the difference between the working directory and the staging area", 
+            "Fila": "git commit, Permanently stores file changes from the staging area in the repository", 
+            "Fila": "git log, Shows a list of all previous commits"}
+        }},
+        {"Salto": 3},
+        {"Derecha":{
+            "Texto":{"chiller": {
+                "Negrita": {"Cursiva": {"Subrayado": "PRACTICA2@gmail.com"}}
+            }}
+        }}
+      ]
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+ "Inicio": {
+ "Encabezado": { "TituloPagina": "Ejemplo Titulo" },
+ "Cuerpo": {
+ "Array": [
+ {"Titulo": {"Tamaño": "t1","Posicion": "centro","Color": "red","Text": "teñxto"} },
+ {"Parrafo": "Esto es un texto"}
+ ]
+ }
+ }
+}

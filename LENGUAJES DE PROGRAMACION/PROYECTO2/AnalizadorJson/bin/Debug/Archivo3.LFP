@@ -1,0 +1,32 @@
+{
+  "Inicio": {
+    "Encabezado": { },
+    "Cuerpo": {"Fondo": "black", 
+      "Array": [
+        {"Titulo": {"Text":"JENKINS", "Posicion":"centro", "Tamaño":"t1", "Color":"yellow"}},
+        {"Centro": {
+            "Imagen":"/Imagenes/Dawn.png",
+            "Salto": 1,
+            "Tabla": {
+            "Fila": "RKS,tpk,w5n,Lfx,KHp,k0y",
+            "Fila": "J5W,Ix3,IWg,k97,jR5,hGx",
+            "Fila": "MGD,sUa,YHs,FDE,ZKV,o6y",
+            "Fila": "AH9,s1p,fGj,f6g,n0r,BcZ"},
+            "Salto": 2,
+            "Color": {"red": {
+                "Texto": {"symbol": {
+                    "Cursiva":"The leading open source automation server, Jenkins provides hundreds of plugins to support building, deploying and automating any project. As an extensible automation server, Jenkins can be used as a simple CI server or turned into the continuous delivery hub for any project... ",
+                    "Negrita":"Jenkins is a self contained Java based program, ready to run out of the box, with packages for Windows, Mac OS X and other Unix like operating systems... ",
+                    "Subrayado":"Jenkins can be easily set up and configured via its web interface, which includes on the fly error checks and built-in help. ",
+                    "Salto": 2,
+                    "Color": {"white": {
+                        "Subrayado": {"Cursiva": {"Negrita": "ARCHIVO3"}}
+                    }}
+                }}
+            }}
+        }},
+        {"Titulo": {"Tamaño":"t3", "Posicion":"derecha", "Color":"gray","Text":"FIN"}}
+      ]
+    }
+  }
+}

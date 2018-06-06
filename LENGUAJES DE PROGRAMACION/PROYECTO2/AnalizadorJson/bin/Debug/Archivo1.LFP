@@ -1,0 +1,35 @@
+{
+  "Inicio": {
+    "Encabezado": { "TituloPagina": "Ejemplo Entrada" },
+    "Cuerpo": {"Fondo": "green", 
+      "Array": [
+        {"Titulo": {"Tamaño":"t6", "Posicion":"centro", "Color":"blue","Text":"titulo centrado tam 6 azul"}},
+        {"Titulo": {"Tamaño":"t3", "Posicion":"izquierda", "Color":"gray","Text":"titulo izq tam 3 gris"}},
+        {"Titulo": {"Tamaño":"t1", "Posicion":"derecha", "Color":"yellow","Text":"titulo der tam 1 amarillo"}},
+        {"Parrafo": "texto simple. "}, {"Salto":1},
+        {"Texto": {"verdana":"Texto en verdana"}}, {"Salto":1},
+        {"Texto": {"chiller":"Texto en chiller"}},
+        {"Salto": 3 },
+        {"Negrita": "Texto en negrita. "}, {"Salto":1},
+        {"Cursiva": "Texto en cursiva. "}, {"Salto":1},
+        {"Subrayado": "Texto subrayado. "}, {"Salto":1},
+        {"Parrafo": {"Negrita": {"Cursiva": {"Subrayado": "TODO EN UN TEXTO "}}}},
+        {"Salto": 3},
+        {"Centro": {"Parrafo":"parrafo centrado "}}, {"Salto":1},
+        {"Izquierda": {"Parrafo":"parrafo izq "}}, {"Salto":1},
+        {"Derecha": {"Parrafo":"parrafo der "}}, {"Salto":1},
+        {"Centro": {
+            "Color": {"blue":"texto azul "},
+            "Color": {"red": {
+                "Negrita":"texto rojo en negrita ", 
+                "Subrayado":"texto rojo subrayado"}},
+            "Tabla": {
+            "Fila": "valor1, valor2, valor3", 
+            "Fila": "valor4, valor5, valor6", 
+            "Fila": "valor7, valor8, valor9"},
+            "Imagen":"/Imagenes/Isaac.png" }
+        }
+      ]
+    }
+  }
+}

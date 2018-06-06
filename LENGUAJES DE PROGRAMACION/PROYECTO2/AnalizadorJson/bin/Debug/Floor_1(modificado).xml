@@ -1,0 +1,82 @@
+<xml>
+	<character look= "Imagenes/player.png" posX= "10" posY= "10">
+		<hearts> 10 </hearts>
+		<coins> 0 </coins>
+		<bombs> 1 </bombs>
+		<keys> 0 </keys>
+		<item> Imagenes/avatar.png </item>
+	</character>
+
+	<room width = "16" height = "11" color = "#2196F3" name="Basement1" >
+		<enviroment>
+			<rock texture = "Imagenes/piedra.png" posX="2" posY="2" />
+			<rock posY="3" />
+			<rock>
+				<Y> 0</Y>
+				<X> 0,16  </X>
+			</rock>
+			<spike texture = "Imagenes/spike.png" posX="1" posY="3" />
+			<spike posX="4" posY="3" />
+			<spike texture = "Imagenes/spike.png">
+				<X> 10 </X>
+				<Y> 2,10 </Y>
+			</spike>
+			<exit texture = "Imagenes/exit.png" posX="8" posY="8" />
+		</enviroment>
+	
+		<consumables>	
+			<heart texture = "Imagenes/corazones.png" posX= "1" posY= "1" />
+			<bomb texture = "Imagenes/Bomba.png" posX= "5" posY= "5" />
+			<key texture = "Imagenes/keys.png" posX= "5" posY= "6" />
+			<coin texture = "Imagenes/coin.png" posX= "5" posY= "7" />
+			<heart posX= "10" />
+			<heart posX= "11" />
+			<heart posY= "4" />
+			<bomb posX= "7" />
+			<key posX= "7" />
+			<coin posX= "7" />
+			
+			<item  texture = "Imagenes/wolf.png" posX= "6" posY= "6" />
+
+			<pill texture = "img/bluepill.png" posX= "8" posY= "8" >
+				<action> SUMAR </action>
+				<value> 2 </value>
+				<stat> hearts </stat>
+			</pill>
+
+			<pill texture = "img/redpill.png" posY= "9" >
+				<action> RESTAR </action>
+				<value> 1 </value>
+				<stat> range </stat>
+			</pill>
+		</consumables>
+	</room>
+
+	<patterns>
+		<pattern name = "Patron1">
+			<movement> UP </movement>
+			<movement> DOWN </movement>
+			<movement/>		
+			<movement> UP </movement>
+		</pattern>
+		<pattern name = "Patron2">
+			<movement> LEFT </movement>
+			<movement> RIGHT </movement>
+			<movement/>		
+			<movement> LEFT </movement>
+		</pattern>
+	</patterns>
+
+	<monsters texture = "img/monster1.png"  damage="1">
+		<monster>
+			<movements> Patron1 </movements>
+			<X> 2 </X>
+			<Y> 8 </Y>
+		</monster>
+		<monster texture = "img/champion.png"  damage="2">
+			<movements> Patron2 </movements>
+			<X> 8 </X>
+			<Y> 2 </Y>
+		</monster>
+	</monsters>
+</xml>
