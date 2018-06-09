@@ -1,10 +1,10 @@
 # Desarollado Cliente servidor
 
-## Cliente:
+## Servidor:
 * Desarrollado en c++
 * Estructuras Utilizadas: Listas (simples,dobles),matriz dispersa dinamica)
 
-## Servidor
+## Cliente
 * Desarrollado en java
 * Estructuras Utilizadas: Matriz dispersa estatica
 
